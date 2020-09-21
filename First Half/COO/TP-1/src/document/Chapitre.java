@@ -27,6 +27,10 @@ public class Chapitre {
 	
 	
 	
+	public BlocDeTexte getBlocDeTexte () {
+		return blocDeTexte;
+	}
+	
 	public void ecris (PrintStream p) {
 		p.println(titre.texte());
 		blocDeTexte.ecris(p);
