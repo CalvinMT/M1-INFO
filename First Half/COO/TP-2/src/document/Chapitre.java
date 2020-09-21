@@ -4,7 +4,7 @@ import java.io.PrintStream;
 
 public class Chapitre {
 	
-	private TexteCentre titre;
+	private Texte titre;
 	private BlocDeTexte blocDeTexte;
 	
 	

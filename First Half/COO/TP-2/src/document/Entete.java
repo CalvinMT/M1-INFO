@@ -5,9 +5,9 @@ import java.util.Date;
 
 public class Entete {
 	
-	private TexteCentre titre;
-	private TexteCentre auteur;
-	private TexteCentre date;
+	private Texte titre;
+	private Texte auteur;
+	private Texte date;
 	
 
 	
