@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.util.Scanner;
 
 import document.Paragraphe;
+import document.ParagrapheDroite;
 
 public class TestParagraphe {
 	/**
@@ -34,7 +35,7 @@ public class TestParagraphe {
 					}
 				} else {
 					if (p == null)
-						p = new Paragraphe();
+						p = new ParagrapheDroite();
 					String[] mots = ligne.split("\\s\\s*");
 					for (int i = 0; i < mots.length; i++)
 						p.ajoute(mots[i]);

@@ -3,10 +3,10 @@ package document;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Paragraphe {
+public abstract class Paragraphe {
 	
-	private List <String> paragraphe;
-	private int largeur;
+	protected List <String> paragraphe;
+	protected int largeur;
 	
 	
 	

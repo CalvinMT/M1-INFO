@@ -43,7 +43,7 @@ public class Document {
 					prologue = chapitres.get(chapitres.size()-1).getBlocDeTexte();
 				} else {
 					if (paragraphe == null) {
-						paragraphe = new Paragraphe();
+						paragraphe = new ParagrapheGauche();
 					}
 					for (int i = 0; i < mots.length; i++) {
 						paragraphe.ajoute(mots[i]);
