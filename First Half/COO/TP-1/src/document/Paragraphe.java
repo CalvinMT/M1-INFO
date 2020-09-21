@@ -28,7 +28,6 @@ public class Paragraphe {
 	
 	
 	
-	// FIXME - doit prendre en compte les espaces
 	public int nbLignes () {
 		int result = 1;
 		int currentLineLength = 0;
@@ -40,11 +39,14 @@ public class Paragraphe {
 			else {
 				currentLineLength += mot.length();
 			}
+			// Check to add space
+			if (currentLineLength < largeur) {
+				currentLineLength++;
+			}
 		}
 		return result;
 	}
 
-	// FIXME - doit prendre en compte les espaces
 	public String toString () {
 		String result = "";
 		int currentLineLength = 0;
@@ -57,6 +59,11 @@ public class Paragraphe {
 				currentLineLength += mot.length();
 			}
 			result = result.concat(mot);
+			// Check to add space
+			if (currentLineLength < largeur) {
+				currentLineLength++;
+				result = result.concat(" ");
+			}
 		}
 		return result;
 	}
