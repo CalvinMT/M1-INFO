@@ -16,11 +16,11 @@ public class Chapitre {
 	
 	
 	
-	void ajoute (Paragraphe p) {
+	public void ajoute (Paragraphe p) {
 		blocDeTexte.ajouteParagraphe(p);
 	}
 	
-	void fixeLargeur (int l) {
+	public void fixeLargeur (int l) {
 		titre.fixeLargeur(l);
 		blocDeTexte.fixeLargeur(l);
 	}
