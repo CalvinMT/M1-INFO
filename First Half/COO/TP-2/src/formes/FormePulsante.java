@@ -21,4 +21,11 @@ public abstract class FormePulsante extends Forme {
 		return (int) (amplitudePulsation * (Math.sin(etape * 2 * Math.PI / FormesPulsantes.etapesPulsations) + 1) / 2);
 	}
 	
+	
+	
+	@Override
+	public String getType () {
+		return "PULSANTE";
+	}
+	
 }

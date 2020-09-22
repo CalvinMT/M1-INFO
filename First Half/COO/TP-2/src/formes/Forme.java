@@ -26,6 +26,14 @@ public abstract class Forme {
 		taille = t;
 	}
 	
+	
+	
+	public String getType () {
+		return "STATIQUE";
+	}
+	
+	
+	
 	public abstract void dessiner ();
 	
 }
