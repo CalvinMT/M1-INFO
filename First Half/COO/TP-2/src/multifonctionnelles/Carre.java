@@ -14,16 +14,16 @@ public class Carre extends Forme {
 	public void dessiner () {
 		int x = xCentre - (taille / 2);
 		int y = yCentre + (taille / 2);
-		machineTrace.placer(x, y);
+		machineTrace.placer(rotationX(x, y), rotationY(x, y));
 		machineTrace.baisser();
 		y -= taille;
-		machineTrace.placer(x, y);
+		machineTrace.placer(rotationX(x, y), rotationY(x, y));
 		x += taille;
-		machineTrace.placer(x, y);
+		machineTrace.placer(rotationX(x, y), rotationY(x, y));
 		y += taille;
-		machineTrace.placer(x, y);
+		machineTrace.placer(rotationX(x, y), rotationY(x, y));
 		x -= taille;
-		machineTrace.placer(x, y);
+		machineTrace.placer(rotationX(x, y), rotationY(x, y));
 		machineTrace.lever();
 	}
 	
