@@ -7,8 +7,8 @@ import java.util.Random;
  * @author Guillaume Huard
  */
 public class FormesPulsantes {
-	final static int nbFormes = 4;
-	final static int nbObjets = 10;
+	final static int nbFormes = 8;
+	final static int nbObjets = 15;
 	final static int etapesPulsations = 20;
 	final static int amplitudePulsation = 20;
 	final static int delai = 100;
@@ -23,6 +23,14 @@ public class FormesPulsantes {
 			return new Cercle(m);
 		case 3:
 			return new Losange(m);
+		case 4:
+			return new CarrePulsant(m);
+		case 5:
+			return new TrianglePulsant(m);
+		case 6:
+			return new CerclePulsant(m);
+		case 7:
+			return new LosangePulsant(m);
 		default:
 			throw new RuntimeException("Forme Inconnue");
 		}
@@ -44,20 +52,22 @@ public class FormesPulsantes {
 		for (int i = 0; i < f.length; i++) {
 			f[i] = creerForme(r.nextInt(nbFormes), m);
 			f[i].fixerPosition(r.nextInt(200) - 100, r.nextInt(200) - 100);
-			tailles[i] = r.nextInt(20) + 5;
+			tailles[i] = r.nextInt(20) + 15;
 		}
 
 		while (true) {
-			for (int j = 0; j <= etapesPulsations; j++) {
-				m.effacerTout();
-				int ajout = (int) (amplitudePulsation * (Math.sin(j * 2 * Math.PI / etapesPulsations) + 1) / 2);
-				for (int i = 0; i < f.length; i++) {
-					f[i].fixerTaille(tailles[i] + ajout);
-					f[i].dessiner();
+			m.effacerTout();
+			for (int i = 0; i < f.length; i++) {
+				if (f[i].getType() == "PULSANTE") {
+					f[i].fixerTaille(tailles[i] + ((FormePulsante) f[i]).etapeSuivante());
 				}
-				m.rafraichir();
-				m.attendre(delai);
+				else {
+					f[i].fixerTaille(tailles[i]);
+				}
+				f[i].dessiner();
 			}
+			m.rafraichir();
+			m.attendre(delai);
 		}
 	}
 }
