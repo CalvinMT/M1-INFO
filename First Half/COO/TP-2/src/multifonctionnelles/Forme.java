@@ -10,6 +10,7 @@ public abstract class Forme {
 	protected int yCentre = 0;
 	
 	protected int taille = 0;
+	protected double angleRotation = 0;
 	
 	protected boolean pulsante = false;
 	protected boolean rotative = false;
@@ -63,13 +64,24 @@ public abstract class Forme {
 		return (int) (FormesMultifonctionnelles.amplitudePulsation * (Math.sin(etapePulsante * 2 * Math.PI / FormesMultifonctionnelles.etapesPulsations) + 1) / 2);
 	}
 	
-	public double etapeRotativeSuivante () {
+	public void etapeRotativeSuivante () {
 		etapeRotative++;
 		if (etapeRotative > FormesMultifonctionnelles.etapesRotation) {
 			etapeRotative = 0;
 		}
-		// TODO
-		return 0;
+		angleRotation = etapeRotative * 360 / FormesMultifonctionnelles.etapesRotation;
+	}
+	
+	protected int rotationX (int x, int y) {
+		x = x - xCentre;
+		x = (int) (x * Math.cos(angleRotation) - y * Math.sin(angleRotation));
+		return x + xCentre;
+	}
+	
+	protected int rotationY (int x, int y) {
+		y = y - yCentre;
+		y = (int) (x * Math.sin(angleRotation) + y * Math.cos(angleRotation));
+		return y + yCentre;
 	}
 	
 	public boolean etapeClignotanteSuivante () {

@@ -61,7 +61,7 @@ public class FormesMultifonctionnelles {
 					f[i].fixerTaille(tailles[i]);
 				}
 				if (f[i].estRotative()) {
-					// TODO
+					f[i].etapeRotativeSuivante();
 				}
 				if (! f[i].estClignotante()  ||  (f[i].estClignotante()  &&  f[i].etapeClignotanteSuivante())) {
 					f[i].dessiner();
