@@ -10,10 +10,10 @@ public class TrianglePulsant extends FormePulsante {
 	
 	@Override
 	public void dessiner () {
-		double hauteur = Math.sqrt(3/2) * taille;
-		double y = yCentre - hauteur;
+		double y = yCentre + (taille / 2);
 		machineTrace.placer(xCentre, y);
 		machineTrace.baisser();
+		machineTrace.avancer(taille);
 		machineTrace.tournerGauche(120);
 		machineTrace.avancer(taille);
 		machineTrace.tournerGauche(120);
