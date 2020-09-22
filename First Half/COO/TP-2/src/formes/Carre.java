@@ -11,7 +11,7 @@ public class Carre extends Forme {
 	@Override
 	public void dessiner () {
 		int x = xCentre - (taille / 2);
-		int y = yCentre - (taille / 2);
+		int y = yCentre + (taille / 2);
 		machineTrace.placer(x, y);
 		machineTrace.baisser();
 		y -= taille;
