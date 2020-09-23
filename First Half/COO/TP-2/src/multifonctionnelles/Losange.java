@@ -14,20 +14,20 @@ public class Losange extends Forme {
 	public void dessiner () {
 		double x = xCentre;
 		double y = yCentre + (taille / 3);
-		machineTrace.placer(x, y);
+		machineTrace.placer(rotationX(x, y), rotationY(x, y));
 		machineTrace.baisser();
 		x = x - (Math.sqrt(Math.pow(taille, 2) - Math.pow(taille / 3, 2)));
 		y = yCentre;
-		machineTrace.placer(x, y);
+		machineTrace.placer(rotationX(x, y), rotationY(x, y));
 		x = xCentre;
 		y = yCentre - (taille / 3);
-		machineTrace.placer(x, y);
+		machineTrace.placer(rotationX(x, y), rotationY(x, y));
 		x = x + (Math.sqrt(Math.pow(taille, 2) - Math.pow(taille / 3, 2)));
 		y = yCentre;
-		machineTrace.placer(x, y);
+		machineTrace.placer(rotationX(x, y), rotationY(x, y));
 		x = xCentre;
 		y = y + (taille / 3);
-		machineTrace.placer(x, y);
+		machineTrace.placer(rotationX(x, y), rotationY(x, y));
 		machineTrace.lever();
 	}
 	
