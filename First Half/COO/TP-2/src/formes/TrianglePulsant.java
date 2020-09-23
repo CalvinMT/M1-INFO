@@ -13,12 +13,11 @@ public class TrianglePulsant extends FormePulsante {
 		double y = yCentre + (taille / 2);
 		machineTrace.placer(xCentre, y);
 		machineTrace.baisser();
+		machineTrace.orienter(-60);
 		machineTrace.avancer(taille);
-		machineTrace.tournerGauche(120);
+		machineTrace.orienter(-180);
 		machineTrace.avancer(taille);
-		machineTrace.tournerGauche(120);
-		machineTrace.avancer(taille);
-		machineTrace.tournerGauche(120);
+		machineTrace.orienter(-300);
 		machineTrace.avancer(taille);
 		machineTrace.lever();
 	}
