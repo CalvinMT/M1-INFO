@@ -72,15 +72,17 @@ public abstract class Forme {
 		angleRotation = etapeRotative * 360 / FormesMultifonctionnelles.etapesRotation;
 	}
 	
-	protected int rotationX (int x, int y) {
+	protected double rotationX (double x, double y) {
 		x = x - xCentre;
-		x = (int) (x * Math.cos(angleRotation) - y * Math.sin(angleRotation));
+		y = y - yCentre;
+		x = x * Math.cos(angleRotation) - y * Math.sin(angleRotation);
 		return x + xCentre;
 	}
 	
-	protected int rotationY (int x, int y) {
+	protected double rotationY (double x, double y) {
+		x = x - xCentre;
 		y = y - yCentre;
-		y = (int) (x * Math.sin(angleRotation) + y * Math.cos(angleRotation));
+		y = x * Math.sin(angleRotation) + y * Math.cos(angleRotation);
 		return y + yCentre;
 	}
 	
