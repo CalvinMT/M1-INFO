@@ -21,6 +21,13 @@ import grapher.fc.*;
 
 
 public class Grapher extends JPanel {
+	private enum States {IDLE,
+						 PRESSED_LEFT,
+						 PRESSED_RIGHT,
+						 DRAGGED_LEFT,
+						 DRAGGED_RIGHT};
+	private States state;
+
 	static final int MARGIN = 40;
 	static final int STEP = 5;
 	
