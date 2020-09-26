@@ -30,6 +30,8 @@ public class Grapher extends JPanel {
 	private States state;
 
 	private Point mousePosition;
+	private Point rightClickFrameBegin;
+	private Point rightClickFrameEnd;
 	
 	static final int MARGIN = 40;
 	static final int STEP = 5;
@@ -56,6 +58,8 @@ public class Grapher extends JPanel {
 		
 		state = States.IDLE;
 		mousePosition = new Point(0, 0);
+		rightClickFrameBegin = new Point(0, 0);
+		rightClickFrameEnd = new Point(0, 0);
 		
 		this.addMouseMotionListener(new MouseInputAdapter() {
 			@Override
@@ -76,7 +80,9 @@ public class Grapher extends JPanel {
 				}
 				else if (state == States.PRESSED_RIGHT  ||  state == States.DRAGGED_RIGHT) {
 					state = States.DRAGGED_RIGHT;
-					// TODO
+					rightClickFrameEnd.x = e.getX();
+					rightClickFrameEnd.y = e.getY();
+					repaint();
 				}
 			};
 		});
@@ -89,6 +95,7 @@ public class Grapher extends JPanel {
 				}
 				else if (e.getButton() == MouseEvent.BUTTON3) {
 					state = States.PRESSED_RIGHT;
+					rightClickFrameBegin = mousePosition;
 				}
 		    };
 			
@@ -99,6 +106,9 @@ public class Grapher extends JPanel {
 				}
 				else if (state == States.PRESSED_RIGHT) {
 					zoom(mousePosition, -5);
+				}
+				else if (state == States.DRAGGED_RIGHT) {
+					zoom(rightClickFrameBegin, rightClickFrameEnd);
 				}
 				state = States.IDLE;
 		    };
@@ -196,6 +206,16 @@ public class Grapher extends JPanel {
 		for(BigDecimal x = xstep.negate(); x.doubleValue() > xmin; x = x.subtract(xstep)) { drawXTick(g2, x); }
 		for(BigDecimal y = ystep; y.doubleValue() < ymax; y = y.add(ystep))  { drawYTick(g2, y); }
 		for(BigDecimal y = ystep.negate(); y.doubleValue() > ymin; y = y.subtract(ystep)) { drawYTick(g2, y); }
+		
+		// right-click frame
+		if (state == States.DRAGGED_RIGHT) {
+			int frameWidth = rightClickFrameEnd.x - rightClickFrameBegin.x;
+			int frameHeight = rightClickFrameEnd.y - rightClickFrameBegin.y;
+			g2.setColor(new Color(250, 198, 229, 100));
+			g2.fillRect(rightClickFrameBegin.x, rightClickFrameBegin.y, frameWidth, frameHeight);
+			g2.setColor(new Color(231, 110, 177, 200));
+			g2.drawRect(rightClickFrameBegin.x, rightClickFrameBegin.y, frameWidth, frameHeight);
+		}
 	}
 	
 	protected double dx(int dX) { return  (double)((xmax-xmin)*dX/W); }
