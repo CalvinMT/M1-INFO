@@ -68,6 +68,11 @@ public class Grapher extends JPanel {
 		    public void mouseDragged(MouseEvent e){
 				if (state == States.PRESSED_LEFT  ||  state == States.DRAGGED_LEFT) {
 					state = States.DRAGGED_LEFT;
+					int dx = e.getX() - mousePosition.x;
+					int dy = e.getY() - mousePosition.y;
+					translate(dx, dy);
+					mousePosition.x = e.getX();
+					mousePosition.y = e.getY();
 				}
 				else if (state == States.PRESSED_RIGHT  ||  state == States.DRAGGED_RIGHT) {
 					state = States.DRAGGED_RIGHT;
