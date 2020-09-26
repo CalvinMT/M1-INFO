@@ -8,10 +8,11 @@ import java.awt.Graphics2D;
 import java.awt.Color;
 import java.awt.BasicStroke;
 import java.awt.RenderingHints;
-
+import java.awt.event.MouseEvent;
 import java.awt.Point;
 
 import javax.swing.JPanel;
+import javax.swing.event.MouseInputAdapter;
 
 import java.util.Vector;
 
@@ -28,6 +29,8 @@ public class Grapher extends JPanel {
 						 DRAGGED_RIGHT};
 	private States state;
 
+	private Point mousePosition;
+	
 	static final int MARGIN = 40;
 	static final int STEP = 5;
 	
@@ -50,6 +53,62 @@ public class Grapher extends JPanel {
 		ymin = -1.5;   ymax = 1.5;
 		
 		functions = new Vector<Function>();
+		
+		state = States.IDLE;
+		mousePosition = new Point(0, 0);
+		
+		this.addMouseMotionListener(new MouseInputAdapter() {
+			@Override
+			public void mouseMoved(MouseEvent e) {
+				mousePosition.x = e.getX();
+				mousePosition.y = e.getY();
+			}
+		    
+			@Override
+		    public void mouseDragged(MouseEvent e){
+				if (state == States.PRESSED_LEFT  ||  state == States.DRAGGED_LEFT) {
+					state = States.DRAGGED_LEFT;
+				}
+				else if (state == States.PRESSED_RIGHT  ||  state == States.DRAGGED_RIGHT) {
+					state = States.DRAGGED_RIGHT;
+					// TODO
+				}
+			};
+		});
+		
+		this.addMouseListener(new MouseInputAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				if (e.getButton() == MouseEvent.BUTTON1) {
+					state = States.PRESSED_LEFT;
+				}
+				else if (e.getButton() == MouseEvent.BUTTON3) {
+					state = States.PRESSED_RIGHT;
+				}
+		    };
+			
+			@Override
+		    public void mouseReleased(MouseEvent e) {
+				if (state == States.PRESSED_LEFT) {
+					// TODO
+				}
+				else if (state == States.PRESSED_RIGHT) {
+					// TODO
+				}
+				state = States.IDLE;
+		    };
+		});
+		
+		this.addMouseWheelListener(l -> {
+			if (state == States.IDLE) {
+				if (l.getWheelRotation() < 0) {
+					zoom(mousePosition, 5);
+				}
+				else {
+					zoom(mousePosition, -5);
+				}
+			}
+		});
 	}
 	
 	public void add(String expression) {
