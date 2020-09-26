@@ -8,11 +8,9 @@ import java.awt.Graphics2D;
 import java.awt.Color;
 import java.awt.BasicStroke;
 import java.awt.RenderingHints;
-import java.awt.event.MouseEvent;
 import java.awt.Point;
 
 import javax.swing.JPanel;
-import javax.swing.event.MouseInputAdapter;
 
 import java.util.Vector;
 
@@ -22,16 +20,6 @@ import grapher.fc.*;
 
 
 public class Grapher extends JPanel {
-	private enum States {IDLE,
-						 PRESSED_LEFT,
-						 PRESSED_RIGHT,
-						 DRAGGED_LEFT,
-						 DRAGGED_RIGHT};
-	private States state;
-
-	private Point mousePosition;
-	private Point rightClickFrameBegin;
-	private Point rightClickFrameEnd;
 	
 	static final int MARGIN = 40;
 	static final int STEP = 5;
@@ -41,6 +29,16 @@ public class Grapher extends JPanel {
 	                                                   1.f,
 	                                                   new float[] { 4.f, 4.f },
 	                                                   0.f);
+	
+	protected enum States {IDLE,
+		 				 PRESSED_LEFT,
+		 				 PRESSED_RIGHT,
+						 DRAGGED_LEFT,
+						 DRAGGED_RIGHT};
+	
+	private States state;
+	
+	private GrapherMouseInputAdapter grapherMouseInputAdapter;
 	                                                   
 	protected int W = 400;
 	protected int H = 300;
@@ -51,76 +49,24 @@ public class Grapher extends JPanel {
 	protected Vector<Function> functions;
 	
 	public Grapher() {
+		grapherMouseInputAdapter = new GrapherMouseInputAdapter(this);
+		
 		xmin = -PI/2.; xmax = 3*PI/2;
 		ymin = -1.5;   ymax = 1.5;
 		
 		functions = new Vector<Function>();
 		
-		state = States.IDLE;
-		mousePosition = new Point(0, 0);
-		rightClickFrameBegin = new Point(0, 0);
-		rightClickFrameEnd = new Point(0, 0);
+		this.addMouseMotionListener(grapherMouseInputAdapter);
 		
-		this.addMouseMotionListener(new MouseInputAdapter() {
-			@Override
-			public void mouseMoved(MouseEvent e) {
-				mousePosition.x = e.getX();
-				mousePosition.y = e.getY();
-			}
-		    
-			@Override
-		    public void mouseDragged(MouseEvent e){
-				if (state == States.PRESSED_LEFT  ||  state == States.DRAGGED_LEFT) {
-					state = States.DRAGGED_LEFT;
-					int dx = e.getX() - mousePosition.x;
-					int dy = e.getY() - mousePosition.y;
-					translate(dx, dy);
-					mousePosition.x = e.getX();
-					mousePosition.y = e.getY();
-				}
-				else if (state == States.PRESSED_RIGHT  ||  state == States.DRAGGED_RIGHT) {
-					state = States.DRAGGED_RIGHT;
-					rightClickFrameEnd.x = e.getX();
-					rightClickFrameEnd.y = e.getY();
-					repaint();
-				}
-			};
-		});
-		
-		this.addMouseListener(new MouseInputAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				if (e.getButton() == MouseEvent.BUTTON1) {
-					state = States.PRESSED_LEFT;
-				}
-				else if (e.getButton() == MouseEvent.BUTTON3) {
-					state = States.PRESSED_RIGHT;
-					rightClickFrameBegin = mousePosition;
-				}
-		    };
-			
-			@Override
-		    public void mouseReleased(MouseEvent e) {
-				if (state == States.PRESSED_LEFT) {
-					zoom(mousePosition, 5);
-				}
-				else if (state == States.PRESSED_RIGHT) {
-					zoom(mousePosition, -5);
-				}
-				else if (state == States.DRAGGED_RIGHT) {
-					zoom(rightClickFrameBegin, rightClickFrameEnd);
-				}
-				state = States.IDLE;
-		    };
-		});
+		this.addMouseListener(grapherMouseInputAdapter);
 		
 		this.addMouseWheelListener(l -> {
 			if (state == States.IDLE) {
 				if (l.getWheelRotation() < 0) {
-					zoom(mousePosition, 5);
+					zoom(grapherMouseInputAdapter.getMousePosition(), 5);
 				}
 				else {
-					zoom(mousePosition, -5);
+					zoom(grapherMouseInputAdapter.getMousePosition(), -5);
 				}
 			}
 		});
@@ -133,6 +79,14 @@ public class Grapher extends JPanel {
 	public void add(Function function) {
 		functions.add(function);
 		repaint();
+	}
+	
+	public void setState (States s) {
+		state = s;
+	}
+	
+	public States getState () {
+		return state;
 	}
 	
 	public Dimension getPreferredSize() { return new Dimension(W, H); }
@@ -209,12 +163,12 @@ public class Grapher extends JPanel {
 		
 		// right-click frame
 		if (state == States.DRAGGED_RIGHT) {
-			int frameWidth = rightClickFrameEnd.x - rightClickFrameBegin.x;
-			int frameHeight = rightClickFrameEnd.y - rightClickFrameBegin.y;
+			int frameWidth = grapherMouseInputAdapter.getRightClickFrameEnd().x - grapherMouseInputAdapter.getRightClickFrameBegin().x;
+			int frameHeight = grapherMouseInputAdapter.getRightClickFrameEnd().y - grapherMouseInputAdapter.getRightClickFrameBegin().y;
 			g2.setColor(new Color(250, 198, 229, 100));
-			g2.fillRect(rightClickFrameBegin.x, rightClickFrameBegin.y, frameWidth, frameHeight);
+			g2.fillRect(grapherMouseInputAdapter.getRightClickFrameBegin().x, grapherMouseInputAdapter.getRightClickFrameBegin().y, frameWidth, frameHeight);
 			g2.setColor(new Color(231, 110, 177, 200));
-			g2.drawRect(rightClickFrameBegin.x, rightClickFrameBegin.y, frameWidth, frameHeight);
+			g2.drawRect(grapherMouseInputAdapter.getRightClickFrameBegin().x, grapherMouseInputAdapter.getRightClickFrameBegin().y, frameWidth, frameHeight);
 		}
 	}
 	
