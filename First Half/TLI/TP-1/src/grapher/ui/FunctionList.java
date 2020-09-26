@@ -8,7 +8,7 @@ import javax.swing.JList;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-public class FunctionList extends JList <String> {
+public class FunctionList extends JList <String> implements ToolListener {
 	
 	private DefaultListModel <String> model = new DefaultListModel<>();
 	
@@ -25,7 +25,7 @@ public class FunctionList extends JList <String> {
 			public void valueChanged(ListSelectionEvent e) {
 				if (e.getValueIsAdjusting()) {
 					for (FunctionListListener listener : listeners) {
-						listener.onFunctionSelection(getSelectedIndex());
+						listener.onFunctionSelection(getSelectedIndex(), getSelectedValue());
 					}
 				}
 			}
@@ -44,6 +44,24 @@ public class FunctionList extends JList <String> {
 	
 	public void addListener (FunctionListListener l) {
 		listeners.add(l);
+	}
+
+
+
+	@Override
+	public void onFunctionAdd(String function) {
+		model.addElement(function);
+		for (FunctionListListener listener : listeners) {
+			listener.onFunctionAdd(function);
+		}
+	}
+	
+	@Override
+	public void onFunctionRemove(int function) {
+		model.remove(function);
+		for (FunctionListListener listener : listeners) {
+			listener.onFunctionRemove(function);
+		}
 	}
 	
 }

@@ -82,6 +82,11 @@ public class Grapher extends JPanel implements FunctionListListener {
 		repaint();
 	}
 	
+	public void remove (int function) {
+		functions.remove(function);
+		repaint();
+	}
+	
 	public void setState (States s) {
 		state = s;
 	}
@@ -254,8 +259,19 @@ public class Grapher extends JPanel implements FunctionListListener {
 	}
 
 	@Override
-	public void onFunctionSelection(int selected) {
+	public void onFunctionSelection(int selected, String name) {
 		selectedFunction = selected;
 		repaint();
 	}
+	
+	@Override
+	public void onFunctionAdd(String function) {
+		add(function);
+	}
+	
+	@Override
+	public void onFunctionRemove(int function) {
+		remove(function);
+	}
+	
 }

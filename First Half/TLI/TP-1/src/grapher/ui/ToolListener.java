@@ -1,11 +1,9 @@
 package grapher.ui;
 
-public interface FunctionListListener {
+public interface ToolListener {
 	
 	void onFunctionAdd (String function);
 	
 	void onFunctionRemove (int function);
-	
-	void onFunctionSelection (int selected, String name);
 	
 }

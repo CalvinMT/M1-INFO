@@ -9,23 +9,34 @@ public class Main extends JFrame {
 	Main(String title, String[] expressions) {
 		super(title);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
-		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+
+		JSplitPane splitPaneListGrapher = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+		JSplitPane splitPaneListToolbar = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
 		
 		FunctionList functionList = new FunctionList();
 		functionList.addFunctions(expressions);
+		
+		ToolBar toolBar = new ToolBar();
 		
 		Grapher grapher = new Grapher();
 		for(String expression : expressions) {
 			grapher.add(expression);
 		}
-		
+
 		functionList.addListener(grapher);
+		functionList.addListener(toolBar);
 		
-		splitPane.add(functionList);
-		splitPane.add(grapher);
+		toolBar.addListener(functionList);
+
+		splitPaneListToolbar.add(functionList);
+		splitPaneListToolbar.add(toolBar);
+		splitPaneListToolbar.setResizeWeight(0.9);
+		splitPaneListToolbar.setDividerSize(0);
 		
-		add(splitPane);
+		splitPaneListGrapher.add(splitPaneListToolbar);
+		splitPaneListGrapher.add(grapher);
+		
+		add(splitPaneListGrapher);
 		pack();
 	}
 
