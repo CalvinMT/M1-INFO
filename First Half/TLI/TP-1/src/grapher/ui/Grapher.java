@@ -95,10 +95,10 @@ public class Grapher extends JPanel {
 			@Override
 		    public void mouseReleased(MouseEvent e) {
 				if (state == States.PRESSED_LEFT) {
-					// TODO
+					zoom(mousePosition, 5);
 				}
 				else if (state == States.PRESSED_RIGHT) {
-					// TODO
+					zoom(mousePosition, -5);
 				}
 				state = States.IDLE;
 		    };
