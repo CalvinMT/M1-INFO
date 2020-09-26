@@ -20,6 +20,8 @@ public class Main extends JFrame {
 			grapher.add(expression);
 		}
 		
+		functionList.addListener(grapher);
+		
 		splitPane.add(functionList);
 		splitPane.add(grapher);
 		

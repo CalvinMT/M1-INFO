@@ -19,7 +19,7 @@ import static java.lang.Math.*;
 import grapher.fc.*;
 
 
-public class Grapher extends JPanel {
+public class Grapher extends JPanel implements FunctionListListener {
 	
 	static final int MARGIN = 40;
 	static final int STEP = 5;
@@ -47,6 +47,7 @@ public class Grapher extends JPanel {
 	protected double ymin, ymax;
 
 	protected Vector<Function> functions;
+	private int selectedFunction = -1;
 	
 	public Grapher() {
 		grapherMouseInputAdapter = new GrapherMouseInputAdapter(this);
@@ -136,15 +137,23 @@ public class Grapher extends JPanel {
 			Xs[i] = X(x);
 		}
 		
-		for(Function f : functions) {
+		for(int f=0; f<functions.size(); f++) {
+			if (selectedFunction != -1  &&  f == selectedFunction) {
+				g2.setStroke(new BasicStroke(2));
+			}
+			else {
+				g2.setStroke(new BasicStroke(1));
+			}
+			
 			// y values
 			int Ys[] = new int[N];
 			for(int i = 0; i < N; i++) {
-				Ys[i] = Y(f.y(xs[i]));
+				Ys[i] = Y(functions.get(f).y(xs[i]));
 			}
 			
 			g2.drawPolyline(Xs, Ys, N);
 		}
+		g2.setStroke(new BasicStroke(1));
 
 		g2.setClip(null);
 
@@ -241,6 +250,12 @@ public class Grapher extends JPanel {
 		double y1 = y(p1.y);
 		xmin = min(x0, x1); xmax = max(x0, x1);
 		ymin = min(y0, y1); ymax = max(y0, y1);
+		repaint();
+	}
+
+	@Override
+	public void onFunctionSelection(int selected) {
+		selectedFunction = selected;
 		repaint();
 	}
 }
