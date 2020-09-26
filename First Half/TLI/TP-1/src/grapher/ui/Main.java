@@ -1,6 +1,7 @@
 package grapher.ui;
 
 import javax.swing.JFrame;
+import javax.swing.JSplitPane;
 import javax.swing.SwingUtilities;
 
 
@@ -9,12 +10,20 @@ public class Main extends JFrame {
 		super(title);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
-		Grapher grapher = new Grapher();		
+		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+		
+		FunctionList functionList = new FunctionList();
+		functionList.addFunctions(expressions);
+		
+		Grapher grapher = new Grapher();
 		for(String expression : expressions) {
 			grapher.add(expression);
 		}
 		
-		add(grapher);
+		splitPane.add(functionList);
+		splitPane.add(grapher);
+		
+		add(splitPane);
 		pack();
 	}
 
