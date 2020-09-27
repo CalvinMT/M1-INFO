@@ -13,6 +13,8 @@ public class Main extends JFrame {
 		JSplitPane splitPaneListGrapher = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
 		JSplitPane splitPaneListToolbar = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
 		
+		MenuBar menuBar = new MenuBar();
+		
 		FunctionList functionList = new FunctionList();
 		functionList.addFunctions(expressions);
 		
@@ -24,7 +26,7 @@ public class Main extends JFrame {
 		}
 
 		functionList.addListener(grapher);
-		functionList.addListener(toolBar);
+		functionList.addListener(toolBar.getActionRemoveFunction());
 		
 		toolBar.addListener(functionList);
 
@@ -36,6 +38,7 @@ public class Main extends JFrame {
 		splitPaneListGrapher.add(splitPaneListToolbar);
 		splitPaneListGrapher.add(grapher);
 		
+		setJMenuBar(menuBar);
 		add(splitPaneListGrapher);
 		pack();
 	}
