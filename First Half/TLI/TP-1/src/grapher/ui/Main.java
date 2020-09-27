@@ -24,9 +24,12 @@ public class Main extends JFrame {
 		for(String expression : expressions) {
 			grapher.add(expression);
 		}
+		
+		menuBar.addListener(functionList);
 
 		functionList.addListener(grapher);
 		functionList.addListener(toolBar.getActionRemoveFunction());
+		functionList.addListener(menuBar.getActionRemoveFunction());
 		
 		toolBar.addListener(functionList);
 
