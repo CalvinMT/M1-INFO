@@ -25,7 +25,7 @@ public class Main extends JFrame {
 			grapher.add(expression);
 		}
 		
-		menuBar.addListener(functionList);
+		menuBar.addToolListener(functionList);
 
 		functionList.addListener(grapher);
 		functionList.addListener(toolBar.getActionRemoveFunction());

@@ -5,17 +5,21 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 public class MenuBar extends JMenuBar {
-	
-	JMenu menuFunction;
 
+	JMenu menuFunction;
 	ActionAddFunction actionAddFunction;
 	ActionRemoveFunction actionRemoveFunction;
+	
+	JMenu menuWindow;
+	ActionViewModeList actionViewModeList;
+	ActionViewModeTable actionViewModeTable;
 	
 	
 	public MenuBar () {
 		super();
 		
 		initialiseMenuFunction();
+		initialiseMenuWindow();
 	}
 	
 	
@@ -37,7 +41,35 @@ public class MenuBar extends JMenuBar {
 	
 	
 	
-	public void addListener (ToolListener listener) {
+	private void initialiseMenuWindow () {
+		menuWindow = new JMenu("Window");
+		
+		JMenu submenuViewMode = new JMenu("View mode");
+
+		actionViewModeList = new ActionViewModeList("List");
+		actionViewModeTable = new ActionViewModeTable("Table");
+		
+		ItemListMode itemListMode = new ItemListMode(actionViewModeList);
+		ItemTableMode itemTableMode = new ItemTableMode(actionViewModeTable);
+		
+		itemListMode.setSelected(true);
+
+		actionViewModeList.addListener(itemListMode);
+		actionViewModeList.addListener(itemTableMode);
+		actionViewModeTable.addListener(itemListMode);
+		actionViewModeTable.addListener(itemTableMode);
+		
+		submenuViewMode.add(itemListMode);
+		submenuViewMode.add(itemTableMode);
+		
+		menuWindow.add(submenuViewMode);
+		
+		add(menuWindow);
+	}
+	
+	
+	
+	public void addToolListener (ToolListener listener) {
 		actionAddFunction.addListener(listener);
 		actionRemoveFunction.addListener(listener);
 	}
