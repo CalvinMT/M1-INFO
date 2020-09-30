@@ -19,7 +19,7 @@ import static java.lang.Math.*;
 import grapher.fc.*;
 
 
-public class Grapher extends JPanel implements FunctionListListener, ViewModeListener {
+public class Grapher extends JPanel implements FunctionListListener, ViewModeListener, FunctionColorChooserListener {
 	
 	static final int MARGIN = 40;
 	static final int STEP = 5;
@@ -296,6 +296,12 @@ public class Grapher extends JPanel implements FunctionListListener, ViewModeLis
 			// TODO - throw exception
 			System.out.println("ERROR: Mode " + mode + " was not found.");
 		}
+		repaint();
+	}
+	
+	@Override
+	public void onColorChosen(int selectedRow, Color newColor) {
+		repaint();
 	}
 	
 }
