@@ -19,7 +19,7 @@ import static java.lang.Math.*;
 import grapher.fc.*;
 
 
-public class Grapher extends JPanel implements FunctionListListener {
+public class Grapher extends JPanel implements FunctionListListener, ViewModeListener {
 	
 	static final int MARGIN = 40;
 	static final int STEP = 5;
@@ -37,6 +37,8 @@ public class Grapher extends JPanel implements FunctionListListener {
 						 DRAGGED_RIGHT};
 	
 	private States state;
+	
+	private String viewMode = ItemListMode.MODE;
 	
 	private GrapherMouseInputAdapter grapherMouseInputAdapter;
 	                                                   
@@ -143,6 +145,13 @@ public class Grapher extends JPanel implements FunctionListListener {
 		}
 		
 		for(int f=0; f<functions.size(); f++) {
+			if (viewMode.equals(ItemTableMode.MODE)) {
+				g2.setColor(((Color) FunctionTable.model.getValueAt(f, 1)));
+			}
+			else {
+				g2.setColor(Color.BLACK);
+			}
+			
 			if (selectedFunction != -1  &&  f == selectedFunction) {
 				g2.setStroke(new BasicStroke(2));
 			}
@@ -158,6 +167,7 @@ public class Grapher extends JPanel implements FunctionListListener {
 			
 			g2.drawPolyline(Xs, Ys, N);
 		}
+		g2.setColor(Color.BLACK);
 		g2.setStroke(new BasicStroke(1));
 
 		g2.setClip(null);
@@ -272,6 +282,20 @@ public class Grapher extends JPanel implements FunctionListListener {
 	@Override
 	public void onFunctionRemove(int function) {
 		remove(function);
+	}
+	
+	@Override
+	public void onChangedSelected(String mode) {
+		if (mode.equals(ItemListMode.MODE)) {
+			viewMode = mode;
+		}
+		else if (mode.equals(ItemTableMode.MODE)) {
+			viewMode = mode;
+		}
+		else {
+			// TODO - throw exception
+			System.out.println("ERROR: Mode " + mode + " was not found.");
+		}
 	}
 	
 }

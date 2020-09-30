@@ -1,5 +1,6 @@
 package grapher.ui;
 
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JSplitPane;
 import javax.swing.SwingUtilities;
@@ -17,6 +18,8 @@ public class Main extends JFrame {
 		
 		FunctionList functionList = new FunctionList();
 		functionList.addFunctions(expressions);
+		FunctionTable functionTable = new FunctionTable();
+		functionTable.addFunctions(expressions);
 		
 		ToolBar toolBar = new ToolBar();
 		
@@ -26,14 +29,25 @@ public class Main extends JFrame {
 		}
 		
 		menuBar.addToolListener(functionList);
+		menuBar.addToolListener(functionTable);
 
 		functionList.addListener(grapher);
 		functionList.addListener(toolBar.getActionRemoveFunction());
 		functionList.addListener(menuBar.getActionRemoveFunction());
+		functionTable.addListener(grapher);
+		functionTable.addListener(toolBar.getActionRemoveFunction());
+		functionTable.addListener(menuBar.getActionRemoveFunction());
 		
 		toolBar.addListener(functionList);
+		toolBar.addListener(functionTable);
+		
+		JComponent components[] = {functionList, functionTable};
+		FunctionPane functionPane = new FunctionPane(components);
 
-		splitPaneListToolbar.add(functionList);
+		menuBar.addViewModeListener(grapher);
+		menuBar.addViewModeListener(functionPane);
+
+		splitPaneListToolbar.add(functionPane);
 		splitPaneListToolbar.add(toolBar);
 		splitPaneListToolbar.setResizeWeight(0.9);
 		splitPaneListToolbar.setDividerSize(0);

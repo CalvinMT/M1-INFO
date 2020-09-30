@@ -74,6 +74,11 @@ public class MenuBar extends JMenuBar {
 		actionRemoveFunction.addListener(listener);
 	}
 	
+	public void addViewModeListener (ViewModeListener listener) {
+		actionViewModeList.addListener(listener);
+		actionViewModeTable.addListener(listener);
+	}
+	
 	
 	
 	public ActionRemoveFunction getActionRemoveFunction () {
