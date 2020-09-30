@@ -32,7 +32,7 @@ public class FunctionPane extends JPanel implements ViewModeListener {
 			// TODO - throw exception
 			System.out.println("ERROR: Mode " + mode + " was not found.");
 		}
-		repaint();
+		revalidate();
 	}
 	
 }
