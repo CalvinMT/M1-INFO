@@ -57,8 +57,8 @@ public class FunctionTable extends JTable implements ToolListener, FunctionColor
 		listeners.add(l);
 	}
 	
-	public void addFunctionColorChooserListener () {
-		functionTableMouseListener.addListener(this);
+	public void addFunctionColorChooserListener (FunctionColorChooserListener l) {
+		functionTableMouseListener.addListener(l);
 	}
 	
 	
