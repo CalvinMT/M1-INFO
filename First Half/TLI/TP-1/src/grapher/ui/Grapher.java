@@ -187,12 +187,14 @@ public class Grapher extends JPanel implements FunctionListListener, ViewModeLis
 		
 		// right-click frame
 		if (state == States.DRAGGED_RIGHT) {
-			int frameWidth = grapherMouseInputAdapter.getRightClickFrameEnd().x - grapherMouseInputAdapter.getRightClickFrameBegin().x;
-			int frameHeight = grapherMouseInputAdapter.getRightClickFrameEnd().y - grapherMouseInputAdapter.getRightClickFrameBegin().y;
+			int frameX = Math.min(grapherMouseInputAdapter.getRightClickFrameBegin().x, grapherMouseInputAdapter.getRightClickFrameEnd().x);
+			int frameY = Math.min(grapherMouseInputAdapter.getRightClickFrameBegin().y, grapherMouseInputAdapter.getRightClickFrameEnd().y);
+			int frameWidth = Math.max(grapherMouseInputAdapter.getRightClickFrameEnd().x, grapherMouseInputAdapter.getRightClickFrameBegin().x) - Math.min(grapherMouseInputAdapter.getRightClickFrameBegin().x, grapherMouseInputAdapter.getRightClickFrameEnd().x);
+			int frameHeight = Math.max(grapherMouseInputAdapter.getRightClickFrameEnd().y, grapherMouseInputAdapter.getRightClickFrameBegin().y) - Math.min(grapherMouseInputAdapter.getRightClickFrameBegin().y, grapherMouseInputAdapter.getRightClickFrameEnd().y);
 			g2.setColor(new Color(250, 198, 229, 100));
-			g2.fillRect(grapherMouseInputAdapter.getRightClickFrameBegin().x, grapherMouseInputAdapter.getRightClickFrameBegin().y, frameWidth, frameHeight);
+			g2.fillRect(frameX, frameY, frameWidth, frameHeight);
 			g2.setColor(new Color(231, 110, 177, 200));
-			g2.drawRect(grapherMouseInputAdapter.getRightClickFrameBegin().x, grapherMouseInputAdapter.getRightClickFrameBegin().y, frameWidth, frameHeight);
+			g2.drawRect(frameX, frameY, frameWidth, frameHeight);
 		}
 	}
 	
