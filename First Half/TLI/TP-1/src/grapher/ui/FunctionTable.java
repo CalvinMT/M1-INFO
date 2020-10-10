@@ -74,9 +74,6 @@ public class FunctionTable extends JTable implements ToolListener, FunctionColor
 	@Override
 	public void onFunctionAdd(String function) {
 		model.addRow(new Object[] {function, Color.RED});
-		for (FunctionListListener listener : listeners) {
-			listener.onFunctionAdd(function);
-		}
 	}
 	
 	@Override
