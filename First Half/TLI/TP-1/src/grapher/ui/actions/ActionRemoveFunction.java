@@ -1,4 +1,4 @@
-package grapher.ui;
+package grapher.ui.actions;
 
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
@@ -7,6 +7,9 @@ import java.util.List;
 import javax.swing.AbstractAction;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
+
+import grapher.ui.FunctionListListener;
+import grapher.ui.tool.ToolListener;
 
 public class ActionRemoveFunction extends AbstractAction implements FunctionListListener {
 	

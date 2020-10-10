@@ -1,15 +1,17 @@
-package grapher.ui;
+package grapher.ui.menu;
 
 import javax.swing.AbstractAction;
 import javax.swing.JRadioButtonMenuItem;
 
-public class ItemListMode extends JRadioButtonMenuItem implements ViewModeListener {
+import grapher.ui.ViewModeListener;
+
+public class ItemTableMode extends JRadioButtonMenuItem implements ViewModeListener {
 	
-	public static final String MODE = "LIST";
+	public static final String MODE = "TABLE";
 	
 	
 	
-	public ItemListMode (AbstractAction a) {
+	public ItemTableMode (AbstractAction a) {
 		super(a);
 	}
 	

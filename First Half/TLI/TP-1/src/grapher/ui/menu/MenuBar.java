@@ -1,8 +1,15 @@
-package grapher.ui;
+package grapher.ui.menu;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+
+import grapher.ui.ViewModeListener;
+import grapher.ui.actions.ActionAddFunction;
+import grapher.ui.actions.ActionRemoveFunction;
+import grapher.ui.actions.ActionViewModeList;
+import grapher.ui.actions.ActionViewModeTable;
+import grapher.ui.tool.ToolListener;
 
 public class MenuBar extends JMenuBar {
 

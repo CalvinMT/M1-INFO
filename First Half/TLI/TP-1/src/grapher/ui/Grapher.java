@@ -17,6 +17,8 @@ import java.util.Vector;
 import static java.lang.Math.*;
 
 import grapher.fc.*;
+import grapher.ui.menu.ItemListMode;
+import grapher.ui.menu.ItemTableMode;
 
 
 public class Grapher extends JPanel implements FunctionListListener, ViewModeListener, FunctionColorChooserListener {

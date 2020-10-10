@@ -1,4 +1,4 @@
-package grapher.ui;
+package grapher.ui.actions;
 
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
@@ -6,13 +6,16 @@ import java.util.List;
 
 import javax.swing.AbstractAction;
 
-public class ActionViewModeList extends AbstractAction {
+import grapher.ui.ViewModeListener;
+import grapher.ui.menu.ItemTableMode;
+
+public class ActionViewModeTable extends AbstractAction {
 	
 	private List <ViewModeListener> listeners = new ArrayList<>();
 	
 	
 	
-	public ActionViewModeList (String text) {
+	public ActionViewModeTable (String text) {
 		super(text);
 	}
 	
@@ -27,7 +30,7 @@ public class ActionViewModeList extends AbstractAction {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		for (ViewModeListener listener : listeners) {
-			listener.onChangedSelected(ItemListMode.MODE);
+			listener.onChangedSelected(ItemTableMode.MODE);
 		}
 	}
 	

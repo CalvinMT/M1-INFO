@@ -1,4 +1,4 @@
-package grapher.ui;
+package grapher.ui.tool;
 
 public interface ToolListener {
 	

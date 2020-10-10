@@ -5,6 +5,9 @@ import javax.swing.JFrame;
 import javax.swing.JSplitPane;
 import javax.swing.SwingUtilities;
 
+import grapher.ui.menu.MenuBar;
+import grapher.ui.tool.ToolBar;
+
 
 public class Main extends JFrame {
 	Main(String title, String[] expressions) {

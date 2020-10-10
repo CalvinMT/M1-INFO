@@ -1,7 +1,10 @@
-package grapher.ui;
+package grapher.ui.tool;
 
 import javax.swing.JButton;
 import javax.swing.JToolBar;
+
+import grapher.ui.actions.ActionAddFunction;
+import grapher.ui.actions.ActionRemoveFunction;
 
 public class ToolBar extends JToolBar {
 

@@ -9,6 +9,8 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
+import grapher.ui.tool.ToolListener;
+
 public class FunctionTable extends JTable implements ToolListener, FunctionColorChooserListener {
 	
 	private String[] columnNames = new String[] {"Function", "Color"};

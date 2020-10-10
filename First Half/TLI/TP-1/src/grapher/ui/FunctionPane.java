@@ -5,6 +5,9 @@ import java.awt.GridLayout;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
+import grapher.ui.menu.ItemListMode;
+import grapher.ui.menu.ItemTableMode;
+
 public class FunctionPane extends JPanel implements ViewModeListener {
 	
 	JComponent components[];

@@ -8,6 +8,8 @@ import javax.swing.JList;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import grapher.ui.tool.ToolListener;
+
 public class FunctionList extends JList <String> implements ToolListener {
 	
 	private DefaultListModel <String> model = new DefaultListModel<>();
