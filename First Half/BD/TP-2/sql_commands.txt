@@ -1,0 +1,37 @@
+# ###################################################### #
+# 4.2
+# Les cages compatibles avec les spécialités du gardien.
+# ###################################################### #
+SELECT A.noCage, fonction 
+FROM 
+(SELECT noCage, fonction 
+FROM LesCages C 
+INNER JOIN LesSpecialites S 
+ON C.fonction = S.fonction_cage 
+WHERE S.nomE = 'Lachaize') A 
+LEFT JOIN LesGardiens G 
+ON A.noCage = G.noCage 
+WHERE G.noCage IS NULL;
+
+# ###################################################### #
+# 4.3
+# Le nombre de gardien par cage.
+# ###################################################### #
+DROP TABLE StatistiqueGardienParCage;
+
+CREATE TABLE StatistiqueGardienParCage (
+	noCage number(3),
+	nbGardien number(20),
+	constraint StatistiqueGardienParCage_C1 primary key (noCage, nbGardien), 
+	constraint StatistiqueGardienParCage_C2 foreign key (noCage) references LesCages (noCage),
+	constraint StatistiqueGardienParCage_C3 check (nbGardien between 1 and 999)
+);
+
+SELECT noCage 
+FROM LesCages;
+
+SELECT count(*) 
+FROM LesGardiens 
+WHERE noCage = ?;
+
+INSERT INTO StatistiqueGardienParCage VALUES (?, ?);
