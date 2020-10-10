@@ -64,8 +64,10 @@ public class FunctionTableMouseListener implements MouseListener {
 			int row = table.rowAtPoint(e.getPoint());
 			table.changeSelection(row, 0, false, false);
 			Color newColor = JColorChooser.showDialog(null, "Choose a Color", (Color) table.getValueAt(table.getSelectedRow(), 1));
-			for (FunctionColorChooserListener listener : listeners) {
-				listener.onColorChosen(table.getSelectedRow(), newColor);
+			if (newColor != null) {
+				for (FunctionColorChooserListener listener : listeners) {
+					listener.onColorChosen(table.getSelectedRow(), newColor);
+				}
 			}
 		}
 		state = States.IDLE;
