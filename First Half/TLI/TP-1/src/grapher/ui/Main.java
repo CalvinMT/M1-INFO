@@ -14,8 +14,8 @@ public class Main extends JFrame {
 		super(title);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-		JSplitPane splitPaneListGrapher = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
-		JSplitPane splitPaneListToolbar = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+		JSplitPane splitPaneFunctionGrapher = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+		SplitPaneFunctionTool splitPaneFunctionTool = new SplitPaneFunctionTool(JSplitPane.VERTICAL_SPLIT);
 		
 		MenuBar menuBar = new MenuBar();
 		
@@ -44,23 +44,22 @@ public class Main extends JFrame {
 		
 		toolBar.addListener(functionList);
 		toolBar.addListener(functionTable);
-		
-		JComponent components[] = {functionList, functionTable};
-		FunctionPane functionPane = new FunctionPane(components);
 
 		menuBar.addViewModeListener(grapher);
-		menuBar.addViewModeListener(functionPane);
-
-		splitPaneListToolbar.add(functionPane);
-		splitPaneListToolbar.add(toolBar);
-		splitPaneListToolbar.setResizeWeight(0.9);
-		splitPaneListToolbar.setDividerSize(0);
+		menuBar.addViewModeListener(splitPaneFunctionTool);
 		
-		splitPaneListGrapher.add(splitPaneListToolbar);
-		splitPaneListGrapher.add(grapher);
+		JComponent components[] = {functionList, functionTable};
+		splitPaneFunctionTool.addFunctionComponents(components);
+		
+		splitPaneFunctionTool.setRightComponent(toolBar);
+		splitPaneFunctionTool.setResizeWeight(0.9);
+		splitPaneFunctionTool.setDividerSize(0);
+		
+		splitPaneFunctionGrapher.add(splitPaneFunctionTool);
+		splitPaneFunctionGrapher.add(grapher);
 		
 		setJMenuBar(menuBar);
-		add(splitPaneListGrapher);
+		add(splitPaneFunctionGrapher);
 		pack();
 	}
 

@@ -1,35 +1,36 @@
 package grapher.ui;
 
-import java.awt.GridLayout;
-
 import javax.swing.JComponent;
-import javax.swing.JPanel;
+import javax.swing.JSplitPane;
 
 import grapher.ui.menu.ItemListMode;
 import grapher.ui.menu.ItemTableMode;
 
-public class FunctionPane extends JPanel implements ViewModeListener {
+public class SplitPaneFunctionTool extends JSplitPane implements ViewModeListener {
 	
 	JComponent components[];
 	
+	public SplitPaneFunctionTool (int newOrientation) {
+		super(newOrientation);
+	}
 	
 	
-	public FunctionPane (JComponent[] component) {
-		super(new GridLayout(0, 1));
-		components = component;
+	
+	public void addFunctionComponents (JComponent[] c) {
+		components = c;
 		add(components[0]);
+		setLeftComponent(components[0]);
 	}
 	
 	
 	
 	@Override
 	public void onChangedSelected (String mode) {
-		removeAll();
 		if (mode.equals(ItemListMode.MODE)) {
-			add(components[0]);
+			setLeftComponent(components[0]);
 		}
 		else if (mode.equals(ItemTableMode.MODE)) {
-			add(components[1]);
+			setLeftComponent(components[1]);
 		}
 		else {
 			// TODO - throw exception
