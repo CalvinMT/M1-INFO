@@ -1,5 +1,8 @@
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -103,4 +106,71 @@ public class Fonctionnalites {
 				+ "VALUES (" + cageToAdd + ", '" + guardian + "')");
 		statement.close();
 	}
+	
+	/**
+	 * 
+	 * @throws SQLException
+	 */
+	public void getStatistics () throws SQLException {
+		DatabaseMetaData metaDataBase = connection.getMetaData();
+		ResultSet dataBaseTables = metaDataBase.getTables(null, null, "StatistiqueGardienParCage", null);
+		System.out.println(" - Statistique : nombre de gardien par cage - ");
+		Statement statement;
+		// FIXME - does not go in
+		if (dataBaseTables.next()) {
+	        statement = connection.createStatement();
+	        statement.executeUpdate(""
+	        		+ "DROP TABLE StatistiqueGardienParCage");
+	        statement.close();
+		}
+        statement = connection.createStatement();
+        statement.executeUpdate(""
+        		+ "CREATE TABLE StatistiqueGardienParCage ( "
+        			+ "noCage number(3), "
+        			+ "nbGardien number(20), "
+        			+ "constraint StatistiqueGardienParCage_C1 primary key (noCage, nbGardien), "
+        			+ "constraint StatistiqueGardienParCage_C2 foreign key (noCage) references LesCages (noCage), "
+        			+ "constraint StatistiqueGardienParCage_C3 check (nbGardien between 1 and 999) "
+    			+ ") ");
+        statement = connection.createStatement();
+        ResultSet cages = statement.executeQuery(""
+        		+ "SELECT noCage "
+        		+ "FROM LesCages ");
+        PreparedStatement preparedStatement = connection.prepareStatement(""
+        		+ "SELECT count(*) "
+        		+ "FROM LesGardiens "
+        		+ "WHERE noCage = ? ");
+        PreparedStatement preparedStatementStat = connection.prepareStatement(""
+        		+ "INSERT INTO StatistiqueGardienParCage "
+        		+ "VALUES (?, ?) ");
+        ResultSet nbGuardian;
+        while (cages.next()) {
+        	preparedStatement.setInt(1, cages.getInt(1));
+        	nbGuardian = preparedStatement.executeQuery();
+        	nbGuardian.next();
+        	preparedStatementStat.setInt(1, cages.getInt(1));
+        	preparedStatementStat.setInt(2, nbGuardian.getInt(1));
+        	// FIXME
+        	System.out.println(cages.getInt(1) + "    " + nbGuardian.getInt(1));
+        	preparedStatementStat.executeUpdate();
+        }
+        statement.close();
+        preparedStatement.close();
+        statement = connection.createStatement();
+        ResultSet table = statement.executeQuery(""
+        		+ "SELECT * "
+        		+ "FROM StatistiqueGardienParCage ");
+        ResultSetMetaData metaTable = table.getMetaData();
+        int nbColumn = metaTable.getColumnCount();
+        while (table.next()) {
+        	for (int i=0; i<nbColumn; i++) {
+        		System.out.println(table.getString(i) + "	");
+        	}
+        	System.out.println();
+        }
+        
+		System.out.println(" - Statistique : nombre de cage par gardien - ");
+		// TODO
+	}
+	
 }
