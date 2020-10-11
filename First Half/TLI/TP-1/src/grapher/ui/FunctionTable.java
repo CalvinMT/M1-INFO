@@ -79,9 +79,6 @@ public class FunctionTable extends JTable implements ToolListener, FunctionColor
 	@Override
 	public void onFunctionRemove(int function) {
 		model.removeRow(function);
-		for (FunctionListListener listener : listeners) {
-			listener.onFunctionRemove(function);
-		}
 	}
 	
 	
