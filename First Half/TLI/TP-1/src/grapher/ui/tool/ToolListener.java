@@ -6,4 +6,6 @@ public interface ToolListener {
 	
 	void onFunctionRemove (int function);
 	
+	void onFunctionEdit (int index, String function);
+	
 }

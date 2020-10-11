@@ -91,6 +91,15 @@ public class Grapher extends JPanel implements FunctionListListener, ViewModeLis
 		repaint();
 	}
 	
+	public void edit (int index, String expression) {
+		edit(index, FunctionFactory.createFunction(expression));
+	}
+	
+	public void edit (int index, Function function) {
+		functions.set(index, function);
+		repaint();
+	}
+	
 	public void setState (States s) {
 		state = s;
 	}
@@ -286,6 +295,11 @@ public class Grapher extends JPanel implements FunctionListListener, ViewModeLis
 	@Override
 	public void onFunctionRemove(int function) {
 		remove(function);
+	}
+	
+	@Override
+	public void onFunctionEdit(int index, String function) {
+		edit(index, function);
 	}
 	
 	@Override

@@ -37,9 +37,11 @@ public class Main extends JFrame {
 		functionList.addListener(grapher);
 		functionList.addListener(toolBar.getActionRemoveFunction());
 		functionList.addListener(menuBar.getActionRemoveFunction());
+		functionList.addListener(menuBar.getActionEditFunction());
 		functionTable.addListener(grapher);
 		functionTable.addListener(toolBar.getActionRemoveFunction());
 		functionTable.addListener(menuBar.getActionRemoveFunction());
+		functionTable.addListener(menuBar.getActionEditFunction());
 		functionTable.addFunctionColorChooserListener(grapher);
 		
 		toolBar.addListener(functionList);

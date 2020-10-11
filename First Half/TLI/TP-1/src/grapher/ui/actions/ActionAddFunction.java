@@ -66,4 +66,9 @@ public class ActionAddFunction extends AbstractAction implements FunctionListLis
 		return;
 	}
 	
+	@Override
+	public void onFunctionEdit(int index, String function) {
+		return;
+	}
+	
 }

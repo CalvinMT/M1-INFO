@@ -66,4 +66,12 @@ public class FunctionList extends JList <String> implements ToolListener {
 		}
 	}
 	
+	@Override
+	public void onFunctionEdit(int index, String function) {
+		model.set(index, function);
+		for (FunctionListListener listener : listeners) {
+			listener.onFunctionEdit(index, function);
+		}
+	}
+	
 }

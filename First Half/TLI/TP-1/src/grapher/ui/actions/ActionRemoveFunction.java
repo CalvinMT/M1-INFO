@@ -74,4 +74,9 @@ public class ActionRemoveFunction extends AbstractAction implements FunctionList
 		return;
 	}
 	
+	@Override
+	public void onFunctionEdit(int index, String function) {
+		return;
+	}
+	
 }

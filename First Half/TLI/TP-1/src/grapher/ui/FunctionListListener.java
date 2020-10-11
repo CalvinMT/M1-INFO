@@ -6,6 +6,8 @@ public interface FunctionListListener {
 	
 	void onFunctionRemove (int function);
 	
+	void onFunctionEdit (int index, String function);
+	
 	void onFunctionSelection (int selected, String name);
 	
 }
