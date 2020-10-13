@@ -129,7 +129,7 @@ public class Fonctionnalites {
         			+ "nbGardien number(20), "
         			+ "constraint StatistiqueGardienParCage_C1 primary key (noCage, nbGardien), "
         			+ "constraint StatistiqueGardienParCage_C2 foreign key (noCage) references LesCages (noCage), "
-        			+ "constraint StatistiqueGardienParCage_C3 check (nbGardien between 1 and 999) "
+        			+ "constraint StatistiqueGardienParCage_C3 check (nbGardien between 0 and 999) "
     			+ ") ");
         statement = connection.createStatement();
         ResultSet cages = statement.executeQuery(""
@@ -149,8 +149,6 @@ public class Fonctionnalites {
         	nbGuardian.next();
         	preparedStatementStat.setInt(1, cages.getInt(1));
         	preparedStatementStat.setInt(2, nbGuardian.getInt(1));
-        	// FIXME
-        	System.out.println(cages.getInt(1) + "    " + nbGuardian.getInt(1));
         	preparedStatementStat.executeUpdate();
         }
         statement.close();
