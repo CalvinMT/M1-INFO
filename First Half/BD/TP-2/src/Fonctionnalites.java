@@ -135,24 +135,25 @@ public class Fonctionnalites {
         ResultSet cages = statement.executeQuery(""
         		+ "SELECT noCage "
         		+ "FROM LesCages ");
-        PreparedStatement preparedStatement = connection.prepareStatement(""
+        PreparedStatement preparedStatementNbGuardians = connection.prepareStatement(""
         		+ "SELECT count(*) "
         		+ "FROM LesGardiens "
         		+ "WHERE noCage = ? ");
-        PreparedStatement preparedStatementStat = connection.prepareStatement(""
+        PreparedStatement preparedStatementInsertStat = connection.prepareStatement(""
         		+ "INSERT INTO StatistiqueGardienParCage "
         		+ "VALUES (?, ?) ");
         ResultSet nbGuardian;
         while (cages.next()) {
-        	preparedStatement.setInt(1, cages.getInt(1));
-        	nbGuardian = preparedStatement.executeQuery();
+        	preparedStatementNbGuardians.setInt(1, cages.getInt(1));
+        	nbGuardian = preparedStatementNbGuardians.executeQuery();
         	nbGuardian.next();
-        	preparedStatementStat.setInt(1, cages.getInt(1));
-        	preparedStatementStat.setInt(2, nbGuardian.getInt(1));
-        	preparedStatementStat.executeUpdate();
+        	preparedStatementInsertStat.setInt(1, cages.getInt(1));
+        	preparedStatementInsertStat.setInt(2, nbGuardian.getInt(1));
+        	preparedStatementInsertStat.executeUpdate();
         }
         statement.close();
-        preparedStatement.close();
+        preparedStatementNbGuardians.close();
+        preparedStatementInsertStat.close();
         statement = connection.createStatement();
         ResultSet table = statement.executeQuery(""
         		+ "SELECT * "
