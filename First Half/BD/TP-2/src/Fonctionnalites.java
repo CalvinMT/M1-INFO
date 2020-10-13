@@ -113,7 +113,6 @@ public class Fonctionnalites {
 	 */
 	public void getStatistics () throws SQLException {
 		DatabaseMetaData metaDataBase = connection.getMetaData();
-		System.out.println(" - Statistique : nombre de gardien par cage - ");
 		ResultSet dataBaseTables = metaDataBase.getTables(null, null, "STATISTIQUEGARDIENPARCAGE", null);
 		Statement statement;
 		if (dataBaseTables.next()) {
@@ -122,6 +121,7 @@ public class Fonctionnalites {
 	        		+ "DROP TABLE StatistiqueGardienParCage");
 	        statement.close();
 		}
+		System.out.println(" - Statistique : nombre de gardien par cage - ");
         statement = connection.createStatement();
         statement.executeUpdate(""
         		+ "CREATE TABLE StatistiqueGardienParCage ( "
@@ -160,12 +160,15 @@ public class Fonctionnalites {
         		+ "FROM StatistiqueGardienParCage ");
         ResultSetMetaData metaTable = table.getMetaData();
         int nbColumn = metaTable.getColumnCount();
+        System.out.println("noCage	nbGardien");
+        System.out.println("------	---------");
         while (table.next()) {
-        		System.out.println(table.getString(i) + "	");
         	for (int i=1; i<=nbColumn; i++) {
+        		System.out.print(table.getString(i) + "	");
         	}
         	System.out.println();
         }
+  	    System.out.println();
         
 		System.out.println(" - Statistique : nombre de cage par gardien - ");
 		// TODO

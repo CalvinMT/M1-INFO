@@ -34,8 +34,10 @@ public class squelette_appli {
 	  	    System.out.println("Autocommit disabled");
 	
 		    // code metier de la fonctionnalite
+	  	    System.out.println();
 	  	    Fonctionnalites fonctionnalites = new Fonctionnalites(conn);
 	  	    conn.commit();
+	  	    System.out.println();
 	
 	  	    // Liberation des ressources et fermeture de la connexion...
 	 		conn.close(); 
