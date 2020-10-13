@@ -113,10 +113,9 @@ public class Fonctionnalites {
 	 */
 	public void getStatistics () throws SQLException {
 		DatabaseMetaData metaDataBase = connection.getMetaData();
-		ResultSet dataBaseTables = metaDataBase.getTables(null, null, "StatistiqueGardienParCage", null);
 		System.out.println(" - Statistique : nombre de gardien par cage - ");
+		ResultSet dataBaseTables = metaDataBase.getTables(null, null, "STATISTIQUEGARDIENPARCAGE", null);
 		Statement statement;
-		// FIXME - does not go in
 		if (dataBaseTables.next()) {
 	        statement = connection.createStatement();
 	        statement.executeUpdate(""
