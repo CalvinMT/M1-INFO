@@ -161,8 +161,8 @@ public class Fonctionnalites {
         ResultSetMetaData metaTable = table.getMetaData();
         int nbColumn = metaTable.getColumnCount();
         while (table.next()) {
-        	for (int i=0; i<nbColumn; i++) {
         		System.out.println(table.getString(i) + "	");
+        	for (int i=1; i<=nbColumn; i++) {
         	}
         	System.out.println();
         }
