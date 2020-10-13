@@ -42,6 +42,8 @@ public class Fonctionnalites {
         return nbStatementChanged;
 	}
 	
+	
+	
 	/**
 	 * 
 	 * @throws SQLException
@@ -107,11 +109,13 @@ public class Fonctionnalites {
 		statement.close();
 	}
 	
+	
+	
 	/**
 	 * 
 	 * @throws SQLException
 	 */
-	public void getStatistics () throws SQLException {
+	public void getStatisticsGuardiansPerCage () throws SQLException {
 		DatabaseMetaData metaDataBase = connection.getMetaData();
 		ResultSet dataBaseTables = metaDataBase.getTables(null, null, "STATISTIQUEGARDIENPARCAGE", null);
 		Statement statement;
@@ -168,10 +172,89 @@ public class Fonctionnalites {
         	}
         	System.out.println();
         }
-  	    System.out.println();
-        
+	}
+	
+	
+	
+	/**
+	 * 
+	 * @throws SQLException
+	 */
+	public void getStatisticsCagesPerGuardian () throws SQLException {
+		DatabaseMetaData metaDataBase = connection.getMetaData();
+		ResultSet dataBaseTables = metaDataBase.getTables(null, null, "STATISTIQUECAGEPARGARDIEN", null);
+		Statement statement;
+		if (dataBaseTables.next()) {
+	        statement = connection.createStatement();
+	        statement.executeUpdate(""
+	        		+ "DROP TABLE StatistiqueCageParGardien");
+	        statement.close();
+		}
 		System.out.println(" - Statistique : nombre de cage par gardien - ");
-		// TODO
+        statement = connection.createStatement();
+        statement.executeUpdate(""
+        		+ "CREATE TABLE StatistiqueCageParGardien ( "
+    				+ "nomE varchar2(20), "
+        			+ "nbCage number(3), "
+        			+ "constraint StatistiqueCageParGardien_C1 primary key (nomE, nbCage), "
+        			+ "constraint StatistiqueCageParGardien_C2 foreign key (nomE) references LesEmployes (nomE), "
+        			+ "constraint StatistiqueCageParGardien_C3 check (nbCage between 0 and 999) "
+    			+ ") ");
+        statement = connection.createStatement();
+        ResultSet gardiens = statement.executeQuery(""
+        		+ "SELECT nomE "
+        		+ "FROM LesEmployes ");
+        PreparedStatement preparedStatementNbCages = connection.prepareStatement(""
+        		+ "SELECT count(*) "
+        		+ "FROM LesGardiens "
+        		+ "WHERE nomE = ? ");
+        PreparedStatement preparedStatementInsertStat = connection.prepareStatement(""
+        		+ "INSERT INTO StatistiqueCageParGardien "
+        		+ "VALUES (?, ?) ");
+        ResultSet nbCages;
+        while (gardiens.next()) {
+        	preparedStatementNbCages.setString(1, gardiens.getString(1));
+        	nbCages = preparedStatementNbCages.executeQuery();
+        	nbCages.next();
+        	preparedStatementInsertStat.setString(1, gardiens.getString(1));
+        	preparedStatementInsertStat.setInt(2, nbCages.getInt(1));
+        	preparedStatementInsertStat.executeUpdate();
+        }
+        statement.close();
+        preparedStatementNbCages.close();
+        preparedStatementInsertStat.close();
+        statement = connection.createStatement();
+        ResultSet table = statement.executeQuery(""
+        		+ "SELECT * "
+        		+ "FROM StatistiqueCageParGardien ");
+        ResultSetMetaData metaTable = table.getMetaData();
+        int nbColumn = metaTable.getColumnCount();
+        System.out.println("nomE		nbCage");
+        System.out.println("---------------	------");
+        while (table.next()) {
+        	for (int i=1; i<=nbColumn; i++) {
+        		System.out.print(table.getString(i));
+        		if (table.getString(i).length() < 8) {
+        			System.out.print("	");
+        		}
+        		if (table.getString(i).length() < 16) {
+        			System.out.print("	");
+        		}
+        	}
+        	System.out.println();
+        }
+	}
+	
+	
+	
+	/**
+	 * 
+	 * @throws SQLException
+	 */
+	public void getStatistics () throws SQLException {
+		getStatisticsGuardiansPerCage();
+  	    System.out.println();
+        getStatisticsCagesPerGuardian();
 	}
 	
 }
