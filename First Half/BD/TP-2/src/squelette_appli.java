@@ -39,6 +39,25 @@ public class squelette_appli {
 		    // code metier de la fonctionnalite
 	  	    System.out.println();
 	  	    Fonctionnalites fonctionnalites = new Fonctionnalites(conn);
+	  	    System.out.println("1 : Changer la fonction d'une cage");
+	  	    System.out.println("2 : Changer l'affectation d'un gardien");
+	  	    System.out.println("3 : Afficher les statistiques gardiens/cage & cages/gardien");
+	  	    System.out.println();
+	  	    int choice = LectureClavier.lireEntier("Choix : ");
+	  	    System.out.println();
+	  	    switch (choice) {
+	  	    	case 1:
+	  	    		fonctionnalites.changeCageFunction();
+	  	    		break;
+	  	    	case 2:
+	  	    		fonctionnalites.changeGuardianAffectation();
+	  	    		break;
+	  	    	case 3:
+	  	    		fonctionnalites.getStatistics();
+	  	    		break;
+	  	    	default:
+	  	    		break;
+	  	    }
 	  	    conn.commit();
 	  	    System.out.println();
 	
