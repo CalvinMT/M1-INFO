@@ -135,6 +135,7 @@ public class Fonctionnalites {
         			+ "constraint StatistiqueGardienParCage_C2 foreign key (noCage) references LesCages (noCage), "
         			+ "constraint StatistiqueGardienParCage_C3 check (nbGardien between 0 and 999) "
     			+ ") ");
+        statement.close();
         statement = connection.createStatement();
         ResultSet cages = statement.executeQuery(""
         		+ "SELECT noCage "
@@ -172,6 +173,7 @@ public class Fonctionnalites {
         	}
         	System.out.println();
         }
+        statement.close();
 	}
 	
 	
@@ -200,6 +202,7 @@ public class Fonctionnalites {
         			+ "constraint StatistiqueCageParGardien_C2 foreign key (nomE) references LesEmployes (nomE), "
         			+ "constraint StatistiqueCageParGardien_C3 check (nbCage between 0 and 999) "
     			+ ") ");
+        statement.close();
         statement = connection.createStatement();
         ResultSet gardiens = statement.executeQuery(""
         		+ "SELECT nomE "
@@ -243,6 +246,7 @@ public class Fonctionnalites {
         	}
         	System.out.println();
         }
+        statement.close();
 	}
 	
 	
