@@ -1,11 +1,11 @@
-drop table LesMaladies ;
-drop table LesAnimaux ;
-drop table LesResponsables ;
-drop table LesGardiens ;
+drop table LesMaladies;
+drop table LesAnimaux;
+drop table LesResponsables;
+drop table LesGardiens;
 drop table LesSpecialites;
-drop table LesEMployes ;
-drop table LesCages ;
-drop table LesHistoiresAff ;
+drop table LesEmployes cascade constraint;
+drop table LesCages cascade constraint;
+drop table LesHistoiresAff;
 
 create table LesCages (
 	noCage number(3),
