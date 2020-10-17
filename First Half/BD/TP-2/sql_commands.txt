@@ -40,3 +40,23 @@ FROM LesGardiens
 WHERE noCage = ?;
 
 INSERT INTO StatistiqueGardienParCage VALUES (?, ?);
+
+
+
+# ###################################################### #
+# 5.1
+# Trigger : Lorsqu’un gardien voit l'une de ses 
+# affectations modifée, son ancienne affectation doit 
+# être conservée dans la table LesHistoiresAff.
+# ###################################################### #
+
+CREATE OR REPLACE TRIGGER guardian_function_delete 
+AFTER DELETE OF LesGardiens 
+FOR EACH ROW 
+BEGIN 
+	INSERT INTO LesHistoiresAff 
+	VALUES(sysdate, :old.noCage, :old.nomE);
+END;
+/
+
+ALTER TRIGGER guardian_affectation_change ENABLE;
