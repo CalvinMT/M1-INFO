@@ -113,6 +113,63 @@ public class Fonctionnalites {
 	}
 	
 	
+	 /**
+	  * 
+	  * @throws SQLException
+	  */
+	public void changeCageOfAnimal () throws SQLException {
+		String animalName = "";
+		String animalType = "";
+		String animalCageType = "";
+		int animalCage = 0;
+		int newCage = 0;
+		System.out.println(" - Changer un animal de cage - ");
+		System.out.println();
+		Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+		ResultSet animals = statement.executeQuery(""
+				+ "SELECT nomA, type_an, fonction_cage, noCage "
+				+ "FROM LesAnimaux ");
+		
+		while (animals.next()) {
+			System.out.printf("	- " + "%-20s%-15s%-20s%s\n", animals.getString(1), animals.getString(2), animals.getString(3), animals.getString(4));
+		}
+		System.out.println();
+		System.out.print("Nom de l'animal : ");
+		animalName = LectureClavier.lireChaine();
+		
+		animals.beforeFirst();
+		while (animals.next()  &&  ! animals.getString(1).equals(animalName)) {
+			// do nothing
+		}
+		if (animals.isAfterLast()) {
+			System.out.println("\n/!\\ L'animal " + animalName + "n'exite pas dans ce zoo.\n");
+			return;
+		}
+		else {
+			animalType = animals.getString(2);
+			animalCageType = animals.getString(3);
+			animalCage = animals.getInt(4);
+		}
+		statement.close();
+		System.out.println(animalName + ", " + animalType + ", est dans la cage " + animalCage + ".");
+		System.out.println();
+		System.out.println("Dans quelle cage d�placer " + animalName + " ?");
+		System.out.print("Num�ro de cage : ");
+		newCage = LectureClavier.lireEntier("");
+		
+		// Update animal's cage
+		statement = connection.createStatement();
+		statement.executeUpdate(""
+				+ "UPDATE LesAnimaux "
+				+ "SET noCage=" + newCage + " "
+				+ "WHERE nomA='" + animalName + "' ");
+		statement.close();
+		
+		System.out.println();
+		System.out.println(animalName + " a �t� d�plac� dans la cage " + newCage + ".");
+	}
+	
+	
 	
 	/**
 	 * 
