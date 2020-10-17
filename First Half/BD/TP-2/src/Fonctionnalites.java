@@ -120,7 +120,6 @@ public class Fonctionnalites {
 	public void changeCageOfAnimal () throws SQLException {
 		String animalName = "";
 		String animalType = "";
-		String animalCageType = "";
 		int animalCage = 0;
 		int newCage = 0;
 		System.out.println(" - Changer un animal de cage - ");
@@ -147,7 +146,6 @@ public class Fonctionnalites {
 		}
 		else {
 			animalType = animals.getString(2);
-			animalCageType = animals.getString(3);
 			animalCage = animals.getInt(4);
 		}
 		statement.close();
