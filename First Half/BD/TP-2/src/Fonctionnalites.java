@@ -81,18 +81,21 @@ public class Fonctionnalites {
 		System.out.println("Cages dont la sp�cialit� est compatible avec le gardien " + guardian + " : ");
 		statement = connection.createStatement();
 		ResultSet guardianSpecialtySuggestion = statement.executeQuery(""
-				+ "SELECT A.noCage, fonction "
-				+ "FROM ( "
-		    		+ "SELECT noCage, fonction "
-		    		+ "FROM LesCages C "
-		    		+ "INNER JOIN LesSpecialites S "
-		    		+ "ON C.fonction = S.fonction_cage "
-		    		+ "WHERE S.nomE = '" + guardian + "' "
-				+ ") A "
-		    	
-				+ "LEFT JOIN LesGardiens G "
-				+ "ON A.noCage = G.noCage "
-				+ "WHERE G.noCage IS NULL");
+				+ "SELECT A.noCage, A.fonction, A.nomE "
+				+ "FROM "
+				+ "(SELECT C.noCage, C.fonction, S.nomE "
+				+ "FROM LesCages C "
+				+ "INNER JOIN LesSpecialites S "
+				+ "ON C.fonction = S.fonction_cage "
+				+ "WHERE S.nomE = 'Lachaize') A "
+				+ "MINUS "
+				+ "SELECT noCage, fonction_cage, nomE "
+				+ "FROM "
+				+ "(SELECT G.noCage, S.fonction_cage, G.nomE "
+				+ "FROM LesGardiens G "
+				+ "INNER JOIN LesSpecialites S "
+				+ "ON G.nomE = S.nomE "
+				+ "WHERE S.nomE = 'Lachaize') B ");
 		while (guardianSpecialtySuggestion.next()) {
 			System.out.println("	- " + guardianSpecialtySuggestion.getString(1));
 		}
