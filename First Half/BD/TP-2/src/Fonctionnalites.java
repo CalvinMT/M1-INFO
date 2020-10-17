@@ -83,19 +83,19 @@ public class Fonctionnalites {
 		ResultSet guardianSpecialtySuggestion = statement.executeQuery(""
 				+ "SELECT A.noCage, A.fonction, A.nomE "
 				+ "FROM "
-				+ "(SELECT C.noCage, C.fonction, S.nomE "
-				+ "FROM LesCages C "
-				+ "INNER JOIN LesSpecialites S "
-				+ "ON C.fonction = S.fonction_cage "
-				+ "WHERE S.nomE = 'Lachaize') A "
+					+ "(SELECT C.noCage, C.fonction, S.nomE "
+					+ "FROM LesCages C "
+					+ "INNER JOIN LesSpecialites S "
+					+ "ON C.fonction = S.fonction_cage "
+					+ "WHERE S.nomE = 'Lachaize') A "
 				+ "MINUS "
 				+ "SELECT noCage, fonction_cage, nomE "
 				+ "FROM "
-				+ "(SELECT G.noCage, S.fonction_cage, G.nomE "
-				+ "FROM LesGardiens G "
-				+ "INNER JOIN LesSpecialites S "
-				+ "ON G.nomE = S.nomE "
-				+ "WHERE S.nomE = 'Lachaize') B ");
+					+ "(SELECT G.noCage, S.fonction_cage, G.nomE "
+					+ "FROM LesGardiens G "
+					+ "INNER JOIN LesSpecialites S "
+					+ "ON G.nomE = S.nomE "
+					+ "WHERE S.nomE = 'Lachaize') B ");
 		while (guardianSpecialtySuggestion.next()) {
 			System.out.println("	- " + guardianSpecialtySuggestion.getString(1));
 		}
