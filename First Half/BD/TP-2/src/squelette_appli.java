@@ -34,7 +34,7 @@ public class squelette_appli {
 	  	    System.out.println("Autocommit disabled");
 	  	    
 	  	    // Niveau d'isolation
-	  	    conn.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
+	  	    //conn.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
 	
 		    // code metier de la fonctionnalite
 	  	    System.out.println();
