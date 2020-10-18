@@ -27,4 +27,29 @@ public class Triggers {
 		statement.close();
 	}
 	
+	
+	
+	public void createAnimalCageChange () throws SQLException {
+		Statement statement = connection.createStatement();
+		statement.executeUpdate(""
+				+ "CREATE TRIGGER animal_cage_change "
+				+ "BEFORE UPDATE ON LesCages "
+				+ "FOR EACH ROW "
+				+ "DECLARE "
+					+ "animalFonction LesAnimaux%fonction_cage;"
+					+ "cageFonction LesCages%fonction;"
+				+ "BEGIN "
+					+ "SELECT fonction_cage INTO animalFonction "
+					+ "FROM LesAnimaux "
+					+ "WHERE nomA=:old.nomA AND noCage=:old.noCage;"
+					+ "SELECT fonction INTO cageFonction "
+					+ "FROM LesCages "
+					+ "WHERE noCage=:new.noCage;"
+					+ "IF animalFonction<>cageFonction "
+						+ "THEN raise_application_error(-20100, 'La fonction de la nouvelle cage est incompatible avec la fonction de l'animal.') "
+					+ "END IF;"
+				+ "END;");
+		statement.close();
+	}
+	
 }

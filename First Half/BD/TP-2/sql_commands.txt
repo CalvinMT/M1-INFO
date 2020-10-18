@@ -64,3 +64,37 @@ END;
 /
 
 ALTER TRIGGER guardian_affectation_change ENABLE;
+
+
+
+# ###################################################### #
+# 5.2
+# Trigger : Des animaux ne peuvent pas être placés dans 
+# une cage dont la fonction est incompatible avec ces 
+# animaux. On prendra en compte le fait que des animaux 
+# peuvent être ajoutés, mais aussi déplacés d’une cage.
+# ###################################################### #
+
+CREATE TRIGGER animal_cage_change 
+BEFORE UPDATE OF LesCages 
+FOR EACH ROW 
+DECLARE 
+	animalFonction LesAnimaux%fonction_cage;
+	cageFonction LesCages%fonction;
+BEGIN 
+	SELECT fonction_cage INTO animalFonction 
+	FROM LesAnimaux 
+	WHERE nomA=:old.nomA AND noCage=:old.noCage;
+	SELECT fonction INTO cageFonction 
+	FROM LesCages 
+	WHERE noCage=:new.noCage;
+	IF animalFonction<>cageFonction 
+		THEN raise_application_error(-20100, 'La fonction de la nouvelle cage est incompatible avec la fonction de l'animal.') 
+	END IF;
+EXCEPTION
+	WHEN NO_DATA_FOUND 
+	THEN dbms_output.putline('OK');
+END;
+/
+
+ALTER TRIGGER animal_cage_change ENABLE;

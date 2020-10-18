@@ -46,6 +46,7 @@ public class squelette_appli {
 	  	    System.out.println("100 : Afficher les statistiques gardiens/cage & cages/gardien");
 	  	    System.out.println("- - - - -         - - - - -         - - - - -         - - - - -");
 	  	    System.out.println("101 : Trigger sur la suppression de l'affectation d'un gardien");
+	  	    System.out.println("102 : Trigger sur le changement de cage d'un animal");
 	  	    System.out.println();
 	  	    int choice = LectureClavier.lireEntier("Choix : ");
 	  	    System.out.println();
@@ -64,6 +65,9 @@ public class squelette_appli {
 	  	    		break;
 	  	    	case 101:
 	  	    		triggers.createGuardianFunctionDelete();;
+	  	    		break;
+	  	    	case 102:
+	  	    		triggers.createAnimalCageChange();
 	  	    		break;
 	  	    	default:
 	  	    		break;
