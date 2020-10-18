@@ -47,6 +47,7 @@ public class squelette_appli {
 	  	    System.out.println("- - - - -         - - - - -         - - - - -         - - - - -");
 	  	    System.out.println("101 : Trigger sur la suppression de l'affectation d'un gardien");
 	  	    System.out.println("102 : Trigger sur le changement de cage d'un animal");
+	  	    System.out.println("103 : Trigger sur le changement d'affectation d'un gardien");
 	  	    System.out.println();
 	  	    int choice = LectureClavier.lireEntier("Choix : ");
 	  	    System.out.println();
@@ -68,6 +69,9 @@ public class squelette_appli {
 	  	    		break;
 	  	    	case 102:
 	  	    		triggers.createAnimalCageChange();
+	  	    		break;
+	  	    	case 103:
+	  	    		triggers.createGuardianAssignmentChange();
 	  	    		break;
 	  	    	default:
 	  	    		break;

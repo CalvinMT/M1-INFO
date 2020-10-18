@@ -52,4 +52,28 @@ public class Triggers {
 		statement.close();
 	}
 	
+	
+	
+	public void createGuardianAssignmentChange () throws SQLException {
+		Statement statement = connection.createStatement();
+		statement.executeUpdate(""
+				+ "CREATE TRIGGER guardian_assignment_change "
+				+ "BEFORE UPDATE ON LesGardiens "
+				+ "FOR EACH ROW "
+				+ "DECLARE "
+					+ "sameOldNoCage LesGardiens%noCage;"
+				+ "BEGIN "
+					+ "SELECT noCage INTO sameOldNoCage "
+					+ "FROM LesGardiens "
+					+ "WHERE noCage=:old.noCage;"
+					+ "IF sameOldNoCage IS NULL "
+						+ "THEN raise_application_error(-30100, 'La fonction du gardien ne peut être retirée car la cage se retrouverait sans gardien.') "
+					+ "END IF;"
+				+ "EXCEPTION "
+					+ "WHEN NO_DATA_FOUND "
+					+ "THEN dbms_output.putline('OK');"
+				+ "END;");
+		statement.close();
+	}
+	
 }

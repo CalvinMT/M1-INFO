@@ -98,3 +98,34 @@ END;
 /
 
 ALTER TRIGGER animal_cage_change ENABLE;
+
+
+
+# ###################################################### #
+# 5.3
+# Trigger : Un gardien ne peut pas être retiré de la 
+# surveillance d’une cage si les animaux qu’elle 
+# contient se retrouvent non gardés. On prendra en 
+# compte le fait que des gardiens peuvent être retirés, 
+# mais aussi affectés à une autre cage.
+# ###################################################### #
+
+CREATE TRIGGER guardian_assignment_change 
+BEFORE UPDATE ON LesGardiens 
+FOR EACH ROW 
+DECLARE 
+	sameOldNoCage LesGardiens%noCage;
+BEGIN 
+	SELECT noCage INTO sameOldNoCage 
+	FROM LesGardiens 
+	WHERE noCage=:old.noCage;
+	IF sameOldNoCage IS NULL 
+		THEN raise_application_error(-30100, 'La fonction du gardien ne peut être retirée car la cage se retrouverait sans gardien.') 
+	END IF;
+EXCEPTION 
+	WHEN NO_DATA_FOUND 
+	THEN dbms_output.putline('OK');
+END;
+/
+
+ALTER TRIGGER guardian_assignment_change ENABLE;
