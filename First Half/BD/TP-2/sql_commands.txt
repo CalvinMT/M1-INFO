@@ -55,7 +55,7 @@ INSERT INTO StatistiqueGardienParCage VALUES (?, ?);
 # ###################################################### #
 
 CREATE OR REPLACE TRIGGER guardian_function_delete 
-AFTER DELETE OF LesGardiens 
+AFTER DELETE OR UPDATE ON LesGardiens 
 FOR EACH ROW 
 BEGIN 
 	INSERT INTO LesHistoiresAff 
@@ -75,20 +75,16 @@ ALTER TRIGGER guardian_affectation_change ENABLE;
 # peuvent être ajoutés, mais aussi déplacés d’une cage.
 # ###################################################### #
 
-CREATE TRIGGER animal_cage_change 
-BEFORE UPDATE OF LesCages 
+CREATE OR REPLACE TRIGGER animal_cage_change 
+BEFORE UPDATE OR INSERT ON LesAnimaux 
 FOR EACH ROW 
 DECLARE 
-	animalFonction LesAnimaux%fonction_cage;
 	cageFonction LesCages%fonction;
 BEGIN 
-	SELECT fonction_cage INTO animalFonction 
-	FROM LesAnimaux 
-	WHERE nomA=:old.nomA AND noCage=:old.noCage;
 	SELECT fonction INTO cageFonction 
 	FROM LesCages 
 	WHERE noCage=:new.noCage;
-	IF animalFonction<>cageFonction 
+	IF animalFonction <> :new.fonction_cage 
 		THEN raise_application_error(-20100, 'La fonction de la nouvelle cage est incompatible avec la fonction de l'animal.') 
 	END IF;
 EXCEPTION
@@ -110,16 +106,25 @@ ALTER TRIGGER animal_cage_change ENABLE;
 # mais aussi affectés à une autre cage.
 # ###################################################### #
 
-CREATE TRIGGER guardian_assignment_change 
-BEFORE UPDATE ON LesGardiens 
+CREATE OR REPLACE TRIGGER guardian_assignment_change 
+BEFORE DELETE OR UPDATE ON LesGardiens 
 FOR EACH ROW 
 DECLARE 
+	nbAnimalsInCage number(3);
 	sameOldNoCage LesGardiens%noCage;
 BEGIN 
+	SELECT count(*) INTO nbAnimalsInCage 
+	FROM ( 
+		SELECT A.noCage 
+		FROM LesAnimaux A 
+		INNER JOIN LesCages C 
+		ON A.noCage = C.noCage 
+		WHERE C.noCage=:old.noCage
+	);
 	SELECT noCage INTO sameOldNoCage 
 	FROM LesGardiens 
-	WHERE noCage=:old.noCage;
-	IF sameOldNoCage IS NULL 
+	WHERE noCage=:old.noCage AND nomE<>:old.nomE;
+	IF sameOldNoCage IS NULL AND nbAnimalInCage <> 0 
 		THEN raise_application_error(-30100, 'La fonction du gardien ne peut être retirée car la cage se retrouverait sans gardien.') 
 	END IF;
 EXCEPTION 
