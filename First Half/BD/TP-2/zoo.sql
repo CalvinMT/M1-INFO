@@ -170,7 +170,7 @@ insert into LesResponsables values (1       ,       'Jouanot' );
 insert into LesResponsables values (2       ,       'Desmoulins');
 
 
-insert into LesGardiens values (11      ,       'Lachaize' );
+--insert into LesGardiens values (11      ,       'Lachaize' );
 insert into LesGardiens values (12      ,       'Spinnard' );
 insert into LesGardiens values (12      ,       'Labbe' );
 insert into LesGardiens values (11      ,       'Spinnard' );
