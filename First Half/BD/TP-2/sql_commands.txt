@@ -50,7 +50,7 @@ INSERT INTO StatistiqueGardienParCage VALUES (?, ?);
 # ###################################################### #
 # 5.1
 # Trigger : Lorsqu’un gardien voit l'une de ses 
-# affectations modifée, son ancienne affectation doit 
+# affectations modifiées, son ancienne affectation doit 
 # être conservée dans la table LesHistoiresAff.
 # ###################################################### #
 
