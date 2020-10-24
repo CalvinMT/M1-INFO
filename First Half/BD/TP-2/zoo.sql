@@ -72,6 +72,69 @@ create table LesHistoiresAff (
 	constraint LesHistoiresAff_C1 primary key (dateFin, noCage, nomE)
 );
 
+
+
+--TRIGGER 5.1
+--Lorsqu’un gardien voit l'une de ses 
+--affectations modifiées, son ancienne affectation doit 
+--être conservée dans la table LesHistoiresAff.
+CREATE OR REPLACE TRIGGER guardian_function_delete 
+AFTER DELETE OR UPDATE ON LesGardiens 
+FOR EACH ROW 
+BEGIN 
+	INSERT INTO LesHistoiresAff 
+	VALUES(sysdate, :old.noCage, :old.nomE);
+END;
+/
+
+--TRIGGER 5.2
+--Des animaux ne peuvent pas être placés dans 
+--une cage dont la fonction est incompatible avec ces 
+--animaux. On prendra en compte le fait que des animaux 
+--peuvent être ajoutés, mais aussi déplacés d’une cage.
+CREATE OR REPLACE TRIGGER animal_cage_change 
+BEFORE UPDATE OR INSERT ON LesAnimaux 
+FOR EACH ROW 
+DECLARE 
+	cageFonction LesCages.fonction%Type;
+BEGIN 
+	SELECT fonction INTO cageFonction 
+	FROM LesCages 
+	WHERE noCage=:new.noCage;
+	IF cageFonction <> :new.fonction_cage 
+		THEN raise_application_error(-20100, 'La fonction de la nouvelle cage est incompatible avec la fonction de l_animal.'); 
+	END IF;
+END;
+/
+
+--Trigger 5.3
+--Un gardien ne peut pas être retiré de la 
+--surveillance d’une cage si les animaux qu’elle 
+--contient se retrouvent non gardés. On prendra en 
+--compte le fait que des gardiens peuvent être retirés, 
+--mais aussi affectés à une autre cage.
+CREATE OR REPLACE TRIGGER guardian_assignment_change 
+AFTER DELETE OR UPDATE ON LesGardiens 
+DECLARE 
+	nbAnimalsInCage number(3);
+	nbCageWithoutGuardian number(3);
+BEGIN 
+	SELECT count(*) INTO nbCageWithoutGuardian 
+	FROM ( 
+		SELECT noCage 
+		FROM LesAnimaux  
+		MINUS 
+		SELECT noCage 
+		FROM LesGardiens
+	);
+	IF nbCageWithoutGuardian > 0 
+		THEN raise_application_error(-20301, 'La fonction du gardien ne peut être retirée car la cage se retrouverait sans gardien.'); 
+	END IF;
+END;
+/
+
+
+
 insert into LesCages values (11 ,  'fauve'           , 10 );
 insert into LesCages values (1     , 'fosse'         , 1 );
 insert into LesCages values (2     , 'aquarium'      , 1 );
