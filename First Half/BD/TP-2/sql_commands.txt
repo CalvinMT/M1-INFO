@@ -79,17 +79,14 @@ CREATE OR REPLACE TRIGGER animal_cage_change
 BEFORE UPDATE OR INSERT ON LesAnimaux 
 FOR EACH ROW 
 DECLARE 
-	cageFonction LesCages%fonction;
+	cageFonction LesCages.fonction%Type;
 BEGIN 
 	SELECT fonction INTO cageFonction 
 	FROM LesCages 
 	WHERE noCage=:new.noCage;
-	IF animalFonction <> :new.fonction_cage 
-		THEN raise_application_error(-20100, 'La fonction de la nouvelle cage est incompatible avec la fonction de l'animal.') 
+	IF cageFonction <> :new.fonction_cage 
+		THEN raise_application_error(-20100, 'La fonction de la nouvelle cage est incompatible avec la fonction de l_animal.'); 
 	END IF;
-EXCEPTION
-	WHEN NO_DATA_FOUND 
-	THEN dbms_output.putline('OK');
 END;
 /
 
@@ -107,29 +104,22 @@ ALTER TRIGGER animal_cage_change ENABLE;
 # ###################################################### #
 
 CREATE OR REPLACE TRIGGER guardian_assignment_change 
-BEFORE DELETE OR UPDATE ON LesGardiens 
-FOR EACH ROW 
+AFTER DELETE OR UPDATE ON LesGardiens 
 DECLARE 
 	nbAnimalsInCage number(3);
-	sameOldNoCage LesGardiens%noCage;
+	nbCageWithoutGuardian number(3);
 BEGIN 
-	SELECT count(*) INTO nbAnimalsInCage 
+	SELECT count(*) INTO nbCageWithoutGuardian 
 	FROM ( 
-		SELECT A.noCage 
-		FROM LesAnimaux A 
-		INNER JOIN LesCages C 
-		ON A.noCage = C.noCage 
-		WHERE C.noCage=:old.noCage
+		SELECT noCage 
+		FROM LesAnimaux  
+		MINUS 
+		SELECT noCage 
+		FROM LesGardiens
 	);
-	SELECT noCage INTO sameOldNoCage 
-	FROM LesGardiens 
-	WHERE noCage=:old.noCage AND nomE<>:old.nomE;
-	IF sameOldNoCage IS NULL AND nbAnimalInCage <> 0 
-		THEN raise_application_error(-30100, 'La fonction du gardien ne peut être retirée car la cage se retrouverait sans gardien.') 
+	IF nbCageWithoutGuardian > 0 
+		THEN raise_application_error(-20301, 'La fonction du gardien ne peut être retirée car la cage se retrouverait sans gardien.'); 
 	END IF;
-EXCEPTION 
-	WHEN NO_DATA_FOUND 
-	THEN dbms_output.putline('OK');
 END;
 /
 
