@@ -141,7 +141,7 @@ public class Fonctionnalites {
 			// do nothing
 		}
 		if (animals.isAfterLast()) {
-			System.out.println("\n/!\\ L'animal " + animalName + "n'exite pas dans ce zoo.\n");
+			System.out.println("\n/!\\ L'animal " + animalName + " n'exite pas dans ce zoo.\n");
 			return;
 		}
 		else {
