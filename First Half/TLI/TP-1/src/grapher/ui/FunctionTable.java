@@ -23,7 +23,7 @@ public class FunctionTable extends JTable implements ToolListener, FunctionColor
 	
 	private FunctionTableMouseAdapter functionTableMouseAdapter;
 	
-	private List <FunctionListListener> listeners = new ArrayList<>();
+	private List <FunctionTableListener> listeners = new ArrayList<>();
 	
 	
 	
@@ -45,7 +45,7 @@ public class FunctionTable extends JTable implements ToolListener, FunctionColor
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
 				if (e.getValueIsAdjusting()) {
-					for (FunctionListListener listener : listeners) {
+					for (FunctionTableListener listener : listeners) {
 						listener.onFunctionSelection(getSelectedRow(), getSelectedFunctionName());
 					}
 				}
@@ -60,7 +60,7 @@ public class FunctionTable extends JTable implements ToolListener, FunctionColor
 	
 	
 	public void addFunction (String f) {
-		for (FunctionListListener listener : listeners) {
+		for (FunctionTableListener listener : listeners) {
 			listener.onFunctionAdd(f);
 		}
 		model.addRow(new Object[] {f, Color.RED});
@@ -74,7 +74,7 @@ public class FunctionTable extends JTable implements ToolListener, FunctionColor
 	
 	public void removeFunction () {
 		if (getSelectedRow() >= 0  &&  getSelectedRow() < getRowCount()) {
-			for (FunctionListListener listener : listeners) {
+			for (FunctionTableListener listener : listeners) {
 				listener.onFunctionRemove(getSelectedRow());
 			}
 			model.removeRow(getSelectedRow());
@@ -82,7 +82,7 @@ public class FunctionTable extends JTable implements ToolListener, FunctionColor
 	}
 	
 	public void editFunction (int index, String f) {
-		for (FunctionListListener listener : listeners) {
+		for (FunctionTableListener listener : listeners) {
 			listener.onFunctionEdit(index, f);
 		}
 		model.setValueAt(f, index, 0);
@@ -90,7 +90,7 @@ public class FunctionTable extends JTable implements ToolListener, FunctionColor
 	
 	
 	
-	public void addListener (FunctionListListener l) {
+	public void addListener (FunctionTableListener l) {
 		listeners.add(l);
 	}
 	
@@ -127,7 +127,7 @@ public class FunctionTable extends JTable implements ToolListener, FunctionColor
 	@Override
 	public void onFunctionSelection(int index) {
 		changeSelection(index, 0, false, false);
-		for (FunctionListListener listener : listeners) {
+		for (FunctionTableListener listener : listeners) {
 			listener.onFunctionSelection(getSelectedRow(), getSelectedFunctionName());
 		}
 	}

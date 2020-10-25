@@ -21,7 +21,7 @@ import grapher.ui.menu.ItemListMode;
 import grapher.ui.menu.ItemTableMode;
 
 
-public class Grapher extends JPanel implements FunctionListListener, ViewModeListener, FunctionColorChooserListener {
+public class Grapher extends JPanel implements FunctionTableListener, ViewModeListener, FunctionColorChooserListener {
 	
 	static final int MARGIN = 40;
 	static final int STEP = 5;

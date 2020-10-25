@@ -1,6 +1,6 @@
 package grapher.ui;
 
-public interface FunctionListListener {
+public interface FunctionTableListener {
 	
 	void onFunctionAdd (String function);
 	

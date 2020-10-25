@@ -8,10 +8,10 @@ import javax.swing.AbstractAction;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 
-import grapher.ui.FunctionListListener;
+import grapher.ui.FunctionTableListener;
 import grapher.ui.tool.ToolListener;
 
-public class ActionEditFunction extends AbstractAction implements FunctionListListener {
+public class ActionEditFunction extends AbstractAction implements FunctionTableListener {
 	
 	JComponent parent;
 	
