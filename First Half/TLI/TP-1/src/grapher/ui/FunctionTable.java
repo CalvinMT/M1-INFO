@@ -112,7 +112,6 @@ public class FunctionTable extends JTable implements ToolListener, FunctionColor
 	@Override
 	public void onFunctionSelection(int index) {
 		changeSelection(index, 0, false, false);
-		// FIXME - can't edit in list view
 		for (FunctionListListener listener : listeners) {
 			listener.onFunctionSelection(getSelectedRow(), getSelectedFunctionName());
 		}
