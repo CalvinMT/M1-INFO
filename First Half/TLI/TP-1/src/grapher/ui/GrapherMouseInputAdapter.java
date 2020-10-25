@@ -2,6 +2,7 @@ package grapher.ui;
 
 import java.awt.Point;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
 
 import javax.swing.event.MouseInputAdapter;
 
@@ -75,6 +76,18 @@ public class GrapherMouseInputAdapter extends MouseInputAdapter {
 		}
 		grapher.setState(States.IDLE);
     };
+    
+    @Override
+    public void mouseWheelMoved(MouseWheelEvent e) {
+		if (grapher.getState() == States.IDLE) {
+			if (e.getWheelRotation() < 0) {
+				grapher.zoom(mousePosition, 5);
+			}
+			else {
+				grapher.zoom(mousePosition, -5);
+			}
+		}
+    }
     
     
     

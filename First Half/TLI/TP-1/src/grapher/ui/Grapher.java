@@ -60,21 +60,10 @@ public class Grapher extends JPanel implements FunctionListListener, ViewModeLis
 		ymin = -1.5;   ymax = 1.5;
 		
 		functions = new Vector<Function>();
-		
-		this.addMouseMotionListener(grapherMouseInputAdapter);
-		
+
 		this.addMouseListener(grapherMouseInputAdapter);
-		
-		this.addMouseWheelListener(l -> {
-			if (state == States.IDLE) {
-				if (l.getWheelRotation() < 0) {
-					zoom(grapherMouseInputAdapter.getMousePosition(), 5);
-				}
-				else {
-					zoom(grapherMouseInputAdapter.getMousePosition(), -5);
-				}
-			}
-		});
+		this.addMouseMotionListener(grapherMouseInputAdapter);
+		this.addMouseWheelListener(grapherMouseInputAdapter);
 	}
 	
 	public void add(String expression) {
