@@ -1,6 +1,8 @@
 package grapher.ui;
 
 import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +26,7 @@ public class FunctionTable extends JTable implements ToolListener, FunctionColor
 	private FunctionTableMouseAdapter functionTableMouseAdapter;
 	
 	private List <FunctionTableListener> listeners = new ArrayList<>();
+	private FunctionTableListener listenerList;
 	
 	
 	
@@ -40,6 +43,14 @@ public class FunctionTable extends JTable implements ToolListener, FunctionColor
 		getColumnModel().getColumn(1).setMinWidth(COLUMN_COLOUR_MIN_WIDTH);
 		getColumnModel().getColumn(1).setMaxWidth(COLUMN_COLOUR_MAX_WIDTH);
 		getColumnModel().getColumn(1).setCellRenderer(new FunctionTableCellRenderer());
+		
+		addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased (MouseEvent e) {
+				int row = rowAtPoint(e.getPoint());
+				listenerList.onFunctionSelection(row, "");
+			}
+		});
 		
 		getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			@Override
@@ -63,6 +74,7 @@ public class FunctionTable extends JTable implements ToolListener, FunctionColor
 		for (FunctionTableListener listener : listeners) {
 			listener.onFunctionAdd(f);
 		}
+		listenerList.onFunctionAdd(f);
 		model.addRow(new Object[] {f, Color.RED});
 	}
 	
@@ -77,6 +89,7 @@ public class FunctionTable extends JTable implements ToolListener, FunctionColor
 			for (FunctionTableListener listener : listeners) {
 				listener.onFunctionRemove(getSelectedRow());
 			}
+			listenerList.onFunctionRemove(getSelectedRow());
 			model.removeRow(getSelectedRow());
 		}
 	}
@@ -85,6 +98,7 @@ public class FunctionTable extends JTable implements ToolListener, FunctionColor
 		for (FunctionTableListener listener : listeners) {
 			listener.onFunctionEdit(index, f);
 		}
+		listenerList.onFunctionEdit(index, f);
 		model.setValueAt(f, index, 0);
 	}
 	
@@ -92,6 +106,10 @@ public class FunctionTable extends JTable implements ToolListener, FunctionColor
 	
 	public void addListener (FunctionTableListener l) {
 		listeners.add(l);
+	}
+	
+	public void addListenerList (FunctionTableListener lList) {
+		listenerList = lList;
 	}
 	
 	public void addFunctionColorChooserListener (FunctionColorChooserListener l) {

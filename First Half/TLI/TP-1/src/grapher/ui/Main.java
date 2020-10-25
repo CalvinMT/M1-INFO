@@ -33,8 +33,8 @@ public class Main extends JFrame {
 
 		functionList.addToolListener(functionTable);
 		functionTable.addListener(grapher);
-		functionTable.addListener(listModel);
 		functionTable.addListener(menuBar.getActionEditFunction());
+		functionTable.addListenerList(listModel);
 		functionTable.addFunctionColorChooserListener(grapher);
 		
 		toolBar.addListener(functionTable);

@@ -20,6 +20,7 @@ public class FunctionList extends JList <String> {
 	public FunctionList (FunctionListModelFromTable <String> model) {
 		super();
 		
+		model.setFunctionList(this);
 		setModel(model);
 		
 		customListSelectionModel = new CustomListSelectionModel();

@@ -1,8 +1,19 @@
 package grapher.ui;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JList;
 
-public class FunctionListModelFromTable <E> extends DefaultListModel <String> implements FunctionListListener {
+public class FunctionListModelFromTable <E> extends DefaultListModel <String> implements FunctionTableListener {
+	
+	JList <String> list;
+	
+	
+	
+	public void setFunctionList(JList <String> l) {
+		list = l;
+	}
+	
+	
 	
 	@Override
 	public void onFunctionAdd(String function) {
@@ -21,7 +32,7 @@ public class FunctionListModelFromTable <E> extends DefaultListModel <String> im
 	
 	@Override
 	public void onFunctionSelection(int index, String function) {
-		return;
+		list.setSelectedIndex(index);
 	}
 	
 }
