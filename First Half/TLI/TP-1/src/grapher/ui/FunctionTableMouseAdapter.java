@@ -1,6 +1,7 @@
 package grapher.ui;
 
 import java.awt.Color;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ import javax.swing.JColorChooser;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-public class FunctionTableMouseListener implements MouseListener {
+public class FunctionTableMouseAdapter extends MouseAdapter {
 	
 	private enum States {IDLE,
 						 PRESSED_RIGHT};
@@ -23,7 +24,7 @@ public class FunctionTableMouseListener implements MouseListener {
 	
 	
 	
-	public FunctionTableMouseListener (JTable t) {
+	public FunctionTableMouseAdapter (JTable t) {
 		state = States.IDLE;
 		table = t;
 	}
@@ -35,21 +36,6 @@ public class FunctionTableMouseListener implements MouseListener {
 	}
 	
 	
-	
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		return;
-	}
-	
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		return;
-	}
-	
-	@Override
-	public void mouseExited(MouseEvent e) {
-		return;
-	}
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
