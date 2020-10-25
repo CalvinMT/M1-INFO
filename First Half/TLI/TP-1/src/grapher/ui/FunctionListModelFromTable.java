@@ -2,13 +2,7 @@ package grapher.ui;
 
 import javax.swing.DefaultListModel;
 
-public class ListModelFromTable <E> extends DefaultListModel <String> implements FunctionListListener {
-	
-	public ListModelFromTable () {
-		super();
-	}
-	
-	
+public class FunctionListModelFromTable <E> extends DefaultListModel <String> implements FunctionListListener {
 	
 	@Override
 	public void onFunctionAdd(String function) {

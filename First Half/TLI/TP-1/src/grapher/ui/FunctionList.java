@@ -17,7 +17,7 @@ public class FunctionList extends JList <String> {
 	
 	
 	
-	public FunctionList (ListModelFromTable <String> model) {
+	public FunctionList (FunctionListModelFromTable <String> model) {
 		super();
 		
 		setModel(model);

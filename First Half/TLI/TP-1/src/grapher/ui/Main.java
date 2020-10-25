@@ -21,7 +21,7 @@ public class Main extends JFrame {
 		
 		MenuBar menuBar = new MenuBar();
 		
-		ListModelFromTable <String> listModel = new ListModelFromTable <> ();
+		FunctionListModelFromTable <String> listModel = new FunctionListModelFromTable <> ();
 		FunctionList functionList = new FunctionList(listModel);
 		FunctionTable functionTable = new FunctionTable();
 		
