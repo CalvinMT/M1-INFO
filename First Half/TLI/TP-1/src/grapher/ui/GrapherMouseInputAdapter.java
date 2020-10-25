@@ -10,6 +10,8 @@ import grapher.ui.Grapher.States;
 
 public class GrapherMouseInputAdapter extends MouseInputAdapter {
 	
+	private static final double START_DRAG_BOUNDARY = 5;
+	
 	Grapher grapher;
 	
 	private Point mousePosition;
@@ -36,7 +38,14 @@ public class GrapherMouseInputAdapter extends MouseInputAdapter {
     
 	@Override
     public void mouseDragged(MouseEvent e){
-		if (grapher.getState() == States.PRESSED_LEFT  ||  grapher.getState() == States.DRAGGED_LEFT) {
+		if (grapher.getState() == States.PRESSED_LEFT) {
+			int dx = Math.abs(e.getX() - mousePosition.x);
+			int dy = Math.abs(e.getY() - mousePosition.y);
+			if (dx >= START_DRAG_BOUNDARY  ||  dy >= START_DRAG_BOUNDARY) {
+				grapher.setState(States.DRAGGED_LEFT);
+			}
+		}
+		if (grapher.getState() == States.DRAGGED_LEFT) {
 			grapher.setState(States.DRAGGED_LEFT);
 			int dx = e.getX() - mousePosition.x;
 			int dy = e.getY() - mousePosition.y;
