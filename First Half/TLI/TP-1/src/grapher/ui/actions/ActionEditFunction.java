@@ -57,9 +57,9 @@ public class ActionEditFunction extends AbstractAction implements FunctionListLi
 	
 	
 	@Override
-	public void onFunctionSelection(int selected, String name) {
-		selectedFunction = selected;
-		selectedFunctionName = name;
+	public void onFunctionSelection(int index, String function) {
+		selectedFunction = index;
+		selectedFunctionName = function;
 	}
 	
 	@Override
@@ -68,7 +68,7 @@ public class ActionEditFunction extends AbstractAction implements FunctionListLi
 	}
 	
 	@Override
-	public void onFunctionRemove(int function) {
+	public void onFunctionRemove(int index) {
 		return;
 	}
 	

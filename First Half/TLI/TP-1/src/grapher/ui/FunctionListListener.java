@@ -4,10 +4,10 @@ public interface FunctionListListener {
 	
 	void onFunctionAdd (String function);
 	
-	void onFunctionRemove (int function);
+	void onFunctionRemove (int index);
 	
 	void onFunctionEdit (int index, String function);
 	
-	void onFunctionSelection (int selected, String name);
+	void onFunctionSelection (int index, String function);
 	
 }

@@ -282,8 +282,8 @@ public class Grapher extends JPanel implements FunctionListListener, ViewModeLis
 	}
 
 	@Override
-	public void onFunctionSelection(int selected, String name) {
-		selectedFunction = selected;
+	public void onFunctionSelection(int index, String function) {
+		selectedFunction = index;
 		repaint();
 	}
 	
@@ -293,8 +293,8 @@ public class Grapher extends JPanel implements FunctionListListener, ViewModeLis
 	}
 	
 	@Override
-	public void onFunctionRemove(int function) {
-		remove(function);
+	public void onFunctionRemove(int index) {
+		remove(index);
 	}
 	
 	@Override

@@ -8,10 +8,9 @@ import javax.swing.AbstractAction;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 
-import grapher.ui.FunctionListListener;
 import grapher.ui.tool.ToolListener;
 
-public class ActionAddFunction extends AbstractAction implements FunctionListListener {
+public class ActionAddFunction extends AbstractAction {
 	
 	JComponent parent;
 	
@@ -47,28 +46,6 @@ public class ActionAddFunction extends AbstractAction implements FunctionListLis
 	
 	public void addListener (ToolListener listener) {
 		listeners.add(listener);
-	}
-	
-	
-	
-	@Override
-	public void onFunctionSelection(int selected, String name) {
-		return;
-	}
-	
-	@Override
-	public void onFunctionAdd(String function) {
-		return;
-	}
-	
-	@Override
-	public void onFunctionRemove(int function) {
-		return;
-	}
-	
-	@Override
-	public void onFunctionEdit(int index, String function) {
-		return;
 	}
 	
 }

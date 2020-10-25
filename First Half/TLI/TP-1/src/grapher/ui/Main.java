@@ -19,32 +19,22 @@ public class Main extends JFrame {
 		
 		MenuBar menuBar = new MenuBar();
 		
-		FunctionList functionList = new FunctionList();
-		functionList.addFunctions(expressions);
+		ListModelFromTable <String> listModel = new ListModelFromTable <> ();
+		FunctionList functionList = new FunctionList(listModel);
 		FunctionTable functionTable = new FunctionTable();
-		functionTable.addFunctions(expressions);
 		
 		ToolBar toolBar = new ToolBar();
 		
 		Grapher grapher = new Grapher();
-		for(String expression : expressions) {
-			grapher.add(expression);
-		}
 		
-		menuBar.addToolListener(functionList);
 		menuBar.addToolListener(functionTable);
 
-		functionList.addListener(grapher);
-		functionList.addListener(toolBar.getActionRemoveFunction());
-		functionList.addListener(menuBar.getActionRemoveFunction());
-		functionList.addListener(menuBar.getActionEditFunction());
+		functionList.addToolListener(functionTable);
 		functionTable.addListener(grapher);
-		functionTable.addListener(toolBar.getActionRemoveFunction());
-		functionTable.addListener(menuBar.getActionRemoveFunction());
+		functionTable.addListener(listModel);
 		functionTable.addListener(menuBar.getActionEditFunction());
 		functionTable.addFunctionColorChooserListener(grapher);
 		
-		toolBar.addListener(functionList);
 		toolBar.addListener(functionTable);
 
 		menuBar.addViewModeListener(grapher);
@@ -59,6 +49,8 @@ public class Main extends JFrame {
 		
 		splitPaneFunctionGrapher.add(splitPaneFunctionTool);
 		splitPaneFunctionGrapher.add(grapher);
+
+		functionTable.addFunctions(expressions);
 		
 		setJMenuBar(menuBar);
 		add(splitPaneFunctionGrapher);

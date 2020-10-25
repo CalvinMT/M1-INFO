@@ -34,7 +34,7 @@ public class FunctionTable extends JTable implements ToolListener, FunctionColor
 			public void valueChanged(ListSelectionEvent e) {
 				if (e.getValueIsAdjusting()) {
 					for (FunctionListListener listener : listeners) {
-						listener.onFunctionSelection(getSelectedRow(), getSelectedFunction());
+						listener.onFunctionSelection(getSelectedRow(), getSelectedFunctionName());
 					}
 				}
 			}
@@ -47,10 +47,33 @@ public class FunctionTable extends JTable implements ToolListener, FunctionColor
 	
 	
 	
+	public void addFunction (String f) {
+		for (FunctionListListener listener : listeners) {
+			listener.onFunctionAdd(f);
+		}
+		model.addRow(new Object[] {f, Color.RED});
+	}
+	
 	public void addFunctions (String[] f) {
 		for (String s : f) {
-			model.addRow(new Object[] {s, Color.RED});
+			addFunction(s);
 		}
+	}
+	
+	public void removeFunction () {
+		if (getSelectedRow() >= 0  &&  getSelectedRow() < getRowCount()) {
+			for (FunctionListListener listener : listeners) {
+				listener.onFunctionRemove(getSelectedRow());
+			}
+			model.removeRow(getSelectedRow());
+		}
+	}
+	
+	public void editFunction (int index, String f) {
+		for (FunctionListListener listener : listeners) {
+			listener.onFunctionEdit(index, f);
+		}
+		model.setValueAt(f, index, 0);
 	}
 	
 	
@@ -65,7 +88,7 @@ public class FunctionTable extends JTable implements ToolListener, FunctionColor
 	
 	
 	
-	private String getSelectedFunction () {
+	private String getSelectedFunctionName () {
 		return (String) getValueAt(getSelectedRow(), 0);
 	}
 
@@ -73,17 +96,26 @@ public class FunctionTable extends JTable implements ToolListener, FunctionColor
 
 	@Override
 	public void onFunctionAdd(String function) {
-		model.addRow(new Object[] {function, Color.RED});
+		addFunction(function);
 	}
 	
 	@Override
-	public void onFunctionRemove(int function) {
-		model.removeRow(function);
+	public void onFunctionRemove() {
+		removeFunction();
 	}
 	
 	@Override
 	public void onFunctionEdit(int index, String function) {
-		model.setValueAt(function, index, 0);
+		editFunction(index, function);
+	}
+	
+	@Override
+	public void onFunctionSelection(int index) {
+		changeSelection(index, 0, false, false);
+		// FIXME - can't edit in list view
+		for (FunctionListListener listener : listeners) {
+			listener.onFunctionSelection(getSelectedRow(), getSelectedFunctionName());
+		}
 	}
 	
 	

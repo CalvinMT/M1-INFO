@@ -4,8 +4,10 @@ public interface ToolListener {
 	
 	void onFunctionAdd (String function);
 	
-	void onFunctionRemove (int function);
+	void onFunctionRemove ();
 	
 	void onFunctionEdit (int index, String function);
+	
+	void onFunctionSelection (int index);
 	
 }
