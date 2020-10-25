@@ -12,6 +12,9 @@ public class SplitPaneFunctionTool extends JSplitPane implements ViewModeListene
 	
 	public SplitPaneFunctionTool (int newOrientation) {
 		super(newOrientation);
+		
+		setResizeWeight(0.9);
+		setDividerSize(0);
 	}
 	
 	

@@ -42,10 +42,7 @@ public class Main extends JFrame {
 		
 		JComponent components[] = {functionList, functionTable};
 		splitPaneFunctionTool.addFunctionComponents(components);
-		
 		splitPaneFunctionTool.setRightComponent(toolBar);
-		splitPaneFunctionTool.setResizeWeight(0.9);
-		splitPaneFunctionTool.setDividerSize(0);
 		
 		splitPaneFunctionGrapher.add(splitPaneFunctionTool);
 		splitPaneFunctionGrapher.add(grapher);
