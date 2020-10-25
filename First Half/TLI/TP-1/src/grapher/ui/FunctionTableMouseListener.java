@@ -53,7 +53,7 @@ public class FunctionTableMouseListener implements MouseListener {
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
-		if (state == States.IDLE  &&  e.getButton() == 3) {
+		if (state == States.IDLE  &&  e.getButton() == MouseEvent.BUTTON3) {
 			state = States.PRESSED_RIGHT;
 		}
 	}
