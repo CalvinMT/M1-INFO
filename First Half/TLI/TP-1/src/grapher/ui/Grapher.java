@@ -300,8 +300,7 @@ public class Grapher extends JPanel implements FunctionListListener, ViewModeLis
 			viewMode = mode;
 		}
 		else {
-			// TODO - throw exception
-			System.out.println("ERROR: Mode " + mode + " was not found.");
+			throw new IllegalArgumentException("invalid viewMode");
 		}
 		repaint();
 	}
