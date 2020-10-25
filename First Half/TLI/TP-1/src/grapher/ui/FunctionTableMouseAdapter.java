@@ -48,11 +48,12 @@ public class FunctionTableMouseAdapter extends MouseAdapter {
 	public void mouseReleased(MouseEvent e) {
 		if (state == States.PRESSED_RIGHT) {
 			int row = table.rowAtPoint(e.getPoint());
-			table.changeSelection(row, 0, false, false);
-			Color newColor = JColorChooser.showDialog(null, "Choose a Color", (Color) table.getValueAt(table.getSelectedRow(), 1));
-			if (newColor != null) {
-				for (FunctionColorChooserListener listener : listeners) {
-					listener.onColorChosen(table.getSelectedRow(), newColor);
+			if (row == table.getSelectedRow()) {
+				Color newColor = JColorChooser.showDialog(null, "Choose a Color", (Color) table.getValueAt(table.getSelectedRow(), 1));
+				if (newColor != null) {
+					for (FunctionColorChooserListener listener : listeners) {
+						listener.onColorChosen(table.getSelectedRow(), newColor);
+					}
 				}
 			}
 		}
