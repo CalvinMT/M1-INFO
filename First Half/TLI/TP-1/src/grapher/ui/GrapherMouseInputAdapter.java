@@ -1,5 +1,6 @@
 package grapher.ui;
 
+import java.awt.Cursor;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
@@ -11,6 +12,8 @@ import grapher.ui.Grapher.States;
 public class GrapherMouseInputAdapter extends MouseInputAdapter {
 	
 	private static final double START_DRAG_BOUNDARY = 5;
+	private static final Cursor CURSOR_DEFAULT = new Cursor(Cursor.DEFAULT_CURSOR);
+	private static final Cursor CURSOR_HAND = new Cursor(Cursor.MOVE_CURSOR);
 	
 	Grapher grapher;
 	
@@ -47,6 +50,7 @@ public class GrapherMouseInputAdapter extends MouseInputAdapter {
 		}
 		if (grapher.getState() == States.DRAGGED_LEFT) {
 			grapher.setState(States.DRAGGED_LEFT);
+			grapher.setCursor(CURSOR_HAND);
 			int dx = e.getX() - mousePosition.x;
 			int dy = e.getY() - mousePosition.y;
 			grapher.translate(dx, dy);
@@ -79,6 +83,9 @@ public class GrapherMouseInputAdapter extends MouseInputAdapter {
 		}
 		else if (grapher.getState() == States.PRESSED_RIGHT) {
 			grapher.zoom(mousePosition, -5);
+		}
+		else if (grapher.getState() == States.DRAGGED_LEFT) {
+			grapher.setCursor(CURSOR_DEFAULT);
 		}
 		else if (grapher.getState() == States.DRAGGED_RIGHT) {
 			grapher.zoom(rightClickFrameBegin, rightClickFrameEnd);
