@@ -1,11 +1,11 @@
 package grapher.ui;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JList;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 import grapher.ui.tool.ToolListener;
 
@@ -13,19 +13,24 @@ public class FunctionList extends JList <String> {
 	
 	private List <ToolListener> toolListeners = new ArrayList<>();
 	
+	private CustomListSelectionModel customListSelectionModel;
+	
 	
 	
 	public FunctionList (ListModelFromTable <String> model) {
 		super();
+		
 		setModel(model);
 		
-		addListSelectionListener(new ListSelectionListener() {
+		customListSelectionModel = new CustomListSelectionModel();
+		setSelectionModel(customListSelectionModel);
+		
+		addMouseListener(new MouseAdapter() {
 			@Override
-			public void valueChanged(ListSelectionEvent e) {
-				if (e.getValueIsAdjusting()) {
-					for (ToolListener listener : toolListeners) {
-						listener.onFunctionSelection(getSelectedIndex());
-					}
+			public void mouseReleased (MouseEvent e) {
+				int row = locationToIndex(e.getPoint());
+				for (ToolListener listener : toolListeners) {
+					listener.onFunctionSelection(row);
 				}
 			}
 		});

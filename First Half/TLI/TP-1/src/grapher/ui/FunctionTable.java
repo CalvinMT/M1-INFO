@@ -19,8 +19,9 @@ public class FunctionTable extends JTable implements ToolListener, FunctionColor
 	
 	private String[] columnNames = new String[] {"Function", "Color"};
 	public static DefaultTableModel model;
+	private CustomListSelectionModel customListSelectionModel;
 	
-	private FunctionTableMouseListener functionTableMouseListener;
+	private FunctionTableMouseAdapter functionTableMouseAdapter;
 	
 	private List <FunctionListListener> listeners = new ArrayList<>();
 	
@@ -28,8 +29,12 @@ public class FunctionTable extends JTable implements ToolListener, FunctionColor
 	
 	public FunctionTable () {
 		super();
+		
 		model = new DefaultTableModel(columnNames, 0);
 		setModel(model);
+		
+		customListSelectionModel = new CustomListSelectionModel();
+		setSelectionModel(customListSelectionModel);
 		
 		getColumnModel().getColumn(0).setMinWidth(COLUMN_FUNCTION_MIN_WIDTH);
 		getColumnModel().getColumn(1).setMinWidth(COLUMN_COLOUR_MIN_WIDTH);
@@ -47,9 +52,9 @@ public class FunctionTable extends JTable implements ToolListener, FunctionColor
 			}
 		});
 		
-		functionTableMouseListener = new FunctionTableMouseListener(this);
-		functionTableMouseListener.addListener(this);
-		addMouseListener(functionTableMouseListener);
+		functionTableMouseAdapter = new FunctionTableMouseAdapter(this);
+		functionTableMouseAdapter.addListener(this);
+		addMouseListener(functionTableMouseAdapter);
 	}
 	
 	
@@ -90,7 +95,7 @@ public class FunctionTable extends JTable implements ToolListener, FunctionColor
 	}
 	
 	public void addFunctionColorChooserListener (FunctionColorChooserListener l) {
-		functionTableMouseListener.addListener(l);
+		functionTableMouseAdapter.addListener(l);
 	}
 	
 	
