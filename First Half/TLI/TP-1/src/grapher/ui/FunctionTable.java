@@ -12,6 +12,10 @@ import javax.swing.table.DefaultTableModel;
 import grapher.ui.tool.ToolListener;
 
 public class FunctionTable extends JTable implements ToolListener, FunctionColorChooserListener {
+
+	public static final int COLUMN_FUNCTION_MIN_WIDTH = 50;
+	public static final int COLUMN_COLOUR_MIN_WIDTH = 20;
+	public static final int COLUMN_COLOUR_MAX_WIDTH = 20;
 	
 	private String[] columnNames = new String[] {"Function", "Color"};
 	public static DefaultTableModel model;
@@ -27,6 +31,9 @@ public class FunctionTable extends JTable implements ToolListener, FunctionColor
 		model = new DefaultTableModel(columnNames, 0);
 		setModel(model);
 		
+		getColumnModel().getColumn(0).setMinWidth(COLUMN_FUNCTION_MIN_WIDTH);
+		getColumnModel().getColumn(1).setMinWidth(COLUMN_COLOUR_MIN_WIDTH);
+		getColumnModel().getColumn(1).setMaxWidth(COLUMN_COLOUR_MAX_WIDTH);
 		getColumnModel().getColumn(1).setCellRenderer(new FunctionTableCellRenderer());
 		
 		getSelectionModel().addListSelectionListener(new ListSelectionListener() {

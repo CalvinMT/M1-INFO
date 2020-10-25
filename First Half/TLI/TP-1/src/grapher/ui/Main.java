@@ -1,5 +1,7 @@
 package grapher.ui;
 
+import java.awt.Dimension;
+
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JSplitPane;
@@ -46,6 +48,7 @@ public class Main extends JFrame {
 		
 		splitPaneFunctionGrapher.add(splitPaneFunctionTool);
 		splitPaneFunctionGrapher.add(grapher);
+		splitPaneFunctionGrapher.getLeftComponent().setMinimumSize(new Dimension(FunctionTable.COLUMN_FUNCTION_MIN_WIDTH + FunctionTable.COLUMN_COLOUR_MIN_WIDTH, 0));
 
 		functionTable.addFunctions(expressions);
 		
