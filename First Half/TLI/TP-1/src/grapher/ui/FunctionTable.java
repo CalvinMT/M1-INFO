@@ -1,8 +1,6 @@
 package grapher.ui;
 
 import java.awt.Color;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,21 +42,14 @@ public class FunctionTable extends JTable implements ToolListener, FunctionColor
 		getColumnModel().getColumn(1).setMaxWidth(COLUMN_COLOUR_MAX_WIDTH);
 		getColumnModel().getColumn(1).setCellRenderer(new FunctionTableCellRenderer());
 		
-		addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased (MouseEvent e) {
-				int row = rowAtPoint(e.getPoint());
-				listenerList.onFunctionSelection(row, "");
-			}
-		});
-		
 		getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
 				if (e.getValueIsAdjusting()) {
 					for (FunctionTableListener listener : listeners) {
-						listener.onFunctionSelection(getSelectedRow(), getSelectedFunctionName());
+						listener.onFunctionSelection(getSelectedRows(), getSelectedFunctionName());
 					}
+					listenerList.onFunctionSelection(getSelectedRows(), getSelectedFunctionName());
 				}
 			}
 		});
@@ -119,7 +110,7 @@ public class FunctionTable extends JTable implements ToolListener, FunctionColor
 	
 	
 	private String getSelectedFunctionName () {
-		if (getSelectedRow() < 0) {
+		if (getSelectedRow() < 0  ||  getSelectedRow() > 0) {
 			return "";
 		}
 		return (String) getValueAt(getSelectedRow(), 0);
@@ -143,10 +134,13 @@ public class FunctionTable extends JTable implements ToolListener, FunctionColor
 	}
 	
 	@Override
-	public void onFunctionSelection(int index) {
-		changeSelection(index, 0, false, false);
+	public void onFunctionSelection(int indices[]) {
+		clearSelection();
+		for (int index : indices) {
+			addRowSelectionInterval(index, index);
+		}
 		for (FunctionTableListener listener : listeners) {
-			listener.onFunctionSelection(getSelectedRow(), getSelectedFunctionName());
+			listener.onFunctionSelection(indices, getSelectedFunctionName());
 		}
 	}
 	

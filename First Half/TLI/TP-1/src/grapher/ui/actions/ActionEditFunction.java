@@ -57,9 +57,15 @@ public class ActionEditFunction extends AbstractAction implements FunctionTableL
 	
 	
 	@Override
-	public void onFunctionSelection(int index, String function) {
-		selectedFunction = index;
-		selectedFunctionName = function;
+	public void onFunctionSelection(int indices[], String function) {
+		if (indices.length == 1) {
+			selectedFunction = indices[0];
+			selectedFunctionName = function;
+		}
+		else {
+			selectedFunction = -1;
+			selectedFunctionName = "";
+		}
 	}
 	
 	@Override

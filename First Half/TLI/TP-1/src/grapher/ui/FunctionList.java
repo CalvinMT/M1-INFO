@@ -1,7 +1,5 @@
 package grapher.ui;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,8 +11,6 @@ public class FunctionList extends JList <String> {
 	
 	private List <ToolListener> toolListeners = new ArrayList<>();
 	
-	private CustomListSelectionModel customListSelectionModel;
-	
 	
 	
 	public FunctionList (FunctionListModelFromTable <String> model) {
@@ -23,15 +19,10 @@ public class FunctionList extends JList <String> {
 		model.setFunctionList(this);
 		setModel(model);
 		
-		customListSelectionModel = new CustomListSelectionModel();
-		setSelectionModel(customListSelectionModel);
-		
-		addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased (MouseEvent e) {
-				int row = locationToIndex(e.getPoint());
+		getSelectionModel().addListSelectionListener(l -> {
+			if (l.getValueIsAdjusting()) {
 				for (ToolListener listener : toolListeners) {
-					listener.onFunctionSelection(row);
+					listener.onFunctionSelection(getSelectedIndices());
 				}
 			}
 		});

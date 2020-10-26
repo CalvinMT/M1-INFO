@@ -31,8 +31,8 @@ public class FunctionListModelFromTable <E> extends DefaultListModel <String> im
 	}
 	
 	@Override
-	public void onFunctionSelection(int index, String function) {
-		list.setSelectedIndex(index);
+	public void onFunctionSelection(int indices[], String function) {
+		list.setSelectedIndices(indices);
 	}
 	
 }

@@ -8,6 +8,6 @@ public interface FunctionTableListener {
 	
 	void onFunctionEdit (int index, String function);
 	
-	void onFunctionSelection (int index, String function);
+	void onFunctionSelection (int indices[], String function);
 	
 }

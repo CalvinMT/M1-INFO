@@ -51,7 +51,7 @@ public class Grapher extends JPanel implements FunctionTableListener, ViewModeLi
 	protected double ymin, ymax;
 
 	protected Vector<Function> functions;
-	private int selectedFunction = -1;
+	private Vector<Boolean> selectedFunctions;
 	
 	public Grapher() {
 		grapherMouseInputAdapter = new GrapherMouseInputAdapter(this);
@@ -59,7 +59,8 @@ public class Grapher extends JPanel implements FunctionTableListener, ViewModeLi
 		xmin = -PI/2.; xmax = 3*PI/2;
 		ymin = -1.5;   ymax = 1.5;
 		
-		functions = new Vector<Function>();
+		functions = new Vector<>();
+		selectedFunctions = new Vector <> ();
 
 		this.addMouseListener(grapherMouseInputAdapter);
 		this.addMouseMotionListener(grapherMouseInputAdapter);
@@ -72,6 +73,7 @@ public class Grapher extends JPanel implements FunctionTableListener, ViewModeLi
 	
 	public void add(Function function) {
 		functions.add(function);
+		selectedFunctions.add(false);
 		repaint();
 	}
 	
@@ -152,7 +154,7 @@ public class Grapher extends JPanel implements FunctionTableListener, ViewModeLi
 				g2.setColor(Color.BLACK);
 			}
 			
-			if (selectedFunction != -1  &&  f == selectedFunction) {
+			if (! selectedFunctions.isEmpty()  &&  selectedFunctions.get(f) == true) {
 				g2.setStroke(new BasicStroke(2));
 			}
 			else {
@@ -271,8 +273,13 @@ public class Grapher extends JPanel implements FunctionTableListener, ViewModeLi
 	}
 
 	@Override
-	public void onFunctionSelection(int index, String function) {
-		selectedFunction = index;
+	public void onFunctionSelection(int indices[], String function) {
+		for (int i=0; i<selectedFunctions.size(); i++) {
+			selectedFunctions.set(i, false);
+		}
+		for (int i=0; i<indices.length; i++) {
+			selectedFunctions.set(indices[i], true);
+		}
 		repaint();
 	}
 	

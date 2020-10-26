@@ -8,6 +8,6 @@ public interface ToolListener {
 	
 	void onFunctionEdit (int index, String function);
 	
-	void onFunctionSelection (int index);
+	void onFunctionSelection (int indices[]);
 	
 }
