@@ -17,8 +17,6 @@ public abstract class Command extends AbstractAction {
 	
 	private Stack <Object[][]> backupStack;
 	
-	private CommandListener commandListener;
-	
 	
 	
 	public Command (JTable table, String text) {
@@ -30,12 +28,6 @@ public abstract class Command extends AbstractAction {
 		this.table = table;
 		this.parent = parent;
 		backupStack = new Stack <> ();
-	}
-	
-	
-	
-	public void addCommandListener (CommandListener l) {
-		commandListener = l;
 	}
 	
 	
@@ -64,7 +56,7 @@ public abstract class Command extends AbstractAction {
 			}
 		}
 		backupStack.push(data);
-		commandListener.onCommandBackup(this);
+		CommandHistory.getInstance().push(this);
 	}
 	
 }

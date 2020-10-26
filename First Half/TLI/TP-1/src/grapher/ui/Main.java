@@ -34,13 +34,10 @@ public class Main extends JFrame {
 		Grapher grapher = new Grapher();
 
 		Actions.getInstance().actionAddFunction.addListener(functionTable);
-		Actions.getInstance().actionAddFunction.addCommandListener(CommandHistory.getInstance());
 
 		Actions.getInstance().actionEditFunction.addListener(functionTable);
-		Actions.getInstance().actionEditFunction.addCommandListener(CommandHistory.getInstance());
 
 		Actions.getInstance().actionRemoveFunction.addListener(functionTable);
-		Actions.getInstance().actionRemoveFunction.addCommandListener(CommandHistory.getInstance());
 		
 		Actions.getInstance().actionViewModeList.addListener(grapher);
 		Actions.getInstance().actionViewModeList.addListener(splitPaneFunctionTool);
