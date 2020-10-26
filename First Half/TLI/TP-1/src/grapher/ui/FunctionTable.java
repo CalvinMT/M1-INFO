@@ -92,6 +92,13 @@ public class FunctionTable extends JTable implements ToolListener, FunctionColor
 		}
 	}
 	
+	public void removeAllFunctions () {
+		for (int i=0; i<getRowCount(); i++) {
+			addRowSelectionInterval(i, i);
+		}
+		removeFunction();
+	}
+	
 	public void editFunction (int index, String f) {
 		for (FunctionTableListener listener : listeners) {
 			listener.onFunctionEdit(index, f);
