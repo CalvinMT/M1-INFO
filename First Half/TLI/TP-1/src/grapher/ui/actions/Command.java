@@ -37,6 +37,23 @@ public abstract class Command extends AbstractAction {
 	public void addCommandListener (CommandListener l) {
 		commandListener = l;
 	}
+	
+	
+	
+	protected void undo () {
+		if (! backupStack.isEmpty()) {
+			for (int i=0; i<table.getRowCount(); i++) {
+				table.addRowSelectionInterval(i, i);
+			}
+			((FunctionTable) table).removeFunction();
+			Object data[][] = backupStack.pop();
+			int nbRow = data.length;
+			for (int i=0; i<nbRow; i++) {
+				((FunctionTable) table).addFunction((String) data[i][0], (Color) data[i][1]);
+			}
+		}
+	}
+	
 	protected void doBackup () {
 		int nbRow = table.getRowCount();
 		int nbColumn = table.getColumnCount();
