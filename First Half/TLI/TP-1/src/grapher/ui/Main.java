@@ -8,6 +8,7 @@ import javax.swing.JSplitPane;
 import javax.swing.SwingUtilities;
 
 import grapher.ui.actions.Actions;
+import grapher.ui.actions.CommandHistory;
 import grapher.ui.menu.MenuBar;
 import grapher.ui.tool.ToolBar;
 
@@ -31,15 +32,20 @@ public class Main extends JFrame {
 		ToolBar toolBar = new ToolBar();
 		
 		Grapher grapher = new Grapher();
-		
+
 		Actions.getInstance().actionAddFunction.addListener(functionTable);
+		Actions.getInstance().actionAddFunction.addCommandListener(CommandHistory.getInstance());
+
 		Actions.getInstance().actionEditFunction.addListener(functionTable);
+		Actions.getInstance().actionEditFunction.addCommandListener(CommandHistory.getInstance());
+
 		Actions.getInstance().actionRemoveFunction.addListener(functionTable);
+		Actions.getInstance().actionRemoveFunction.addCommandListener(CommandHistory.getInstance());
 		
 		Actions.getInstance().actionViewModeList.addListener(grapher);
-		Actions.getInstance().actionViewModeTable.addListener(grapher);
-		
 		Actions.getInstance().actionViewModeList.addListener(splitPaneFunctionTool);
+
+		Actions.getInstance().actionViewModeTable.addListener(grapher);
 		Actions.getInstance().actionViewModeTable.addListener(splitPaneFunctionTool);
 
 		functionList.addToolListener(functionTable);

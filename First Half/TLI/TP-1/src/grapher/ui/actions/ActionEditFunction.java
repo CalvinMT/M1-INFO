@@ -38,6 +38,7 @@ public class ActionEditFunction extends Command implements FunctionTableListener
 	                null,
 	                selectedFunctionName);
 			if (newExpression != null  &&  newExpression.length() > 0) {
+				doBackup();
 				for (ToolListener listener : listeners) {
 					listener.onFunctionEdit(selectedFunction, newExpression);
 				}

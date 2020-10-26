@@ -23,6 +23,7 @@ public class ActionRemoveFunction extends Command {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		doBackup();
 		for (ToolListener listener : listeners) {
 			listener.onFunctionRemove();
 		}

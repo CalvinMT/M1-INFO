@@ -49,8 +49,9 @@ public class MenuBar extends JMenuBar {
 		itemListMode.setSelected(true);
 
 		Actions.getInstance().actionViewModeList.addListener(itemListMode);
-		Actions.getInstance().actionViewModeList.addListener(itemTableMode);
 		Actions.getInstance().actionViewModeTable.addListener(itemListMode);
+		
+		Actions.getInstance().actionViewModeList.addListener(itemTableMode);
 		Actions.getInstance().actionViewModeTable.addListener(itemTableMode);
 		
 		submenuViewMode.add(itemListMode);

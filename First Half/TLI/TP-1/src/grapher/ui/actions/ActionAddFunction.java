@@ -33,6 +33,7 @@ public class ActionAddFunction extends Command {
                 null,
                 "");
 		if (newExpression != null  &&  newExpression.length() > 0) {
+			doBackup();
 			for (ToolListener listener : listeners) {
 				listener.onFunctionAdd(newExpression);
 			}
