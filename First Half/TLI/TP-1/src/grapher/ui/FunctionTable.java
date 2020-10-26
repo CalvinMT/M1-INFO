@@ -34,6 +34,8 @@ public class FunctionTable extends JTable implements ToolListener, FunctionColor
 		model = new DefaultTableModel(columnNames, 0);
 		setModel(model);
 		
+		setDefaultEditor(Object.class, null);
+		
 		customListSelectionModel = new CustomListSelectionModel();
 		setSelectionModel(customListSelectionModel);
 		
