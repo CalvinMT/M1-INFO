@@ -4,24 +4,13 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-import grapher.ui.ViewModeListener;
-import grapher.ui.actions.ActionAddFunction;
-import grapher.ui.actions.ActionEditFunction;
-import grapher.ui.actions.ActionRemoveFunction;
-import grapher.ui.actions.ActionViewModeList;
-import grapher.ui.actions.ActionViewModeTable;
-import grapher.ui.tool.ToolListener;
+import grapher.ui.actions.Actions;
 
 public class MenuBar extends JMenuBar {
 
 	JMenu menuFunction;
-	ActionAddFunction actionAddFunction;
-	ActionEditFunction actionEditFunction;
-	ActionRemoveFunction actionRemoveFunction;
 	
 	JMenu menuWindow;
-	ActionViewModeList actionViewModeList;
-	ActionViewModeTable actionViewModeTable;
 	
 	
 	public MenuBar () {
@@ -36,13 +25,9 @@ public class MenuBar extends JMenuBar {
 	private void initialiseMenuFunction () {
 		menuFunction = new JMenu("Function");
 
-		actionAddFunction = new ActionAddFunction(this, "Add...");
-		actionEditFunction = new ActionEditFunction(this, "Edit...");
-		actionRemoveFunction = new ActionRemoveFunction(this, "Remove...");
-
-		JMenuItem itemAddFunction = new JMenuItem(actionAddFunction);
-		JMenuItem itemEditFunction = new JMenuItem(actionEditFunction);
-		JMenuItem itemRemoveFunction = new JMenuItem(actionRemoveFunction);
+		JMenuItem itemAddFunction = new JMenuItem(Actions.getInstance().actionAddFunction);
+		JMenuItem itemEditFunction = new JMenuItem(Actions.getInstance().actionEditFunction);
+		JMenuItem itemRemoveFunction = new JMenuItem(Actions.getInstance().actionRemoveFunction);
 
 		menuFunction.add(itemAddFunction);
 		menuFunction.add(itemEditFunction);
@@ -57,19 +42,16 @@ public class MenuBar extends JMenuBar {
 		menuWindow = new JMenu("Window");
 		
 		JMenu submenuViewMode = new JMenu("View mode");
-
-		actionViewModeList = new ActionViewModeList("List");
-		actionViewModeTable = new ActionViewModeTable("Table");
 		
-		ItemListMode itemListMode = new ItemListMode(actionViewModeList);
-		ItemTableMode itemTableMode = new ItemTableMode(actionViewModeTable);
+		ItemListMode itemListMode = new ItemListMode(Actions.getInstance().actionViewModeList);
+		ItemTableMode itemTableMode = new ItemTableMode(Actions.getInstance().actionViewModeTable);
 		
 		itemListMode.setSelected(true);
 
-		actionViewModeList.addListener(itemListMode);
-		actionViewModeList.addListener(itemTableMode);
-		actionViewModeTable.addListener(itemListMode);
-		actionViewModeTable.addListener(itemTableMode);
+		Actions.getInstance().actionViewModeList.addListener(itemListMode);
+		Actions.getInstance().actionViewModeList.addListener(itemTableMode);
+		Actions.getInstance().actionViewModeTable.addListener(itemListMode);
+		Actions.getInstance().actionViewModeTable.addListener(itemTableMode);
 		
 		submenuViewMode.add(itemListMode);
 		submenuViewMode.add(itemTableMode);
@@ -77,29 +59,6 @@ public class MenuBar extends JMenuBar {
 		menuWindow.add(submenuViewMode);
 		
 		add(menuWindow);
-	}
-	
-	
-	
-	public void addToolListener (ToolListener listener) {
-		actionAddFunction.addListener(listener);
-		actionEditFunction.addListener(listener);
-		actionRemoveFunction.addListener(listener);
-	}
-	
-	public void addViewModeListener (ViewModeListener listener) {
-		actionViewModeList.addListener(listener);
-		actionViewModeTable.addListener(listener);
-	}
-	
-
-	
-	public ActionRemoveFunction getActionRemoveFunction () {
-		return actionRemoveFunction;
-	}
-	
-	public ActionEditFunction getActionEditFunction () {
-		return actionEditFunction;
 	}
 	
 }

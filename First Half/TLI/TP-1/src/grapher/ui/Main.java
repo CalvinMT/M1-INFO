@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JSplitPane;
 import javax.swing.SwingUtilities;
 
+import grapher.ui.actions.Actions;
 import grapher.ui.menu.MenuBar;
 import grapher.ui.tool.ToolBar;
 
@@ -19,28 +20,33 @@ public class Main extends JFrame {
 		JSplitPane splitPaneFunctionGrapher = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
 		SplitPaneFunctionTool splitPaneFunctionTool = new SplitPaneFunctionTool(JSplitPane.VERTICAL_SPLIT);
 		
-		MenuBar menuBar = new MenuBar();
-		
 		FunctionListModelFromTable <String> listModel = new FunctionListModelFromTable <> ();
 		FunctionList functionList = new FunctionList(listModel);
 		FunctionTable functionTable = new FunctionTable();
+		
+		Actions.initialise(functionTable, this);
+		
+		MenuBar menuBar = new MenuBar();
 		
 		ToolBar toolBar = new ToolBar();
 		
 		Grapher grapher = new Grapher();
 		
-		menuBar.addToolListener(functionTable);
+		Actions.getInstance().actionAddFunction.addListener(functionTable);
+		Actions.getInstance().actionEditFunction.addListener(functionTable);
+		Actions.getInstance().actionRemoveFunction.addListener(functionTable);
+		
+		Actions.getInstance().actionViewModeList.addListener(grapher);
+		Actions.getInstance().actionViewModeTable.addListener(grapher);
+		
+		Actions.getInstance().actionViewModeList.addListener(splitPaneFunctionTool);
+		Actions.getInstance().actionViewModeTable.addListener(splitPaneFunctionTool);
 
 		functionList.addToolListener(functionTable);
 		functionTable.addListener(grapher);
-		functionTable.addListener(menuBar.getActionEditFunction());
+		functionTable.addListener(Actions.getInstance().actionEditFunction);
 		functionTable.addListenerList(listModel);
 		functionTable.addFunctionColorChooserListener(grapher);
-		
-		toolBar.addListener(functionTable);
-
-		menuBar.addViewModeListener(grapher);
-		menuBar.addViewModeListener(splitPaneFunctionTool);
 		
 		JComponent components[] = {functionList, functionTable};
 		splitPaneFunctionTool.addFunctionComponents(components);

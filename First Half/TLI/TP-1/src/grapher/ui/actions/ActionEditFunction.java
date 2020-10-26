@@ -1,19 +1,17 @@
 package grapher.ui.actions;
 
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.AbstractAction;
-import javax.swing.JComponent;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 
 import grapher.ui.FunctionTableListener;
 import grapher.ui.tool.ToolListener;
 
-public class ActionEditFunction extends AbstractAction implements FunctionTableListener {
-	
-	JComponent parent;
+public class ActionEditFunction extends Command implements FunctionTableListener {
 	
 	private List <ToolListener> listeners = new ArrayList<>();
 
@@ -22,9 +20,8 @@ public class ActionEditFunction extends AbstractAction implements FunctionTableL
 	
 	
 	
-	public ActionEditFunction (JComponent parent, String text) {
-		super(text);
-		this.parent = parent;
+	public ActionEditFunction (JTable table, Component parent, String text) {
+		super(table, parent, text);
 	}
 	
 	
