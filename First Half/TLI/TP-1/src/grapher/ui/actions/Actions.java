@@ -13,6 +13,7 @@ public class Actions {
 	public final ActionRemoveFunction actionRemoveFunction;
 
 	public final ActionUndo actionUndo;
+	public final ActionRedo actionRedo;
 	
 	public final ActionViewModeList actionViewModeList;
 	public final ActionViewModeTable actionViewModeTable;
@@ -23,8 +24,9 @@ public class Actions {
 		actionAddFunction = new ActionAddFunction(table, parent, "Add...");
 		actionEditFunction = new ActionEditFunction(table, parent, "Edit...");
 		actionRemoveFunction = new ActionRemoveFunction(table, parent, "Remove...");
-		
+
 		actionUndo = new ActionUndo(table, "Undo");
+		actionRedo = new ActionRedo(table, "Redo");
 		
 		actionViewModeList = new ActionViewModeList("List");
 		actionViewModeTable = new ActionViewModeTable("Table");

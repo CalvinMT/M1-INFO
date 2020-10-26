@@ -28,14 +28,16 @@ public class MenuBar extends JMenuBar {
 		JMenuItem itemAddFunction = new JMenuItem(Actions.getInstance().actionAddFunction);
 		JMenuItem itemEditFunction = new JMenuItem(Actions.getInstance().actionEditFunction);
 		JMenuItem itemRemoveFunction = new JMenuItem(Actions.getInstance().actionRemoveFunction);
-		
+
 		JMenuItem itemUndo = new JMenuItem(Actions.getInstance().actionUndo);
+		JMenuItem itemRedo = new JMenuItem(Actions.getInstance().actionRedo);
 
 		menuFunction.add(itemAddFunction);
 		menuFunction.add(itemEditFunction);
 		menuFunction.add(itemRemoveFunction);
 		menuFunction.addSeparator();
 		menuFunction.add(itemUndo);
+		menuFunction.add(itemRedo);
 		
 		
 		add(menuFunction);

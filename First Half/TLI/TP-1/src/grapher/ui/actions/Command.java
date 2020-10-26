@@ -14,8 +14,9 @@ public abstract class Command extends AbstractAction {
 	private JTable table;
 	
 	protected Component parent;
-	
+
 	private Stack <Object[][]> backupStack;
+	private Stack <Object[][]> undoBackupStack;
 	
 	
 	
@@ -28,17 +29,28 @@ public abstract class Command extends AbstractAction {
 		this.table = table;
 		this.parent = parent;
 		backupStack = new Stack <> ();
+		undoBackupStack = new Stack <> ();
 	}
 	
 	
 	
 	protected void undo () {
 		if (! backupStack.isEmpty()) {
-			for (int i=0; i<table.getRowCount(); i++) {
-				table.addRowSelectionInterval(i, i);
-			}
-			((FunctionTable) table).removeFunction();
+			doUndoBackup();
+			((FunctionTable) table).removeAllFunctions();
 			Object data[][] = backupStack.pop();
+			int nbRow = data.length;
+			for (int i=0; i<nbRow; i++) {
+				((FunctionTable) table).addFunction((String) data[i][0], (Color) data[i][1]);
+			}
+		}
+	}
+	
+	protected void redo () {
+		if (! undoBackupStack.isEmpty()) {
+			doBackup();
+			((FunctionTable) table).removeAllFunctions();
+			Object data[][] = undoBackupStack.pop();
 			int nbRow = data.length;
 			for (int i=0; i<nbRow; i++) {
 				((FunctionTable) table).addFunction((String) data[i][0], (Color) data[i][1]);
@@ -57,6 +69,18 @@ public abstract class Command extends AbstractAction {
 		}
 		backupStack.push(data);
 		CommandHistory.getInstance().push(this);
+	}
+	
+	private void doUndoBackup () {
+		int nbRow = table.getRowCount();
+		int nbColumn = table.getColumnCount();
+		Object data[][] = new Object[nbRow][nbColumn];
+		for (int i=0; i<nbRow; i++) {
+			for (int j=0; j<nbColumn; j++) {
+				data[i][j] = table.getModel().getValueAt(i, j);
+			}
+		}
+		undoBackupStack.push(data);
 	}
 	
 }
