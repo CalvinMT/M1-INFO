@@ -61,12 +61,16 @@ public class FunctionTable extends JTable implements ToolListener, FunctionColor
 	
 	
 	
-	public void addFunction (String f) {
+	public void addFunction (String f, Color c) {
 		for (FunctionTableListener listener : listeners) {
 			listener.onFunctionAdd(f);
 		}
 		listenerList.onFunctionAdd(f);
-		model.addRow(new Object[] {f, Color.RED});
+		model.addRow(new Object[] {f, c});
+	}
+	
+	public void addFunction (String f) {
+		addFunction(f, Color.RED);
 	}
 	
 	public void addFunctions (String[] f) {
