@@ -4,7 +4,7 @@ public interface FunctionTableListener {
 	
 	void onFunctionAdd (String function);
 	
-	void onFunctionRemove (int index);
+	void onFunctionRemove (int indices[]);
 	
 	void onFunctionEdit (int index, String function);
 	

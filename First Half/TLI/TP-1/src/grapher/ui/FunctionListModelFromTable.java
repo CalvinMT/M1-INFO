@@ -21,8 +21,11 @@ public class FunctionListModelFromTable <E> extends DefaultListModel <String> im
 	}
 	
 	@Override
-	public void onFunctionRemove(int index) {
-		remove(index);
+	public void onFunctionRemove(int indices[]) {
+		for (int i=indices.length - 1; i>=0; i--) {
+			remove(indices[i]);
+		}
+		list.clearSelection();
 	}
 	
 	@Override

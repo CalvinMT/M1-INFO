@@ -79,6 +79,7 @@ public class Grapher extends JPanel implements FunctionTableListener, ViewModeLi
 	
 	public void remove (int function) {
 		functions.remove(function);
+		selectedFunctions.remove(function);
 		repaint();
 	}
 	
@@ -289,8 +290,10 @@ public class Grapher extends JPanel implements FunctionTableListener, ViewModeLi
 	}
 	
 	@Override
-	public void onFunctionRemove(int index) {
-		remove(index);
+	public void onFunctionRemove(int indices[]) {
+		for (int i=indices.length - 1; i>=0; i--) {
+			remove(indices[i]);
+		}
 	}
 	
 	@Override

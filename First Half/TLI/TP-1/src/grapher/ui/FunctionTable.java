@@ -76,12 +76,15 @@ public class FunctionTable extends JTable implements ToolListener, FunctionColor
 	}
 	
 	public void removeFunction () {
-		if (getSelectedRow() >= 0  &&  getSelectedRow() < getRowCount()) {
+		if (getSelectedRows().length >= 0  &&  getSelectedRows().length <= getRowCount()) {
 			for (FunctionTableListener listener : listeners) {
-				listener.onFunctionRemove(getSelectedRow());
+				listener.onFunctionRemove(getSelectedRows());
 			}
-			listenerList.onFunctionRemove(getSelectedRow());
-			model.removeRow(getSelectedRow());
+			listenerList.onFunctionRemove(getSelectedRows());
+			for (int i=getSelectedRows().length - 1; i>=0; i--) {
+				model.removeRow(getSelectedRows()[i]);
+			}
+			clearSelection();
 		}
 	}
 	

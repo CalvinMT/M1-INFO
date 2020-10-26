@@ -74,7 +74,7 @@ public class ActionEditFunction extends AbstractAction implements FunctionTableL
 	}
 	
 	@Override
-	public void onFunctionRemove(int index) {
+	public void onFunctionRemove(int indices[]) {
 		return;
 	}
 	
