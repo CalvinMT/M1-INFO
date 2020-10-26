@@ -8,7 +8,6 @@ import javax.swing.JSplitPane;
 import javax.swing.SwingUtilities;
 
 import grapher.ui.actions.Actions;
-import grapher.ui.actions.CommandHistory;
 import grapher.ui.menu.MenuBar;
 import grapher.ui.tool.ToolBar;
 
