@@ -43,6 +43,9 @@ public class Main extends JFrame {
 
 		Actions.getInstance().actionEditFunction.addListener(functionTable);
 
+		Actions.getInstance().actionColorFunction.addListener(functionTable);
+		Actions.getInstance().actionColorFunction.addListener(grapher);
+
 		Actions.getInstance().actionRemoveFunction.addListener(functionTable);
 		
 		Actions.getInstance().actionViewModeList.addListener(grapher);
@@ -54,8 +57,8 @@ public class Main extends JFrame {
 		functionList.addToolListener(functionTable);
 		functionTable.addListener(grapher);
 		functionTable.addListener(Actions.getInstance().actionEditFunction);
+		functionTable.addListener(Actions.getInstance().actionColorFunction);
 		functionTable.addListenerList(listModel);
-		functionTable.addFunctionColorChooserListener(grapher);
 		
 		JComponent components[] = {functionList, functionTable};
 		splitPaneFunctionTool.addFunctionComponents(components);

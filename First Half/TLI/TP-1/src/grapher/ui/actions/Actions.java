@@ -10,6 +10,7 @@ public class Actions {
 	
 	public final ActionAddFunction actionAddFunction;
 	public final ActionEditFunction actionEditFunction;
+	public final ActionColorFunction actionColorFunction;
 	public final ActionRemoveFunction actionRemoveFunction;
 
 	public final ActionUndo actionUndo;
@@ -23,6 +24,7 @@ public class Actions {
 	private Actions (JTable table, Component parent) {
 		actionAddFunction = new ActionAddFunction(table, parent, "Add...");
 		actionEditFunction = new ActionEditFunction(table, parent, "Edit...");
+		actionColorFunction = new ActionColorFunction(table, parent, "Colour...");
 		actionRemoveFunction = new ActionRemoveFunction(table, parent, "Remove...");
 
 		actionUndo = new ActionUndo(table, "Undo");

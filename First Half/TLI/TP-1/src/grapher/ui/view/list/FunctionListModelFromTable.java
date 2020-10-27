@@ -1,5 +1,7 @@
 package grapher.ui.view.list;
 
+import java.awt.Color;
+
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 
@@ -36,7 +38,7 @@ public class FunctionListModelFromTable <E> extends DefaultListModel <String> im
 	}
 	
 	@Override
-	public void onFunctionSelection(int indices[], String function) {
+	public void onFunctionSelection(int indices[], String function, Color color) {
 		list.setSelectedIndices(indices);
 	}
 	

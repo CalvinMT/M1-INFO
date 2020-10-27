@@ -1,5 +1,7 @@
 package grapher.ui.view.table;
 
+import java.awt.Color;
+
 public interface FunctionTableListener {
 	
 	void onFunctionAdd (String function);
@@ -8,6 +10,6 @@ public interface FunctionTableListener {
 	
 	void onFunctionEdit (int index, String function);
 	
-	void onFunctionSelection (int indices[], String function);
+	void onFunctionSelection (int indices[], String function, Color color);
 	
 }

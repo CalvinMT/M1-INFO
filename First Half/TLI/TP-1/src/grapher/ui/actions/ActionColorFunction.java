@@ -6,22 +6,23 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JOptionPane;
+import javax.swing.JColorChooser;
 import javax.swing.JTable;
 
-import grapher.ui.tool.ToolListener;
+import grapher.ui.view.FunctionColorChooserListener;
 import grapher.ui.view.table.FunctionTableListener;
 
-public class ActionEditFunction extends Command implements FunctionTableListener {
+public class ActionColorFunction extends Command implements FunctionTableListener {
 	
-	private List <ToolListener> listeners = new ArrayList<>();
+	private List <FunctionColorChooserListener> listeners = new ArrayList<>();
 
 	private int selectedFunction = -1;
 	private String selectedFunctionName = "";
+	private Color selectFunctionColor = Color.RED;
 	
 	
 	
-	public ActionEditFunction (JTable table, Component parent, String text) {
+	public ActionColorFunction (JTable table, Component parent, String text) {
 		super(table, parent, text);
 	}
 	
@@ -30,26 +31,20 @@ public class ActionEditFunction extends Command implements FunctionTableListener
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (selectedFunction >= 0) {
-			String newExpression = (String)JOptionPane.showInputDialog(
-	                parent,
-	                "New expression:",
-	                "Edit expression",
-	                JOptionPane.PLAIN_MESSAGE,
-	                null,
-	                null,
-	                selectedFunctionName);
-			if (newExpression != null  &&  newExpression.length() > 0) {
+			Color newColor = JColorChooser.showDialog(null, "New colour for " + selectedFunctionName, selectFunctionColor);
+			if (newColor != null) {
 				doBackup();
-				for (ToolListener listener : listeners) {
-					listener.onFunctionEdit(selectedFunction, newExpression);
+				for (FunctionColorChooserListener listener : listeners) {
+					listener.onColorChosen(selectedFunction, newColor);
 				}
+				selectFunctionColor = newColor;
 			}
 		}
 	}
 	
 	
 	
-	public void addListener (ToolListener listener) {
+	public void addListener (FunctionColorChooserListener listener) {
 		listeners.add(listener);
 	}
 	
@@ -60,10 +55,17 @@ public class ActionEditFunction extends Command implements FunctionTableListener
 		if (indices.length == 1) {
 			selectedFunction = indices[0];
 			selectedFunctionName = function;
+			if (color != null) {
+				selectFunctionColor = color;
+			}
+			else {
+				selectFunctionColor = Color.RED;
+			}
 		}
 		else {
 			selectedFunction = -1;
 			selectedFunctionName = "";
+			selectFunctionColor = Color.RED;
 		}
 	}
 	
@@ -81,5 +83,4 @@ public class ActionEditFunction extends Command implements FunctionTableListener
 	public void onFunctionEdit(int index, String function) {
 		return;
 	}
-	
 }

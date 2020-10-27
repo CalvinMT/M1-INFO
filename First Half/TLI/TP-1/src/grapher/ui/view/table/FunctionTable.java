@@ -51,15 +51,14 @@ public class FunctionTable extends JTable implements ToolListener, FunctionColor
 			public void valueChanged(ListSelectionEvent e) {
 				if (e.getValueIsAdjusting()) {
 					for (FunctionTableListener listener : listeners) {
-						listener.onFunctionSelection(getSelectedRows(), getSelectedFunctionName());
+						listener.onFunctionSelection(getSelectedRows(), getSelectedFunctionName(), getSelectedFunctionColor());
 					}
-					listenerList.onFunctionSelection(getSelectedRows(), getSelectedFunctionName());
+					listenerList.onFunctionSelection(getSelectedRows(), getSelectedFunctionName(), getSelectedFunctionColor());
 				}
 			}
 		});
 		
 		functionTableMouseAdapter = new FunctionTableMouseAdapter(this);
-		functionTableMouseAdapter.addListener(this);
 		addMouseListener(functionTableMouseAdapter);
 	}
 	
@@ -121,17 +120,20 @@ public class FunctionTable extends JTable implements ToolListener, FunctionColor
 		listenerList = lList;
 	}
 	
-	public void addFunctionColorChooserListener (FunctionColorChooserListener l) {
-		functionTableMouseAdapter.addListener(l);
-	}
-	
-	
+
 	
 	private String getSelectedFunctionName () {
 		if (getSelectedRow() < 0  ||  getSelectedRow() > 0) {
 			return "";
 		}
 		return (String) getValueAt(getSelectedRow(), 0);
+	}
+	
+	private Color getSelectedFunctionColor () {
+		if (getSelectedRow() < 0  ||  getSelectedRow() > 0) {
+			return null;
+		}
+		return (Color) getValueAt(getSelectedRow(), 1);
 	}
 
 
@@ -158,7 +160,7 @@ public class FunctionTable extends JTable implements ToolListener, FunctionColor
 			addRowSelectionInterval(index, index);
 		}
 		for (FunctionTableListener listener : listeners) {
-			listener.onFunctionSelection(indices, getSelectedFunctionName());
+			listener.onFunctionSelection(indices, getSelectedFunctionName(), getSelectedFunctionColor());
 		}
 	}
 	

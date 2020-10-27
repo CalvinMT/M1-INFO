@@ -5,12 +5,15 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import grapher.ui.actions.Actions;
+import grapher.ui.view.ViewModeListener;
 
-public class MenuBar extends JMenuBar {
+public class MenuBar extends JMenuBar implements ViewModeListener {
 
 	JMenu menuFunction;
 	
 	JMenu menuWindow;
+	
+	JMenuItem itemColorFunction;
 	
 	
 	public MenuBar () {
@@ -18,6 +21,9 @@ public class MenuBar extends JMenuBar {
 		
 		initialiseMenuFunction();
 		initialiseMenuWindow();
+		
+		Actions.getInstance().actionViewModeList.addListener(this);
+		Actions.getInstance().actionViewModeTable.addListener(this);
 	}
 	
 	
@@ -27,13 +33,17 @@ public class MenuBar extends JMenuBar {
 
 		JMenuItem itemAddFunction = new JMenuItem(Actions.getInstance().actionAddFunction);
 		JMenuItem itemEditFunction = new JMenuItem(Actions.getInstance().actionEditFunction);
+		itemColorFunction = new JMenuItem(Actions.getInstance().actionColorFunction);
 		JMenuItem itemRemoveFunction = new JMenuItem(Actions.getInstance().actionRemoveFunction);
 
 		JMenuItem itemUndo = new JMenuItem(Actions.getInstance().actionUndo);
 		JMenuItem itemRedo = new JMenuItem(Actions.getInstance().actionRedo);
-
+		
+		itemColorFunction.setEnabled(false);
+		
 		menuFunction.add(itemAddFunction);
 		menuFunction.add(itemEditFunction);
+		menuFunction.add(itemColorFunction);
 		menuFunction.add(itemRemoveFunction);
 		menuFunction.addSeparator();
 		menuFunction.add(itemUndo);
@@ -67,6 +77,22 @@ public class MenuBar extends JMenuBar {
 		menuWindow.add(submenuViewMode);
 		
 		add(menuWindow);
+	}
+	
+	
+	
+	@Override
+	public void onChangedSelected(String mode) {
+		switch (mode) {
+			case ItemListMode.MODE:
+				itemColorFunction.setEnabled(false);
+				break;
+			case ItemTableMode.MODE:
+				itemColorFunction.setEnabled(true);
+				break;
+			default:
+				break;
+		}
 	}
 	
 }

@@ -278,7 +278,7 @@ public class Grapher extends JPanel implements FunctionTableListener, ViewModeLi
 	}
 
 	@Override
-	public void onFunctionSelection(int indices[], String function) {
+	public void onFunctionSelection(int indices[], String function, Color color) {
 		for (int i=0; i<selectedFunctions.size(); i++) {
 			selectedFunctions.set(i, false);
 		}
