@@ -1,7 +1,9 @@
-package grapher.ui;
+package grapher.ui.view.list;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
+
+import grapher.ui.view.table.FunctionTableListener;
 
 public class FunctionListModelFromTable <E> extends DefaultListModel <String> implements FunctionTableListener {
 	

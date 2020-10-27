@@ -6,8 +6,8 @@ import java.util.List;
 
 import javax.swing.AbstractAction;
 
-import grapher.ui.ViewModeListener;
 import grapher.ui.menu.ItemListMode;
+import grapher.ui.view.ViewModeListener;
 
 public class ActionViewModeList extends AbstractAction {
 	

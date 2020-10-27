@@ -1,4 +1,4 @@
-package grapher.ui;
+package grapher.ui.view.table;
 
 import java.awt.Color;
 import java.awt.Component;

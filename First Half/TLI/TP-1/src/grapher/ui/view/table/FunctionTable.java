@@ -1,4 +1,4 @@
-package grapher.ui;
+package grapher.ui.view.table;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -10,6 +10,8 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import grapher.ui.tool.ToolListener;
+import grapher.ui.view.CustomListSelectionModel;
+import grapher.ui.view.FunctionColorChooserListener;
 
 public class FunctionTable extends JTable implements ToolListener, FunctionColorChooserListener {
 

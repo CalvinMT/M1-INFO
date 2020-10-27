@@ -7,7 +7,7 @@ import java.util.Stack;
 import javax.swing.AbstractAction;
 import javax.swing.JTable;
 
-import grapher.ui.FunctionTable;
+import grapher.ui.view.table.FunctionTable;
 
 public abstract class Command extends AbstractAction {
 	

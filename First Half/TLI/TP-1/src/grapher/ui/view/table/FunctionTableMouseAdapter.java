@@ -1,4 +1,4 @@
-package grapher.ui;
+package grapher.ui.view.table;
 
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
@@ -8,6 +8,8 @@ import java.util.List;
 
 import javax.swing.JColorChooser;
 import javax.swing.JTable;
+
+import grapher.ui.view.FunctionColorChooserListener;
 
 public class FunctionTableMouseAdapter extends MouseAdapter {
 	

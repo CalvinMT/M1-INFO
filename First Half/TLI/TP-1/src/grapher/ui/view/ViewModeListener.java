@@ -1,4 +1,4 @@
-package grapher.ui;
+package grapher.ui.view;
 
 public interface ViewModeListener {
 	

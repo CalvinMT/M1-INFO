@@ -1,4 +1,4 @@
-package grapher.ui;
+package grapher.ui.view.table;
 
 public interface FunctionTableListener {
 	

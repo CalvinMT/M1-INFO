@@ -1,4 +1,4 @@
-package grapher.ui;
+package grapher.ui.view.graph;
 
 import java.math.BigDecimal;
 
@@ -19,6 +19,10 @@ import static java.lang.Math.*;
 import grapher.fc.*;
 import grapher.ui.menu.ItemListMode;
 import grapher.ui.menu.ItemTableMode;
+import grapher.ui.view.FunctionColorChooserListener;
+import grapher.ui.view.ViewModeListener;
+import grapher.ui.view.table.FunctionTable;
+import grapher.ui.view.table.FunctionTableListener;
 
 
 public class Grapher extends JPanel implements FunctionTableListener, ViewModeListener, FunctionColorChooserListener {

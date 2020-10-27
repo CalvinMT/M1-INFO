@@ -1,4 +1,4 @@
-package grapher.ui;
+package grapher.ui.view;
 
 import javax.swing.JComponent;
 import javax.swing.JSplitPane;

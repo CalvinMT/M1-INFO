@@ -1,4 +1,4 @@
-package grapher.ui;
+package grapher.ui.view.graph;
 
 import java.awt.Cursor;
 import java.awt.Point;
@@ -7,7 +7,7 @@ import java.awt.event.MouseWheelEvent;
 
 import javax.swing.event.MouseInputAdapter;
 
-import grapher.ui.Grapher.States;
+import grapher.ui.view.graph.Grapher.States;
 
 public class GrapherMouseInputAdapter extends MouseInputAdapter {
 	

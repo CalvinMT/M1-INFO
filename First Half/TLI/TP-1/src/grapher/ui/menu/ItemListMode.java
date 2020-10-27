@@ -3,7 +3,7 @@ package grapher.ui.menu;
 import javax.swing.AbstractAction;
 import javax.swing.JRadioButtonMenuItem;
 
-import grapher.ui.ViewModeListener;
+import grapher.ui.view.ViewModeListener;
 
 public class ItemListMode extends JRadioButtonMenuItem implements ViewModeListener {
 	
