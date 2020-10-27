@@ -27,6 +27,7 @@ public class CommandHistory {
 	
 	public void push (Command c) {
 		history.push(c);
+		undoHistory.clear();
 	}
 	
 	public Command pop () {
@@ -49,6 +50,12 @@ public class CommandHistory {
 			return null;
 		}
 		return undoHistory.pop();
+	}
+	
+	
+	
+	public void pushRedo (Command c) {
+		history.push(c);
 	}
 	
 }

@@ -48,7 +48,7 @@ public abstract class Command extends AbstractAction {
 	
 	protected void redo () {
 		if (! undoBackupStack.isEmpty()) {
-			doBackup();
+			doRedoBackup();
 			((FunctionTable) table).removeAllFunctions();
 			Object data[][] = undoBackupStack.pop();
 			int nbRow = data.length;
@@ -58,7 +58,9 @@ public abstract class Command extends AbstractAction {
 		}
 	}
 	
-	protected void doBackup () {
+
+	
+	private Object[][] getDataCurrentState () {
 		int nbRow = table.getRowCount();
 		int nbColumn = table.getColumnCount();
 		Object data[][] = new Object[nbRow][nbColumn];
@@ -67,20 +69,23 @@ public abstract class Command extends AbstractAction {
 				data[i][j] = table.getModel().getValueAt(i, j);
 			}
 		}
-		backupStack.push(data);
+		return data;
+	}
+	
+	
+	
+	protected void doBackup () {
+		backupStack.push(getDataCurrentState());
 		CommandHistory.getInstance().push(this);
 	}
 	
 	private void doUndoBackup () {
-		int nbRow = table.getRowCount();
-		int nbColumn = table.getColumnCount();
-		Object data[][] = new Object[nbRow][nbColumn];
-		for (int i=0; i<nbRow; i++) {
-			for (int j=0; j<nbColumn; j++) {
-				data[i][j] = table.getModel().getValueAt(i, j);
-			}
-		}
-		undoBackupStack.push(data);
+		undoBackupStack.push(getDataCurrentState());
+	}
+	
+	private void doRedoBackup () {
+		backupStack.push(getDataCurrentState());
+		CommandHistory.getInstance().pushRedo(this);
 	}
 	
 }
