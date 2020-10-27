@@ -15,6 +15,7 @@ public class Inputs {
 
 	private static final String UNDO = "UNDO";
 	private static final String REDO = "REDO";
+	private static final String REMOVE = "REMOVE";
 	
 	
 	
@@ -35,11 +36,13 @@ public class Inputs {
 	private void initialiseInputMap (InputMap inputMap) {
 		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_Z, InputEvent.CTRL_DOWN_MASK), UNDO);
 		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_Z, InputEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK), REDO);
+		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0), REMOVE);
 	}
 	
 	private void initialiseActionMap (ActionMap actionMap) {
 		actionMap.put(UNDO, Actions.getInstance().actionUndo);
 		actionMap.put(REDO, Actions.getInstance().actionRedo);
+		actionMap.put(REMOVE, Actions.getInstance().actionRemoveFunction);
 	}
 	
 }
