@@ -31,6 +31,8 @@ public class Main extends JFrame {
 		
 		Actions.initialise(functionTable, this);
 		
+		Inputs.getInstance(getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW), getRootPane().getActionMap());
+		
 		MenuBar menuBar = new MenuBar();
 		
 		ToolBar toolBar = new ToolBar();
