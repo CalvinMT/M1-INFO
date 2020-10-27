@@ -13,19 +13,24 @@ public class ActionRemoveFunction extends Command {
 	
 	private List <ToolListener> listeners = new ArrayList<>();
 	
+	private JTable table;
+	
 	
 	
 	public ActionRemoveFunction (JTable table, Component parent, String text) {
 		super(table, parent, text);
+		this.table = table;
 	}
 	
 	
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		doBackup();
-		for (ToolListener listener : listeners) {
-			listener.onFunctionRemove();
+		if (table.getSelectedRows().length > 0) {
+			doBackup();
+			for (ToolListener listener : listeners) {
+				listener.onFunctionRemove();
+			}
 		}
 	}
 	
