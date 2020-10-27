@@ -123,10 +123,10 @@ public class FunctionTable extends JTable implements ToolListener, FunctionColor
 
 	
 	private String getSelectedFunctionName () {
-		if (getSelectedRow() < 0  ||  getSelectedRow() > 0) {
-			return "";
+		if (getSelectedRows().length == 1) {
+			return (String) getValueAt(getSelectedRow(), 0);
 		}
-		return (String) getValueAt(getSelectedRow(), 0);
+		return "";
 	}
 	
 	private Color getSelectedFunctionColor () {
