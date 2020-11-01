@@ -1,7 +1,9 @@
+/*
 # ###################################################### #
 # 4.2
 # Les cages compatibles avec les spécialités du gardien.
 # ###################################################### #
+*/
 
 SELECT A.noCage, A.fonction, A.nomE 
 FROM 
@@ -21,10 +23,12 @@ FROM
 
 
 
+/*
 # ###################################################### #
 # 4.3
 # Le nombre de gardien par cage.
 # ###################################################### #
+*/
 
 DROP TABLE StatistiqueGardienParCage;
 
@@ -47,12 +51,14 @@ INSERT INTO StatistiqueGardienParCage VALUES (?, ?);
 
 
 
+/*
 # ###################################################### #
 # 5.1
 # Trigger : Lorsqu’un gardien voit l'une de ses 
 # affectations modifiées, son ancienne affectation doit 
 # être conservée dans la table LesHistoiresAff.
 # ###################################################### #
+*/
 
 CREATE OR REPLACE TRIGGER guardian_function_delete 
 AFTER DELETE OR UPDATE ON LesGardiens 
@@ -67,6 +73,7 @@ ALTER TRIGGER guardian_affectation_change ENABLE;
 
 
 
+/*
 # ###################################################### #
 # 5.2
 # Trigger : Des animaux ne peuvent pas être placés dans 
@@ -74,6 +81,7 @@ ALTER TRIGGER guardian_affectation_change ENABLE;
 # animaux. On prendra en compte le fait que des animaux 
 # peuvent être ajoutés, mais aussi déplacés d’une cage.
 # ###################################################### #
+*/
 
 CREATE OR REPLACE TRIGGER animal_cage_change 
 BEFORE UPDATE OR INSERT ON LesAnimaux 
@@ -94,6 +102,7 @@ ALTER TRIGGER animal_cage_change ENABLE;
 
 
 
+/*
 # ###################################################### #
 # 5.3
 # Trigger : Un gardien ne peut pas être retiré de la 
@@ -102,6 +111,7 @@ ALTER TRIGGER animal_cage_change ENABLE;
 # compte le fait que des gardiens peuvent être retirés, 
 # mais aussi affectés à une autre cage.
 # ###################################################### #
+*/
 
 CREATE OR REPLACE TRIGGER guardian_assignment_change 
 AFTER DELETE OR UPDATE ON LesGardiens 
