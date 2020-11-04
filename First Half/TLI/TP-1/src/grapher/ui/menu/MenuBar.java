@@ -1,5 +1,7 @@
 package grapher.ui.menu;
 
+import java.awt.Color;
+
 import javax.swing.ButtonGroup;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -7,14 +9,19 @@ import javax.swing.JMenuItem;
 import javax.swing.JRadioButtonMenuItem;
 
 import grapher.ui.actions.Actions;
+import grapher.ui.view.ViewModeListener;
+import grapher.ui.view.table.FunctionTableListener;
 
-public class MenuBar extends JMenuBar {
+public class MenuBar extends JMenuBar implements FunctionTableListener, ViewModeListener {
 
 	private JMenu menuFunction;
 	
 	private JMenu menuWindow;
 	
 	private JMenuItem itemColorFunction;
+	
+	private FunctionViewModes functionViewModes;
+	private boolean isUniqueFunctionSelected = false;
 	
 	
 	
@@ -63,6 +70,9 @@ public class MenuBar extends JMenuBar {
 		
 		JRadioButtonMenuItem itemListMode = new JRadioButtonMenuItem(Actions.getInstance().actionViewModeList);
 		JRadioButtonMenuItem itemTableMode = new JRadioButtonMenuItem(Actions.getInstance().actionViewModeTable);
+
+		Actions.getInstance().actionViewModeList.addListener(this);
+		Actions.getInstance().actionViewModeTable.addListener(this);
 		
 		itemListMode.setSelected(true);
 		
@@ -75,6 +85,63 @@ public class MenuBar extends JMenuBar {
 		menuWindow.add(submenuViewMode);
 		
 		add(menuWindow);
+	}
+	
+	
+	
+	private void changeMenuItemsStates () {
+		switch (functionViewModes) {
+			case LIST:
+				itemColorFunction.setEnabled(false);
+				break;
+			case TABLE:
+				if (isUniqueFunctionSelected) {
+					itemColorFunction.setEnabled(true);
+				}
+				else {
+					itemColorFunction.setEnabled(false);
+				}
+				break;
+			default:
+				itemColorFunction.setEnabled(false);
+				break;
+		}
+	}
+	
+	
+	
+	@Override
+	public void onChangedSelected(FunctionViewModes mode) {
+		functionViewModes = mode;
+		changeMenuItemsStates();
+	}
+
+
+
+	@Override
+	public void onFunctionAdd(String function) {
+		return;
+	}
+	
+	@Override
+	public void onFunctionRemove(int[] indices) {
+		return;
+	}
+	
+	@Override
+	public void onFunctionEdit(int index, String function) {
+		return;
+	}
+	
+	@Override
+	public void onFunctionSelection(int[] indices, String function, Color color) {
+		if (indices.length == 1) {
+			isUniqueFunctionSelected = true;
+		}
+		else {
+			isUniqueFunctionSelected = false;
+		}
+		changeMenuItemsStates();
 	}
 	
 }

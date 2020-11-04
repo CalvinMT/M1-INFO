@@ -55,6 +55,7 @@ public class Main extends JFrame {
 		Actions.getInstance().actionViewModeTable.addListener(splitPaneFunctionTool);
 
 		functionList.addToolListener(functionTable);
+		functionTable.addListener(menuBar);
 		functionTable.addListener(grapher);
 		functionTable.addListener(Actions.getInstance().actionEditFunction);
 		functionTable.addListener(Actions.getInstance().actionColorFunction);
