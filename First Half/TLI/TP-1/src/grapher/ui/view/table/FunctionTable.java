@@ -73,7 +73,7 @@ public class FunctionTable extends JTable implements ToolListener, FunctionColor
 	}
 	
 	public void addFunction (String f) {
-		addFunction(f, Color.RED);
+		addFunction(f, getRandomColor());
 	}
 	
 	public void addFunctions (String[] f) {
@@ -134,6 +134,15 @@ public class FunctionTable extends JTable implements ToolListener, FunctionColor
 			return null;
 		}
 		return (Color) getValueAt(getSelectedRow(), 1);
+	}
+	
+	
+	
+	private Color getRandomColor () {
+		int r = (int) (Math.random() * 256);
+		int g = (int) (Math.random() * 256);
+		int b = (int) (Math.random() * 256);
+		return new Color(r, g, b);
 	}
 
 
