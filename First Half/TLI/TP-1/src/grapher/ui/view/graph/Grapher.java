@@ -306,15 +306,7 @@ public class Grapher extends JPanel implements FunctionTableListener, ViewModeLi
 	
 	@Override
 	public void onChangedSelected(FunctionViewModes mode) {
-		if (mode.equals(FunctionViewModes.LIST)) {
-			viewMode = mode;
-		}
-		else if (mode.equals(FunctionViewModes.TABLE)) {
-			viewMode = mode;
-		}
-		else {
-			throw new IllegalArgumentException("invalid viewMode");
-		}
+		viewMode = mode;
 		repaint();
 	}
 	

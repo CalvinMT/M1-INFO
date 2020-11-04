@@ -28,15 +28,15 @@ public class SplitPaneFunctionTool extends JSplitPane implements ViewModeListene
 	
 	@Override
 	public void onChangedSelected (FunctionViewModes mode) {
-		if (mode.equals(FunctionViewModes.LIST)) {
-			setLeftComponent(components[0]);
-		}
-		else if (mode.equals(FunctionViewModes.TABLE)) {
-			setLeftComponent(components[1]);
-		}
-		else {
-			// TODO - throw exception
-			System.out.println("ERROR: Mode " + mode + " was not found.");
+		switch (mode) {
+			case LIST:
+				setLeftComponent(components[0]);
+				break;
+			case TABLE:
+				setLeftComponent(components[1]);
+				break;
+			default:
+				throw new IllegalArgumentException("invalid viewMode : " + mode.toString());
 		}
 		repaint();
 		revalidate();
