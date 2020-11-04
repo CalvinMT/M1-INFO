@@ -17,8 +17,7 @@ import java.util.Vector;
 import static java.lang.Math.*;
 
 import grapher.fc.*;
-import grapher.ui.menu.ItemListMode;
-import grapher.ui.menu.ItemTableMode;
+import grapher.ui.menu.FunctionViewModes;
 import grapher.ui.view.FunctionColorChooserListener;
 import grapher.ui.view.ViewModeListener;
 import grapher.ui.view.table.FunctionTable;
@@ -44,7 +43,7 @@ public class Grapher extends JPanel implements FunctionTableListener, ViewModeLi
 	
 	private States state;
 	
-	private String viewMode = ItemListMode.MODE;
+	private FunctionViewModes viewMode = FunctionViewModes.LIST;
 	
 	private GrapherMouseInputAdapter grapherMouseInputAdapter;
 	                                                   
@@ -152,7 +151,7 @@ public class Grapher extends JPanel implements FunctionTableListener, ViewModeLi
 		}
 		
 		for(int f=0; f<functions.size(); f++) {
-			if (viewMode.equals(ItemTableMode.MODE)) {
+			if (viewMode.equals(FunctionViewModes.TABLE)) {
 				g2.setColor(((Color) FunctionTable.model.getValueAt(f, 1)));
 			}
 			else {
@@ -306,11 +305,11 @@ public class Grapher extends JPanel implements FunctionTableListener, ViewModeLi
 	}
 	
 	@Override
-	public void onChangedSelected(String mode) {
-		if (mode.equals(ItemListMode.MODE)) {
+	public void onChangedSelected(FunctionViewModes mode) {
+		if (mode.equals(FunctionViewModes.LIST)) {
 			viewMode = mode;
 		}
-		else if (mode.equals(ItemTableMode.MODE)) {
+		else if (mode.equals(FunctionViewModes.TABLE)) {
 			viewMode = mode;
 		}
 		else {

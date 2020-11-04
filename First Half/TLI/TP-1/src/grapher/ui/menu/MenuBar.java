@@ -1,19 +1,21 @@
 package grapher.ui.menu;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JRadioButtonMenuItem;
 
 import grapher.ui.actions.Actions;
-import grapher.ui.view.ViewModeListener;
 
-public class MenuBar extends JMenuBar implements ViewModeListener {
+public class MenuBar extends JMenuBar {
 
-	JMenu menuFunction;
+	private JMenu menuFunction;
 	
-	JMenu menuWindow;
+	private JMenu menuWindow;
 	
-	JMenuItem itemColorFunction;
+	private JMenuItem itemColorFunction;
+	
 	
 	
 	public MenuBar () {
@@ -21,9 +23,6 @@ public class MenuBar extends JMenuBar implements ViewModeListener {
 		
 		initialiseMenuFunction();
 		initialiseMenuWindow();
-		
-		Actions.getInstance().actionViewModeList.addListener(this);
-		Actions.getInstance().actionViewModeTable.addListener(this);
 	}
 	
 	
@@ -59,17 +58,16 @@ public class MenuBar extends JMenuBar implements ViewModeListener {
 		menuWindow = new JMenu("Window");
 		
 		JMenu submenuViewMode = new JMenu("View mode");
+
+		ButtonGroup groupFunctionViewMode = new ButtonGroup();
 		
-		ItemListMode itemListMode = new ItemListMode(Actions.getInstance().actionViewModeList);
-		ItemTableMode itemTableMode = new ItemTableMode(Actions.getInstance().actionViewModeTable);
+		JRadioButtonMenuItem itemListMode = new JRadioButtonMenuItem(Actions.getInstance().actionViewModeList);
+		JRadioButtonMenuItem itemTableMode = new JRadioButtonMenuItem(Actions.getInstance().actionViewModeTable);
 		
 		itemListMode.setSelected(true);
-
-		Actions.getInstance().actionViewModeList.addListener(itemListMode);
-		Actions.getInstance().actionViewModeTable.addListener(itemListMode);
 		
-		Actions.getInstance().actionViewModeList.addListener(itemTableMode);
-		Actions.getInstance().actionViewModeTable.addListener(itemTableMode);
+		groupFunctionViewMode.add(itemListMode);
+		groupFunctionViewMode.add(itemTableMode);
 		
 		submenuViewMode.add(itemListMode);
 		submenuViewMode.add(itemTableMode);
@@ -77,22 +75,6 @@ public class MenuBar extends JMenuBar implements ViewModeListener {
 		menuWindow.add(submenuViewMode);
 		
 		add(menuWindow);
-	}
-	
-	
-	
-	@Override
-	public void onChangedSelected(String mode) {
-		switch (mode) {
-			case ItemListMode.MODE:
-				itemColorFunction.setEnabled(false);
-				break;
-			case ItemTableMode.MODE:
-				itemColorFunction.setEnabled(true);
-				break;
-			default:
-				break;
-		}
 	}
 	
 }

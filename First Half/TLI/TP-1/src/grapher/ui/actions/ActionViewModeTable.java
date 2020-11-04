@@ -6,7 +6,7 @@ import java.util.List;
 
 import javax.swing.AbstractAction;
 
-import grapher.ui.menu.ItemTableMode;
+import grapher.ui.menu.FunctionViewModes;
 import grapher.ui.view.ViewModeListener;
 
 public class ActionViewModeTable extends AbstractAction {
@@ -30,7 +30,7 @@ public class ActionViewModeTable extends AbstractAction {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		for (ViewModeListener listener : listeners) {
-			listener.onChangedSelected(ItemTableMode.MODE);
+			listener.onChangedSelected(FunctionViewModes.TABLE);
 		}
 	}
 	

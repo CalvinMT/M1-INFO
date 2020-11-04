@@ -3,8 +3,7 @@ package grapher.ui.view;
 import javax.swing.JComponent;
 import javax.swing.JSplitPane;
 
-import grapher.ui.menu.ItemListMode;
-import grapher.ui.menu.ItemTableMode;
+import grapher.ui.menu.FunctionViewModes;
 
 public class SplitPaneFunctionTool extends JSplitPane implements ViewModeListener {
 	
@@ -28,11 +27,11 @@ public class SplitPaneFunctionTool extends JSplitPane implements ViewModeListene
 	
 	
 	@Override
-	public void onChangedSelected (String mode) {
-		if (mode.equals(ItemListMode.MODE)) {
+	public void onChangedSelected (FunctionViewModes mode) {
+		if (mode.equals(FunctionViewModes.LIST)) {
 			setLeftComponent(components[0]);
 		}
-		else if (mode.equals(ItemTableMode.MODE)) {
+		else if (mode.equals(FunctionViewModes.TABLE)) {
 			setLeftComponent(components[1]);
 		}
 		else {
