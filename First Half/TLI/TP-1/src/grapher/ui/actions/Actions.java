@@ -25,7 +25,7 @@ public class Actions {
 		actionAddFunction = new ActionAddFunction(table, parent, "Add...");
 		actionEditFunction = new ActionEditFunction(table, parent, "Edit...");
 		actionColorFunction = new ActionColorFunction(table, parent, "Colour...");
-		actionRemoveFunction = new ActionRemoveFunction(table, parent, "Remove...");
+		actionRemoveFunction = new ActionRemoveFunction(table, parent, "Remove");
 
 		actionUndo = new ActionUndo(table, "Undo");
 		actionRedo = new ActionRedo(table, "Redo");
