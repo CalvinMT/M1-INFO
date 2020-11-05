@@ -1,5 +1,7 @@
 # Grapher
 
+A software that uses Java's Swing toolkit to visualise functions using a list/table and an interactive graph.
+
 ## Actions
 
 | Action                       | Keyboard Shortcut |
@@ -17,3 +19,14 @@
 
 - List view
 - Table view
+
+## Implementation
+
+### Actions
+
+Actions are instanciated in a static instance of `Actions`, allowing them to be called anywhere.
+
+### List & Table
+
+The list uses `FunctionListModelFromTable` as its model which is populated by the table using `FunctionTableListener`.
+When a selection is made in the list, the list transfers its selection to the table through `FunctionActionListeners`.
