@@ -67,3 +67,5 @@ It is possible to change views between the list view and the table view going th
 ### Menu & Toolbar
 
 The menu and the toolbar both make use of `Actions` to call the appropriate action after an item or a button press.
+
+The toolbar buttons all have the same fixed maximum size.
