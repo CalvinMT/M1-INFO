@@ -8,13 +8,13 @@ import javax.swing.JSplitPane;
 import javax.swing.SwingUtilities;
 
 import grapher.ui.actions.Actions;
-import grapher.ui.menu.MenuBar;
-import grapher.ui.tool.ToolBar;
 import grapher.ui.view.SplitPaneFunctionTool;
 import grapher.ui.view.graph.Grapher;
 import grapher.ui.view.list.FunctionList;
 import grapher.ui.view.list.FunctionListModelFromTable;
+import grapher.ui.view.menu.MenuBar;
 import grapher.ui.view.table.FunctionTable;
+import grapher.ui.view.tool.ToolBar;
 
 
 public class Main extends JFrame {

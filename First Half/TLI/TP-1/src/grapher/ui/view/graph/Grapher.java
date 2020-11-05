@@ -17,9 +17,9 @@ import java.util.Vector;
 import static java.lang.Math.*;
 
 import grapher.fc.*;
-import grapher.ui.menu.FunctionViewModes;
 import grapher.ui.view.FunctionColorChooserListener;
 import grapher.ui.view.ViewModeListener;
+import grapher.ui.view.menu.FunctionViewModes;
 import grapher.ui.view.table.FunctionTable;
 import grapher.ui.view.table.FunctionTableListener;
 

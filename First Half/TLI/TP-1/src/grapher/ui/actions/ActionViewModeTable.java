@@ -6,8 +6,8 @@ import java.util.List;
 
 import javax.swing.AbstractAction;
 
-import grapher.ui.menu.FunctionViewModes;
 import grapher.ui.view.ViewModeListener;
+import grapher.ui.view.menu.FunctionViewModes;
 
 public class ActionViewModeTable extends AbstractAction {
 	

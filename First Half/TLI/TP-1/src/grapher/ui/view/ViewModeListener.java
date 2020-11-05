@@ -1,6 +1,6 @@
 package grapher.ui.view;
 
-import grapher.ui.menu.FunctionViewModes;
+import grapher.ui.view.menu.FunctionViewModes;
 
 public interface ViewModeListener {
 	

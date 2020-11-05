@@ -3,7 +3,7 @@ package grapher.ui.view;
 import javax.swing.JComponent;
 import javax.swing.JSplitPane;
 
-import grapher.ui.menu.FunctionViewModes;
+import grapher.ui.view.menu.FunctionViewModes;
 
 public class SplitPaneFunctionTool extends JSplitPane implements ViewModeListener {
 	

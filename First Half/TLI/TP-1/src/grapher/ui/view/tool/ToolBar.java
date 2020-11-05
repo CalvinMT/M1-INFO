@@ -1,4 +1,4 @@
-package grapher.ui.tool;
+package grapher.ui.view.tool;
 
 import java.awt.Dimension;
 import java.awt.Font;

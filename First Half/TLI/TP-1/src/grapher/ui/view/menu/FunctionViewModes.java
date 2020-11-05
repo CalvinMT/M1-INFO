@@ -1,4 +1,4 @@
-package grapher.ui.menu;
+package grapher.ui.view.menu;
 
 public enum FunctionViewModes {
 	LIST,
