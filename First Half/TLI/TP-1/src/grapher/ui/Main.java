@@ -77,6 +77,8 @@ public class Main extends JFrame {
 	}
 
 	public static void main(String[] argv) {
+		System.setProperty("apple.laf.useScreenMenuBar", "true");
+		
 		final String[] expressions = argv;
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() { 
