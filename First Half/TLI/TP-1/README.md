@@ -2,9 +2,23 @@
 
 A software that uses Java's Swing toolkit to visualise functions using a list/table and an interactive graph.
 
-## Actions
+## Function Actions
 
-| Action                       | Keyboard Shortcut |
+| List Action                        | Mouse Input        |
+| ---------------------------------- | ------------------ |
+| Select/Deselect a function         | Left Click         |
+| Select/Deselect multiple functions | Ctrl + Left Click  |
+| "                                  | Shift + Left Click |
+
+| Table Action                        | Mouse Input        |
+| ----------------------------------- | ------------------ |
+| Select/Deselect a function          | Left Click         |
+| Select/Deselect multiple functions  | Left Drag          |
+| "                                   | Ctrl + Left Click  |
+| "                                   | Shift + Left Click |
+| Change a selected function's colour | Right Click        |
+
+| Menu Action                  | Keyboard Shortcut |
 | ---------------------------- | ----------------- |
 | Add a function               | ---               |
 | Edit a function              | ---               |
@@ -14,6 +28,17 @@ A software that uses Java's Swing toolkit to visualise functions using a list/ta
 | Redo actions                 | Ctrl + Shift + Z  |
 
 > On a Mac, use the modifier `Command` key instead of `Ctrl` when using shortcuts
+
+## Graph Interaction
+
+| Interaction | Mouse Input |
+| ----------- | ----------- |
+| Move        | Left Drag   |
+| Zoom In     | Left Click  |
+| "           | Scroll Up   |
+| "           | Right Drag  |
+| Zoom Out    | Right Click |
+| "           | Scroll Down |
 
 ## Function View Modes
 
@@ -25,6 +50,10 @@ A software that uses Java's Swing toolkit to visualise functions using a list/ta
 ### Actions
 
 Actions are instanciated in a static instance of `Actions`, allowing them to be called anywhere.
+
+### Graph
+
+...
 
 ### List & Table
 
