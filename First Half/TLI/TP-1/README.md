@@ -2,6 +2,8 @@
 
 A software that uses Java's Swing toolkit to visualise functions using a list/table and an interactive graph.
 
+![Screenshot](docs/images/grapher_heart_example.png)
+
 ## Function Actions
 
 | List Action                           | Mouse Input        |
