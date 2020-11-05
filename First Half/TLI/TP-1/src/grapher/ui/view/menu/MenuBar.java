@@ -20,7 +20,7 @@ public class MenuBar extends JMenuBar implements FunctionTableListener, ViewMode
 	
 	private JMenuItem itemColorFunction;
 	
-	private FunctionViewModes functionViewModes;
+	private FunctionViewModes functionViewModes = FunctionViewModes.LIST;
 	private boolean isUniqueFunctionSelected = false;
 	
 	
