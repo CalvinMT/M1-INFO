@@ -8,11 +8,9 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
-import grapher.ui.tool.ToolListener;
-
 public class ActionAddFunction extends Command {
 	
-	private List <ToolListener> listeners = new ArrayList<>();
+	private List <FunctionActionListener> listeners = new ArrayList<>();
 	
 	
 	
@@ -34,7 +32,7 @@ public class ActionAddFunction extends Command {
                 "");
 		if (newExpression != null  &&  newExpression.length() > 0) {
 			doBackup();
-			for (ToolListener listener : listeners) {
+			for (FunctionActionListener listener : listeners) {
 				listener.onFunctionAdd(newExpression);
 			}
 		}
@@ -42,7 +40,7 @@ public class ActionAddFunction extends Command {
 	
 	
 	
-	public void addListener (ToolListener listener) {
+	public void addListener (FunctionActionListener listener) {
 		listeners.add(listener);
 	}
 	

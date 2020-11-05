@@ -7,11 +7,9 @@ import java.util.List;
 
 import javax.swing.JTable;
 
-import grapher.ui.tool.ToolListener;
-
 public class ActionRemoveFunction extends Command {
 	
-	private List <ToolListener> listeners = new ArrayList<>();
+	private List <FunctionActionListener> listeners = new ArrayList<>();
 	
 	private JTable table;
 	
@@ -28,7 +26,7 @@ public class ActionRemoveFunction extends Command {
 	public void actionPerformed(ActionEvent e) {
 		if (table.getSelectedRows().length > 0) {
 			doBackup();
-			for (ToolListener listener : listeners) {
+			for (FunctionActionListener listener : listeners) {
 				listener.onFunctionRemove();
 			}
 		}
@@ -36,7 +34,7 @@ public class ActionRemoveFunction extends Command {
 	
 	
 	
-	public void addListener (ToolListener listener) {
+	public void addListener (FunctionActionListener listener) {
 		listeners.add(listener);
 	}
 	

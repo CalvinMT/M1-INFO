@@ -1,6 +1,6 @@
-package grapher.ui.tool;
+package grapher.ui.actions;
 
-public interface ToolListener {
+public interface FunctionActionListener {
 	
 	void onFunctionAdd (String function);
 	

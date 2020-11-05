@@ -9,12 +9,11 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
-import grapher.ui.tool.ToolListener;
 import grapher.ui.view.table.FunctionTableListener;
 
 public class ActionEditFunction extends Command implements FunctionTableListener {
 	
-	private List <ToolListener> listeners = new ArrayList<>();
+	private List <FunctionActionListener> listeners = new ArrayList<>();
 
 	private int selectedFunction = -1;
 	private String selectedFunctionName = "";
@@ -40,7 +39,7 @@ public class ActionEditFunction extends Command implements FunctionTableListener
 	                selectedFunctionName);
 			if (newExpression != null  &&  newExpression.length() > 0) {
 				doBackup();
-				for (ToolListener listener : listeners) {
+				for (FunctionActionListener listener : listeners) {
 					listener.onFunctionEdit(selectedFunction, newExpression);
 				}
 			}
@@ -49,7 +48,7 @@ public class ActionEditFunction extends Command implements FunctionTableListener
 	
 	
 	
-	public void addListener (ToolListener listener) {
+	public void addListener (FunctionActionListener listener) {
 		listeners.add(listener);
 	}
 	

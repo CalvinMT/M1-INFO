@@ -5,11 +5,11 @@ import java.util.List;
 
 import javax.swing.JList;
 
-import grapher.ui.tool.ToolListener;
+import grapher.ui.actions.FunctionActionListener;
 
 public class FunctionList extends JList <String> {
 	
-	private List <ToolListener> toolListeners = new ArrayList<>();
+	private List <FunctionActionListener> functionActionListeners = new ArrayList<>();
 	
 	
 	
@@ -21,7 +21,7 @@ public class FunctionList extends JList <String> {
 		
 		getSelectionModel().addListSelectionListener(l -> {
 			if (l.getValueIsAdjusting()) {
-				for (ToolListener listener : toolListeners) {
+				for (FunctionActionListener listener : functionActionListeners) {
 					listener.onFunctionSelection(getSelectedIndices());
 				}
 			}
@@ -30,8 +30,8 @@ public class FunctionList extends JList <String> {
 	
 
 	
-	public void addToolListener (ToolListener l) {
-		toolListeners.add(l);
+	public void addToolListener (FunctionActionListener l) {
+		functionActionListeners.add(l);
 	}
 	
 }

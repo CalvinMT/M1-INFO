@@ -9,11 +9,11 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
-import grapher.ui.tool.ToolListener;
+import grapher.ui.actions.FunctionActionListener;
 import grapher.ui.view.CustomListSelectionModel;
 import grapher.ui.view.FunctionColorChooserListener;
 
-public class FunctionTable extends JTable implements ToolListener, FunctionColorChooserListener {
+public class FunctionTable extends JTable implements FunctionActionListener, FunctionColorChooserListener {
 
 	public static final int COLUMN_FUNCTION_MIN_WIDTH = 50;
 	public static final int COLUMN_COLOUR_MIN_WIDTH = 20;
