@@ -2,6 +2,7 @@ package downloader.fc;
 
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.concurrent.locks.ReentrantLock;
 import java.net.MalformedURLException;
 
 import java.io.File;
@@ -28,6 +29,10 @@ public class Downloader {
 	
 	private int _progress;
 	private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+	
+	private ReentrantLock lock = new ReentrantLock();
+	
+	
 	
 	public Downloader(String uri) {
 		try {
@@ -60,6 +65,8 @@ public class Downloader {
 		long count = 0;
 		
 		while (true) {
+			lock.lock();
+			try {
 				try { count = Long.valueOf(in.read(buffer, 0, CHUNK_SIZE)); }
 				catch(IOException e) { continue; }
 	
@@ -72,6 +79,10 @@ public class Downloader {
 				
 				size += count;
 				setProgress((int) (100L*size/content_length));
+			}
+			finally {
+				lock.unlock();
+			}
 		}
 		
 		if(size < content_length) {
@@ -81,6 +92,10 @@ public class Downloader {
 		
 		temp.renameTo(new File(rootFolder, filename));
 		return filename;
+	}
+	
+	public ReentrantLock getLock () {
+		return lock;
 	}
 	
 	

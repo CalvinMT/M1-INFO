@@ -30,10 +30,12 @@ public class DownloadManager implements ActionChangeDownloadStateListener, Actio
 	
 	public void pauseWorker (int index) {
 		workers.get(index).setState(DownloadState.PAUSED);
+		workers.get(index).getLock().lock();
 	}
 	
 	public void resumeWorker (int index) {
 		workers.get(index).setState(DownloadState.RUNNING);
+		workers.get(index).getLock().unlock();
 	}
 	
 	public void cancelWorker (int index) {

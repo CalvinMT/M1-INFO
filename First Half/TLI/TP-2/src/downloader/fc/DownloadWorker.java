@@ -2,6 +2,7 @@ package downloader.fc;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.concurrent.locks.ReentrantLock;
 
 import javax.swing.SwingWorker;
 
@@ -76,6 +77,10 @@ public class DownloadWorker extends SwingWorker <Void, Void> {
 	
 	public DownloadState getDownloadState () {
 		return state;
+	}
+	
+	public ReentrantLock getLock () {
+		return downloader.getLock();
 	}
 	
 	@Override
