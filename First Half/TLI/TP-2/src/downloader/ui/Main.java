@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 import downloader.fc.DownloadManager;
+import downloader.fc.URLListModel;
 import downloader.fc.actions.Actions;
 
 public class Main extends JFrame {
@@ -28,6 +29,7 @@ public class Main extends JFrame {
 		getContentPane().add(panelDownloads, BorderLayout.CENTER);
 		
 		
+		URLListModel.getInstance().addAllElements(urls);
 		
 		pack();
 	}

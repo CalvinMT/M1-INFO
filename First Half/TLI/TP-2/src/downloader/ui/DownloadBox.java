@@ -5,10 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
 import downloader.fc.DownloadState;
+import downloader.fc.URLListModel;
 import downloader.fc.actions.ActionChangeDownloadStateListener;
 
 public class DownloadBox extends JPanel {
@@ -30,6 +32,8 @@ public class DownloadBox extends JPanel {
 		BorderLayout borderLayout = new BorderLayout();
 		setLayout(borderLayout);
 		
+		JLabel url = new JLabel(URLListModel.getInstance().get(index), JLabel.LEFT);
+		
 		progressBar = new JProgressBar(0, 100);
 		progressBar.setValue(0);
 		progressBar.setStringPainted(true);
@@ -43,6 +47,7 @@ public class DownloadBox extends JPanel {
 		});
 		
 		add(progressBar, BorderLayout.CENTER);
+		add(url, BorderLayout.NORTH);
 		add(buttonChangeDownloadState, BorderLayout.EAST);
 	}
 	
