@@ -1,6 +1,8 @@
 package downloader.ui;
 
 import javax.swing.JPanel;
+import javax.swing.event.ListDataEvent;
+import javax.swing.event.ListDataListener;
 
 import downloader.fc.DownloadManager;
 import downloader.fc.URLListModel;
