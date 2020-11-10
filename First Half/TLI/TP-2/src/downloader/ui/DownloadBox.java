@@ -29,6 +29,8 @@ public class DownloadBox extends JPanel {
 	public DownloadBox (int boxIndex) {
 		this.index = boxIndex;
 		
+		DownloadBoxMouseAdapter downloadBoxMouseAdapter = new DownloadBoxMouseAdapter(this);
+		
 		BorderLayout borderLayout = new BorderLayout();
 		setLayout(borderLayout);
 		
@@ -49,6 +51,9 @@ public class DownloadBox extends JPanel {
 		add(progressBar, BorderLayout.CENTER);
 		add(url, BorderLayout.NORTH);
 		add(buttonChangeDownloadState, BorderLayout.EAST);
+		
+		addMouseListener(downloadBoxMouseAdapter);
+		addMouseMotionListener(downloadBoxMouseAdapter);
 	}
 	
 
@@ -74,6 +79,7 @@ public class DownloadBox extends JPanel {
 	 * Called by DownloadStatePropertyChangeListener
 	 */
 	protected void updateButtonState (DownloadState newState) {
+		DownloadBoxContextMenu.getInstance().updateItemsEnableness(index, newState);
 		switch (newState) {
 			case RUNNING:
 				buttonChangeDownloadState.setEnabled(true);
