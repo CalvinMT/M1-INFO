@@ -3,6 +3,7 @@ package downloader.ui;
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
+import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.SwingUtilities;
 
@@ -27,14 +28,20 @@ public class Main extends JFrame {
 		Actions.getInstance().actionClearAllDownloads.addListener(downloadManager);
 		
 		BorderLayout borderLayout = new BorderLayout();
+		JScrollPane scrollPane = new JScrollPane();
 		PanelDownloads panelDownloads = new PanelDownloads(downloadManager);
 		StackLayout stackLayoutDownloads = new StackLayout();
 		SplitPaneAddURL splitPaneAddURL = new SplitPaneAddURL(JSplitPane.HORIZONTAL_SPLIT);
 		
+		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.getVerticalScrollBar().setUnitIncrement(4);
+		scrollPane.setViewportView(panelDownloads);
+		
 		panelDownloads.setLayout(stackLayoutDownloads);
 		
 		setLayout(borderLayout);
-		getContentPane().add(panelDownloads, BorderLayout.CENTER);
+		getContentPane().add(scrollPane, BorderLayout.CENTER);
 		getContentPane().add(splitPaneAddURL, BorderLayout.SOUTH);
 		
 		URLListModel.getInstance().addListDataListener(panelDownloads);
