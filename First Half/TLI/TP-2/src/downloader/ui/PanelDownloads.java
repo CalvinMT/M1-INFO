@@ -3,8 +3,9 @@ package downloader.ui;
 import javax.swing.JPanel;
 
 import downloader.fc.DownloadManager;
+import downloader.fc.URLListModel;
 
-public class PanelDownloads extends JPanel {
+public class PanelDownloads extends JPanel implements ListDataListener {
 	
 	DownloadManager downloadManager;
 	
@@ -55,6 +56,23 @@ public class PanelDownloads extends JPanel {
 		removeAll();
 		revalidate();
 		repaint();
+	}
+	
+	
+	
+	@Override
+	public void intervalAdded(ListDataEvent e) {
+		addDownload(URLListModel.getInstance().get(e.getIndex0()));
+	}
+	
+	@Override
+	public void intervalRemoved(ListDataEvent e) {
+		removeDownloadsInterval(e.getIndex0(), e.getIndex1());
+	}
+	
+	@Override
+	public void contentsChanged(ListDataEvent e) {
+		return;
 	}
 	
 }

@@ -28,6 +28,7 @@ public class Main extends JFrame {
 		setLayout(borderLayout);
 		getContentPane().add(panelDownloads, BorderLayout.CENTER);
 		
+		URLListModel.getInstance().addListDataListener(panelDownloads);
 		
 		URLListModel.getInstance().addAllElements(urls);
 		
