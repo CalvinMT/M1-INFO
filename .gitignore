@@ -19,6 +19,9 @@
 *.tar.gz
 *.rar
 
+#CSE-PC
+/First Half/CSE-PC/TP-5/src/results/
+
 # IDE eclipse
 .project
 
