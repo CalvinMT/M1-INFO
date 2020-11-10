@@ -14,10 +14,11 @@ import java.beans.PropertyChangeListener;
 
 
 public class Downloader {
+	
 	public static final int CHUNK_SIZE = 1024;
 	
 	URL url;
-	int content_length;
+	long content_length;
 	BufferedInputStream in;
 	
 	String filename;
@@ -55,20 +56,22 @@ public class Downloader {
 	
 	public String download() throws InterruptedException {
 		byte buffer[] = new byte[CHUNK_SIZE];
-		int size = 0;
-		int count = 0;
+		long size = 0;
+		long count = 0;
 		
-		while(true) {
-			try { count = in.read(buffer, 0, CHUNK_SIZE); }
-			catch(IOException e) { continue; }
-
-			if(count < 0) { break; }
-			
-			try { out.write(buffer, 0, count); }
-			catch(IOException e) { continue; }
-			
-			size += count;
-			setProgress(100*size/content_length);
+		while (true) {
+				try { count = Long.valueOf(in.read(buffer, 0, CHUNK_SIZE)); }
+				catch(IOException e) { continue; }
+	
+				if(count < 0L) {
+					break;
+				}
+				
+				try { out.write(buffer); }
+				catch(IOException e) { continue; }
+				
+				size += count;
+				setProgress((int) (100L*size/content_length));
 		}
 		
 		if(size < content_length) {
@@ -80,15 +83,15 @@ public class Downloader {
 		return filename;
 	}
 	
-	public int getProgress() {
-		return _progress;
-	}
+	
 	
 	public void setProgress(int progress) {
 		int old_progress = _progress;
 		_progress = progress;
 		pcs.firePropertyChange("progress", old_progress, progress);
 	}
+	
+	
 	
 	public void addPropertyChangeListener(PropertyChangeListener listener) {
 		pcs.addPropertyChangeListener(listener);
