@@ -6,12 +6,15 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 import downloader.fc.DownloadManager;
+import downloader.fc.actions.Actions;
 
 public class Main extends JFrame {
 	
 	private Main (String title, String[] urls) {
 		super(title);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		
+		Actions.initialise(this);
 		
 		DownloadManager downloadManager = new DownloadManager();
 		
