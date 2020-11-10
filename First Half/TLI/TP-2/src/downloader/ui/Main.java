@@ -1,46 +1,34 @@
 package downloader.ui;
 
 import java.awt.BorderLayout;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import downloader.fc.DownloadWorker;
+import downloader.fc.DownloadManager;
 
 public class Main extends JFrame {
+	
 	private Main (String title, String[] urls) {
 		super(title);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
+		DownloadManager downloadManager = new DownloadManager();
+		
 		BorderLayout borderLayout = new BorderLayout();
-		JPanel panelDownloads = new JPanel();
+		PanelDownloads panelDownloads = new PanelDownloads(downloadManager);
 		StackLayout stackLayoutDownloads = new StackLayout();
 		
 		panelDownloads.setLayout(stackLayoutDownloads);
+		
 		setLayout(borderLayout);
 		getContentPane().add(panelDownloads, BorderLayout.CENTER);
 		
-		List <DownloadWorker> threads = new ArrayList<>();
 		
-		for (String url : urls) {
-			DownloadWorker downloadworker = new DownloadWorker(url);
-			DownloadBox downloadBox = new DownloadBox();
-			DownloadPropertyChangeListener downloadPropertyChangeListener = new DownloadPropertyChangeListener(downloadBox);
-			downloadworker.addDownloaderPropertyChangeListener(downloadPropertyChangeListener);
-			panelDownloads.add(downloadBox);
-			threads.add(downloadworker);
-		}
 		
 		pack();
-		
-		for (DownloadWorker thread : threads) {
-			thread.execute();
-		}
 	}
-
+	
 	public static void main (String[] argv) {
 		System.setProperty("apple.laf.useScreenMenuBar", "true");
 		
@@ -51,4 +39,5 @@ public class Main extends JFrame {
 			}
 		});
 	}
+	
 }
