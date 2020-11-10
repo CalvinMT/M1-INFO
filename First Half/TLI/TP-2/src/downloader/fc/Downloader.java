@@ -55,9 +55,7 @@ public class Downloader {
 		catch(IOException e) { throw new RuntimeException(e); }
 	}
 	
-	public String toString() {
-		return url.toString();
-	}
+	
 	
 	public String download() throws InterruptedException {
 		byte buffer[] = new byte[CHUNK_SIZE];
@@ -114,6 +112,13 @@ public class Downloader {
 	
 	public void removePropertyChangeListener(PropertyChangeListener listener) {
 		pcs.removePropertyChangeListener(listener);
+	}
+	
+	
+	
+	@Override
+	public String toString() {
+		return url.toString();
 	}
 	
 }
