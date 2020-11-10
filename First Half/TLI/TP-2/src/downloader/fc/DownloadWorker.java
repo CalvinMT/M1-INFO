@@ -2,6 +2,7 @@ package downloader.fc;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.concurrent.locks.ReentrantLock;
 
 import javax.swing.SwingWorker;
@@ -9,6 +10,8 @@ import javax.swing.SwingWorker;
 public class DownloadWorker extends SwingWorker <Void, Void> {
 	
 	private DownloadState state = DownloadState.PAUSED;
+	
+	private PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
 	
 	private Downloader downloader;
 	
@@ -52,6 +55,18 @@ public class DownloadWorker extends SwingWorker <Void, Void> {
 		propertyChangeSupport.addPropertyChangeListener(listener);
 	}
 	
+	public void addAllDownloaderPropertyChangeListeners(PropertyChangeListener listeners[]) {
+		for (PropertyChangeListener listener : listeners) {
+			addDownloaderPropertyChangeListener(listener);
+		}
+	}
+	
+	public void addAllDownloadStatePropertyChangeListeners(PropertyChangeListener listeners[]) {
+		for (PropertyChangeListener listener : listeners) {
+			addDownloadStatePropertyChangeListener(listener);
+		}
+	}
+	
 	
 	
 	private void runDownloader () {
@@ -82,6 +97,24 @@ public class DownloadWorker extends SwingWorker <Void, Void> {
 	public ReentrantLock getLock () {
 		return downloader.getLock();
 	}
+	
+	public String getUrl () {
+		return url;
+	}
+	
+	public Downloader getDownloader () {
+		return downloader;
+	}
+	
+	public PropertyChangeListener[] getAllDownloaderPropertyChangeListeners () {
+		return downloader.getAllPropertyChangeListeners();
+	}
+	
+	public PropertyChangeListener[] getAllDownloadStatePropertyChangeListeners () {
+		return propertyChangeSupport.getPropertyChangeListeners();
+	}
+	
+	
 	
 	@Override
 	protected Void doInBackground () throws Exception {

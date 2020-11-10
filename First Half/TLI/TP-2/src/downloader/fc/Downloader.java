@@ -114,6 +114,10 @@ public class Downloader {
 		pcs.removePropertyChangeListener(listener);
 	}
 	
+	public PropertyChangeListener[] getAllPropertyChangeListeners() {
+		return pcs.getPropertyChangeListeners();
+	}
+	
 	
 	
 	@Override

@@ -25,6 +25,14 @@ public class DownloadManager implements ActionChangeDownloadStateListener, Actio
 	
 	public void startWorker (int index) {
 		workers.get(index).setState(DownloadState.RUNNING);
+		if (workers.get(index).isDone()) {
+			String url = workers.get(index).getUrl();
+			PropertyChangeListener dPCL[] = workers.get(index).getAllDownloaderPropertyChangeListeners();
+			PropertyChangeListener dSPCL[] = workers.get(index).getAllDownloadStatePropertyChangeListeners();
+			workers.set(index, new DownloadWorker(url));
+			workers.get(index).addAllDownloaderPropertyChangeListeners(dPCL);
+			workers.get(index).addAllDownloadStatePropertyChangeListeners(dSPCL);
+		}
 		workers.get(index).execute();
 	}
 	
