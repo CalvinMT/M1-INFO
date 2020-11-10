@@ -3,6 +3,7 @@ package downloader.ui;
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
+import javax.swing.JSplitPane;
 import javax.swing.SwingUtilities;
 
 import downloader.fc.DownloadManager;
@@ -22,11 +23,13 @@ public class Main extends JFrame {
 		BorderLayout borderLayout = new BorderLayout();
 		PanelDownloads panelDownloads = new PanelDownloads(downloadManager);
 		StackLayout stackLayoutDownloads = new StackLayout();
+		SplitPaneAddURL splitPaneAddURL = new SplitPaneAddURL(JSplitPane.HORIZONTAL_SPLIT);
 		
 		panelDownloads.setLayout(stackLayoutDownloads);
 		
 		setLayout(borderLayout);
 		getContentPane().add(panelDownloads, BorderLayout.CENTER);
+		getContentPane().add(splitPaneAddURL, BorderLayout.SOUTH);
 		
 		URLListModel.getInstance().addListDataListener(panelDownloads);
 		
