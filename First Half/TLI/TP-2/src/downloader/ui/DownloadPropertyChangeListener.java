@@ -17,7 +17,9 @@ public class DownloadPropertyChangeListener implements PropertyChangeListener {
 	
 	@Override
 	public void propertyChange(PropertyChangeEvent e) {
-		downloadBox.updateValue((int) e.getNewValue());
+		if (e.getPropertyName().equals("progress")) {
+			downloadBox.updateValue((int) e.getNewValue());
+		}
 	}
 	
 }

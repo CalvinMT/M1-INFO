@@ -20,6 +20,11 @@ public class DownloadBox extends JPanel {
 	
 	
 	
+	
+	
+	/*
+	 * Called by DownloadPropertyChangeListener
+	 */
 	protected void updateValue (int value) {
 		progressBar.setValue(value);
 	}
