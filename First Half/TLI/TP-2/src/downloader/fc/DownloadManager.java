@@ -5,10 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import downloader.fc.actions.ActionChangeDownloadStateListener;
+import downloader.fc.actions.ActionDownloadListener;
 import downloader.ui.DownloadPropertyChangeListener;
 import downloader.ui.DownloadStatePropertyChangeListener;
 
-public class DownloadManager implements ActionChangeDownloadStateListener {
+public class DownloadManager implements ActionChangeDownloadStateListener, ActionDownloadListener {
 	
 	private List <DownloadWorker> workers = new ArrayList<>();
 	
@@ -35,6 +36,17 @@ public class DownloadManager implements ActionChangeDownloadStateListener {
 		workers.get(index).setState(DownloadState.RUNNING);
 	}
 	
+	public void cancelWorker (int index) {
+		workers.get(index).setState(DownloadState.CANCELLED);
+		workers.get(index).cancel(true);
+	}
+	
+	public void removeWorker (int index) {
+		cancelWorker(index);
+		workers.remove(index);
+		URLListModel.getInstance().remove(index);
+	}
+	
 	
 	
 	public void startAllWorkers () {
@@ -53,6 +65,18 @@ public class DownloadManager implements ActionChangeDownloadStateListener {
 		for (int i=0; i<workers.size(); i++) {
 			resumeWorker(i);
 		}
+	}
+	
+	public void cancelAllWorkers () {
+		for (int i=0; i<workers.size(); i++) {
+			cancelWorker(i);
+		}
+	}
+	
+	public void removeAllWorkers () {
+		cancelAllWorkers();
+		workers.clear();
+		URLListModel.getInstance().removeAllElements();
 	}
 	
 
@@ -85,6 +109,33 @@ public class DownloadManager implements ActionChangeDownloadStateListener {
 			default:
 				break;
 		}
+	}
+	
+	
+	
+	@Override
+	public void onResumeDownload(int workerIndex) {
+		resumeWorker(workerIndex);
+	}
+	
+	@Override
+	public void onPauseDownload(int workerIndex) {
+		pauseWorker(workerIndex);
+	}
+	
+	@Override
+	public void onCancelDownload(int workerIndex) {
+		cancelWorker(workerIndex);
+	}
+	
+	@Override
+	public void onRemoveDownload(int workerIndex) {
+		removeWorker(workerIndex);
+	}
+	
+	@Override
+	public void onClearAllDownloads() {
+		removeAllWorkers();
 	}
 	
 }

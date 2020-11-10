@@ -20,6 +20,12 @@ public class Main extends JFrame {
 		
 		DownloadManager downloadManager = new DownloadManager();
 		
+		Actions.getInstance().actionResumeDownload.addListener(downloadManager);
+		Actions.getInstance().actionPauseDownload.addListener(downloadManager);
+		Actions.getInstance().actionCancelDownload.addListener(downloadManager);
+		Actions.getInstance().actionRemoveDownload.addListener(downloadManager);
+		Actions.getInstance().actionClearAllDownloads.addListener(downloadManager);
+		
 		BorderLayout borderLayout = new BorderLayout();
 		PanelDownloads panelDownloads = new PanelDownloads(downloadManager);
 		StackLayout stackLayoutDownloads = new StackLayout();
