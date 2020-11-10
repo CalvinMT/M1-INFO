@@ -18,10 +18,13 @@ public class PanelDownloads extends JPanel {
 	
 	public void addDownload (String url) {
 		DownloadBox downloadBox = new DownloadBox(getComponentCount());
+		downloadBox.addActionChangeDownloadStateListener(downloadManager);
 		add(downloadBox);
 		int workerIndex = downloadManager.addWorker(url);
 		DownloadPropertyChangeListener downloadPropertyChangeListener = new DownloadPropertyChangeListener(downloadBox);
+		DownloadStatePropertyChangeListener downloadStatePropertyChangeListener = new DownloadStatePropertyChangeListener(downloadBox);
 		downloadManager.addDownloaderPropertyChangeListener(workerIndex, downloadPropertyChangeListener);
+		downloadManager.addDownloadStatePropertyChangeListener(workerIndex, downloadStatePropertyChangeListener);
 		downloadManager.startWorker(workerIndex);
 		revalidate();
 		repaint();

@@ -7,6 +7,8 @@ import javax.swing.SwingWorker;
 
 public class DownloadWorker extends SwingWorker <Void, Void> {
 	
+	private DownloadState state = DownloadState.PAUSED;
+	
 	private Downloader downloader;
 	
 	private String url;
@@ -39,15 +41,19 @@ public class DownloadWorker extends SwingWorker <Void, Void> {
 		});
 	}
 	
-	
+
 	
 	public void addDownloaderPropertyChangeListener(PropertyChangeListener listener) {
 		downloader.addPropertyChangeListener(listener);
 	}
 	
+	public void addDownloadStatePropertyChangeListener(PropertyChangeListener listener) {
+		propertyChangeSupport.addPropertyChangeListener(listener);
+	}
 	
 	
-	public void runDownloader () {
+	
+	private void runDownloader () {
 		String filename = "";
 		try {
 			filename = downloader.download();
@@ -57,9 +63,21 @@ public class DownloadWorker extends SwingWorker <Void, Void> {
 		}
 		System.out.format("into %s\n", filename);
 	}
-
-
-
+	
+	
+	
+	public void setState (DownloadState newState) {
+		DownloadState oldState = state;
+		state = newState;
+		propertyChangeSupport.firePropertyChange("download_state", oldState, state);
+	}
+	
+	
+	
+	public DownloadState getDownloadState () {
+		return state;
+	}
+	
 	@Override
 	protected Void doInBackground () throws Exception {
 		runDownloader();
@@ -68,7 +86,7 @@ public class DownloadWorker extends SwingWorker <Void, Void> {
 	
 	@Override
 	protected void done () {
-		// TODO
+		setState(DownloadState.COMPLETED);
 	}
 	
 }
