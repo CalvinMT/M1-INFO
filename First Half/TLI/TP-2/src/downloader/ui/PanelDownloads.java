@@ -6,8 +6,9 @@ import javax.swing.event.ListDataListener;
 
 import downloader.fc.DownloadManager;
 import downloader.fc.URLListModel;
+import downloader.fc.actions.ActionRestartDownloadListener;
 
-public class PanelDownloads extends JPanel implements ListDataListener {
+public class PanelDownloads extends JPanel implements ListDataListener, ActionRestartDownloadListener {
 	
 	DownloadManager downloadManager;
 	
@@ -15,22 +16,32 @@ public class PanelDownloads extends JPanel implements ListDataListener {
 	
 	public PanelDownloads (DownloadManager dM) {
 		downloadManager = dM;
+		downloadManager.addActionRestartDownloadListener(this);
 	}
 	
 	
 	
 	public void addDownload (String url) {
-		DownloadBox downloadBox = new DownloadBox(getComponentCount());
+		addDownload(url, getComponentCount());
+	}
+	
+	public void addDownload (String url, int index) {
+		DownloadBox downloadBox = new DownloadBox(index);
 		downloadBox.addActionChangeDownloadStateListener(downloadManager);
-		add(downloadBox);
-		int workerIndex = downloadManager.addWorker(url);
+		add(downloadBox, index);
+		downloadManager.addWorker(url, index);
 		DownloadPropertyChangeListener downloadPropertyChangeListener = new DownloadPropertyChangeListener(downloadBox);
 		DownloadStatePropertyChangeListener downloadStatePropertyChangeListener = new DownloadStatePropertyChangeListener(downloadBox);
-		downloadManager.addDownloaderPropertyChangeListener(workerIndex, downloadPropertyChangeListener);
-		downloadManager.addDownloadStatePropertyChangeListener(workerIndex, downloadStatePropertyChangeListener);
-		downloadManager.startWorker(workerIndex);
+		downloadManager.addDownloaderPropertyChangeListener(index, downloadPropertyChangeListener);
+		downloadManager.addDownloadStatePropertyChangeListener(index, downloadStatePropertyChangeListener);
+		downloadManager.startWorker(index);
 		revalidate();
 		repaint();
+	}
+	
+	public void restartDownload (int index) {
+		removeDownload(index);
+		addDownload(URLListModel.getInstance().get(index), index);
 	}
 	
 	public void removeDownload (int index) {
@@ -75,6 +86,13 @@ public class PanelDownloads extends JPanel implements ListDataListener {
 	@Override
 	public void contentsChanged(ListDataEvent e) {
 		return;
+	}
+	
+	
+	
+	@Override
+	public void onRestartDownload(int index) {
+		restartDownload(index);
 	}
 	
 }

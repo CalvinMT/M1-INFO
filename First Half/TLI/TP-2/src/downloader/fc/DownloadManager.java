@@ -1,38 +1,40 @@
 package downloader.fc;
 
-import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 
 import downloader.fc.actions.ActionChangeDownloadStateListener;
 import downloader.fc.actions.ActionDownloadListener;
+import downloader.fc.actions.ActionRestartDownloadListener;
 import downloader.ui.DownloadPropertyChangeListener;
 import downloader.ui.DownloadStatePropertyChangeListener;
 
 public class DownloadManager implements ActionChangeDownloadStateListener, ActionDownloadListener {
 	
-	private List <DownloadWorker> workers = new ArrayList<>();
+	private List <DownloadWorker> workers = new ArrayList <> ();
+	
+	private List <ActionRestartDownloadListener> actionRestartDownloadListeners = new ArrayList <> ();
 	
 	
 	
-	public int addWorker (String url) {
+	public void addWorker (String url, int index) {
 		DownloadWorker downloadworker = new DownloadWorker(url);
-		workers.add(downloadworker);
-		return workers.size() - 1;
+		if (index < workers.size()) {
+			cancelWorker(index);
+			workers.remove(index);
+		}
+		workers.add(index, downloadworker);
 	}
 	
 	
 	
 	public void startWorker (int index) {
-		workers.get(index).setState(DownloadState.RUNNING);
 		if (workers.get(index).isDone()) {
-			String url = workers.get(index).getUrl();
-			PropertyChangeListener dPCL[] = workers.get(index).getAllDownloaderPropertyChangeListeners();
-			PropertyChangeListener dSPCL[] = workers.get(index).getAllDownloadStatePropertyChangeListeners();
-			workers.set(index, new DownloadWorker(url));
-			workers.get(index).addAllDownloaderPropertyChangeListeners(dPCL);
-			workers.get(index).addAllDownloadStatePropertyChangeListeners(dSPCL);
+			for (ActionRestartDownloadListener listener : actionRestartDownloadListeners) {
+				listener.onRestartDownload(index);
+			}
 		}
+		workers.get(index).setState(DownloadState.RUNNING);
 		workers.get(index).execute();
 	}
 	
@@ -97,6 +99,12 @@ public class DownloadManager implements ActionChangeDownloadStateListener, Actio
 	
 	public void addDownloadStatePropertyChangeListener (int workerIndex, DownloadStatePropertyChangeListener listener) {
 		workers.get(workerIndex).addDownloadStatePropertyChangeListener(listener);
+	}
+	
+	
+	
+	public void addActionRestartDownloadListener (ActionRestartDownloadListener l) {
+		actionRestartDownloadListeners.add(l);
 	}
 	
 	

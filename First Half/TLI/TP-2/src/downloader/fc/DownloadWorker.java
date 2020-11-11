@@ -55,18 +55,6 @@ public class DownloadWorker extends SwingWorker <Void, Void> {
 		propertyChangeSupport.addPropertyChangeListener(listener);
 	}
 	
-	public void addAllDownloaderPropertyChangeListeners(PropertyChangeListener listeners[]) {
-		for (PropertyChangeListener listener : listeners) {
-			addDownloaderPropertyChangeListener(listener);
-		}
-	}
-	
-	public void addAllDownloadStatePropertyChangeListeners(PropertyChangeListener listeners[]) {
-		for (PropertyChangeListener listener : listeners) {
-			addDownloadStatePropertyChangeListener(listener);
-		}
-	}
-	
 	
 	
 	private void runDownloader () {
@@ -98,22 +86,6 @@ public class DownloadWorker extends SwingWorker <Void, Void> {
 		return downloader.getLock();
 	}
 	
-	public String getUrl () {
-		return url;
-	}
-	
-	public Downloader getDownloader () {
-		return downloader;
-	}
-	
-	public PropertyChangeListener[] getAllDownloaderPropertyChangeListeners () {
-		return downloader.getAllPropertyChangeListeners();
-	}
-	
-	public PropertyChangeListener[] getAllDownloadStatePropertyChangeListeners () {
-		return propertyChangeSupport.getPropertyChangeListeners();
-	}
-	
 	
 	
 	@Override
@@ -124,7 +96,12 @@ public class DownloadWorker extends SwingWorker <Void, Void> {
 	
 	@Override
 	protected void done () {
-		setState(DownloadState.COMPLETED);
+		if (isCancelled()) {
+			setState(DownloadState.CANCELLED);
+		}
+		else {
+			setState(DownloadState.COMPLETED);
+		}
 	}
 	
 }
