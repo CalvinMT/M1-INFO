@@ -49,6 +49,7 @@ public class DownloadManager implements ActionChangeDownloadStateListener, Actio
 	}
 	
 	public void cancelWorker (int index) {
+		pauseWorker(index);
 		workers.get(index).setState(DownloadState.CANCELLED);
 		workers.get(index).cancel(true);
 	}
