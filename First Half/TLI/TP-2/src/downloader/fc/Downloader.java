@@ -51,8 +51,14 @@ public class Downloader {
 			temp = File.createTempFile(filename, ".part");
 			out = new FileOutputStream(temp);
 		}
-		catch(MalformedURLException e) { throw new RuntimeException(e); }
-		catch(IOException e) { throw new RuntimeException(e); }
+		catch(MalformedURLException e) {
+			URLListModel.getInstance().remove(URLListModel.getInstance().size() - 1);
+			throw new RuntimeException(e);
+		}
+		catch(IOException e) {
+			URLListModel.getInstance().remove(URLListModel.getInstance().size() - 1);
+			throw new RuntimeException(e);
+		}
 	}
 	
 	
