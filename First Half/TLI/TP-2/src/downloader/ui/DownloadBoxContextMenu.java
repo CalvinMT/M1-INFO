@@ -63,21 +63,25 @@ public class DownloadBoxContextMenu extends JPopupMenu {
 					itemResume.setEnabled(false);
 					itemPause.setEnabled(true);
 					itemCancel.setEnabled(true);
+					itemRemove.setEnabled(false);
 					break;
 				case PAUSED:
 					itemResume.setEnabled(true);
 					itemPause.setEnabled(false);
 					itemCancel.setEnabled(true);
+					itemRemove.setEnabled(false);
 					break;
 				case CANCELLED:
 					itemResume.setEnabled(false);
 					itemPause.setEnabled(false);
 					itemCancel.setEnabled(false);
+					itemRemove.setEnabled(true);
 					break;
 				case COMPLETED:
 					itemResume.setEnabled(false);
 					itemPause.setEnabled(false);
 					itemCancel.setEnabled(false);
+					itemRemove.setEnabled(true);
 					break;
 				default:
 					break;
