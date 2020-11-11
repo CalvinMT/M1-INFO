@@ -28,6 +28,7 @@ public class PanelDownloads extends JPanel implements ListDataListener, ActionRe
 	public void addDownload (String url, int index) {
 		DownloadBox downloadBox = new DownloadBox(index);
 		downloadBox.addActionChangeDownloadStateListener(downloadManager);
+		URLListModel.getInstance().addListDataListener(downloadBox);
 		add(downloadBox, index);
 		downloadManager.addWorker(url, index);
 		DownloadPropertyChangeListener downloadPropertyChangeListener = new DownloadPropertyChangeListener(downloadBox);

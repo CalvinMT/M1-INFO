@@ -8,14 +8,16 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
+import javax.swing.event.ListDataEvent;
+import javax.swing.event.ListDataListener;
 
 import downloader.fc.DownloadState;
 import downloader.fc.URLListModel;
 import downloader.fc.actions.ActionChangeDownloadStateListener;
 
-public class DownloadBox extends JPanel {
+public class DownloadBox extends JPanel implements ListDataListener {
 	
-	private final int index;
+	private int index;
 	
 	private DownloadState state;
 	
@@ -110,6 +112,35 @@ public class DownloadBox extends JPanel {
 	
 	public void addActionChangeDownloadStateListener (ActionChangeDownloadStateListener l) {
 		listeners.add(l);
+	}
+	
+	
+	
+	@Override
+	public void intervalAdded(ListDataEvent e) {
+		int minIndex = Math.min(e.getIndex1(), e.getIndex0());
+		int maxIndex = Math.max(e.getIndex1(), e.getIndex0()) + 1;
+		for (int i=minIndex; i < maxIndex; i++) {
+			if (i <= index) {
+				index++;
+			}
+		}
+	}
+	
+	@Override
+	public void intervalRemoved(ListDataEvent e) {
+		int minIndex = Math.min(e.getIndex1(), e.getIndex0());
+		int maxIndex = Math.max(e.getIndex1(), e.getIndex0()) + 1;
+		for (int i=minIndex; i < maxIndex; i++) {
+			if (i <= index) {
+				index--;
+			}
+		}
+	}
+	
+	@Override
+	public void contentsChanged(ListDataEvent e) {
+		return;
 	}
 	
 }
