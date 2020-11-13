@@ -20,23 +20,23 @@ insert into LesEmployes values (Tresponsable('Jouanot',		'Papeete',			Tspecialit
 -- On utilise des requêtes SQL pour récupérer les références des cages 11 et 12 dans cet exemple
 insert into LesEmployes values (Tgardien('Spinnard',	'Sartene',			Tspecialites('fauve'),
 	ens_cages(
-		(SELECT TREAT(REF(c) AS Tcage) FROM LesCages c WHERE noCage=11),
-		(SELECT TREAT(REF(c) AS Tcage) FROM LesCages c WHERE noCage=12))
+		(SELECT REF(c) FROM LesCages c WHERE noCage=11),
+		(SELECT REF(c) FROM LesCages c WHERE noCage=12))
 	) );
 
 -- et même méthode pour les autres employés
 insert into LesEmployes values (Tgardien('Labbe',		'Calvi',			Tspecialites('fauve'),
 	ens_cages(
-		(SELECT TREAT(REF(c) AS Tcage) FROM LesCages c WHERE noCage=11),
-		(SELECT TREAT(REF(c) AS Tcage) FROM LesCages c WHERE noCage=12))
+		(SELECT REF(c) FROM LesCages c WHERE noCage=11),
+		(SELECT REF(c) FROM LesCages c WHERE noCage=12))
 	) );
 
 insert into LesEmployes values (Tgardien('Lachaize',	'Pointe a Pitre',	Tspecialites('fauve', 'fosse', 'petits oiseaux'),
 	ens_cages(
-		(SELECT TREAT(REF(c) AS Tcage) FROM LesCages c WHERE noCage=1),
-		(SELECT TREAT(REF(c) AS Tcage) FROM LesCages c WHERE noCage=3),
-		(SELECT TREAT(REF(c) AS Tcage) FROM LesCages c WHERE noCage=11),
-		(SELECT TREAT(REF(c) AS Tcage) FROM LesCages c WHERE noCage=12))
+		(SELECT REF(c) FROM LesCages c WHERE noCage=1),
+		(SELECT REF(c) FROM LesCages c WHERE noCage=3),
+		(SELECT REF(c) FROM LesCages c WHERE noCage=11),
+		(SELECT REF(c) FROM LesCages c WHERE noCage=12))
 	) );
 
 -- Insertion des instances d'animaux
@@ -53,12 +53,12 @@ insert into LesAnimaux values ('Charlotte',	'femelle',	'lion',		'fauve',			'Keny
 -- Pour cela on récupère l'objet liste_gardiens qui est une table (nested table) dans laquelle on peut ajouter les gardiens
 -- en fait on insère des références sur des gardiens (et pas directement les objets)
 -- Demandez-vous pourquoi ce choix ? Et quel serait les implications d'un ajout direct d'objet par exemple ?
-insert into Table(SELECT c.liste_gardiens FROM LesCages c WHERE c.noCage=1) value (SELECT REF(g) FROM LesEmployes g WHERE g.nomE in ('Lachaize'));
+insert into Table(SELECT c.liste_gardiens FROM LesCages c WHERE c.noCage=1) value (SELECT TREAT(REF(g) AS REF Tgardien) FROM LesEmployes g WHERE g.nomE in ('Lachaize'));
 
 -- idem pour compléter les autres cages avec leur liste de gardiens
-insert into Table(SELECT c.liste_gardiens FROM LesCages c WHERE c.noCage=3) value (SELECT REF(g) FROM LesEmployes g WHERE g.nomE in ('Lachaize'));
+insert into Table(SELECT c.liste_gardiens FROM LesCages c WHERE c.noCage=3) value (SELECT TREAT(REF(g) AS REF Tgardien) FROM LesEmployes g WHERE g.nomE in ('Lachaize'));
 
-insert into Table(SELECT c.liste_gardiens FROM LesCages c WHERE c.noCage=11) value (SELECT REF(g) FROM LesEmployes g WHERE g.nomE in ('Lachaize', 'Spinnard', 'Labbe'));
+insert into Table(SELECT c.liste_gardiens FROM LesCages c WHERE c.noCage=11) value (SELECT TREAT(REF(g) AS REF Tgardien) FROM LesEmployes g WHERE g.nomE in ('Lachaize', 'Spinnard', 'Labbe'));
 
-insert into Table(SELECT c.liste_gardiens FROM LesCages c WHERE c.noCage=12) value (SELECT REF(g) FROM LesEmployes g WHERE g.nomE in ('Lachaize', 'Spinnard', 'Labbe'));
+insert into Table(SELECT c.liste_gardiens FROM LesCages c WHERE c.noCage=12) value (SELECT TREAT(REF(g) AS REF Tgardien) FROM LesEmployes g WHERE g.nomE in ('Lachaize', 'Spinnard', 'Labbe'));
 
