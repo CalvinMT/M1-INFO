@@ -27,7 +27,7 @@ WHERE DEREF(A.lacage).noAllee=2;
 
 SELECT A.nomA, A.type_an 
 FROM LesAnimaux A, TABLE(A.liste_maladies) M 
-WHERE VALUE(M.maladie)='grippe';
+WHERE M.column_value='grippe';
 
 
 
