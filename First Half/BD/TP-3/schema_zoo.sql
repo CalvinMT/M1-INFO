@@ -17,7 +17,7 @@ drop type Tgardien;
 drop type Temploye;
 drop type Tcage;
 drop type Tspecialites;
-drop type Tmaladie;
+--drop type Tmaladie;
 
 -- ATTENTION: Il est plus prudent d'exécuter chaque commande de manière indépendante, et pas le script complet
 -- => plus facile à debuguer
@@ -95,14 +95,13 @@ create table LesAnimaux (
 	fonction_cage varchar2(20),
 	pays varchar2(20),
 	anNais number(4),
-	lacage Tcage,
+	lacage REF Tcage,
 	liste_maladies ens_maladies,
 	constraint LesAnimaux_C1 primary key (nomA),
 	constraint LesAnimaux_C2 check (sexe in ('femelle','male','hermaphrodite')),
 	constraint LesAnimaux_C3 check (anNais >= 1900)
 )
-nested table liste_maladies store as maladies
-nested table lacage.liste_gardiens store as lesgardiens;
+nested table liste_maladies store as maladies;
 
 
 
