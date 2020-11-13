@@ -101,7 +101,8 @@ create table LesAnimaux (
 	constraint LesAnimaux_C2 check (sexe in ('femelle','male','hermaphrodite')),
 	constraint LesAnimaux_C3 check (anNais >= 1900)
 )
-nested table liste_maladies store as maladies;
+nested table liste_maladies store as maladies
+nested table lacage.liste_gardiens store as lesgardiens;
 
 
 
