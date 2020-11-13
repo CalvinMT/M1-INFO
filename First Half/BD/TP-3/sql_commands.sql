@@ -8,8 +8,9 @@
 # ####################################################### #
 */
 
-SELECT DEREF(A.liste_maladies) 
-FROM LesAnimaux A;
+SELECT A.liste_maladies 
+FROM LesAnimaux A
+WHERE DEREF(A.lacage).noAllee=2;
 
 
 
