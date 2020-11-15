@@ -76,5 +76,6 @@ WHERE VALUE(C).noCage=1;
 */
 
 SELECT C.noCage, C.noAllee 
-FROM LesCages C 
-...
+FROM LesCages C, TABLE(C.liste_gardiens) G 
+WHERE DEREF(VALUE(G)).adresse='Calvi';
+
