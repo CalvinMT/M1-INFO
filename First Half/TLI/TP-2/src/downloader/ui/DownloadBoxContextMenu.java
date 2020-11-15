@@ -1,6 +1,10 @@
 package downloader.ui;
 
+import java.awt.event.ActionEvent;
+
+import javax.swing.AbstractAction;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 
 import downloader.fc.DownloadState;
@@ -25,7 +29,9 @@ public class DownloadBoxContextMenu extends JPopupMenu {
 		itemPause = new JMenuItem(Actions.getInstance().actionPauseDownload);
 		itemCancel = new JMenuItem(Actions.getInstance().actionCancelDownload);
 		itemRemove = new JMenuItem(Actions.getInstance().actionRemoveDownload);
-		itemClearAll = new JMenuItem(Actions.getInstance().actionClearAllDownloads);
+		itemClearAll = new JMenuItem(clearAllDialog());
+		
+		itemClearAll.setText("Clear all...");
 
 		add(itemResume);
 		add(itemPause);
@@ -41,6 +47,26 @@ public class DownloadBoxContextMenu extends JPopupMenu {
 			instance = new DownloadBoxContextMenu();
 		}
 		return instance;
+	}
+	
+	
+	
+	private AbstractAction clearAllDialog () {
+		return new AbstractAction () {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int confirmation = JOptionPane.showConfirmDialog(
+						null,
+						"This action will clear all downloads, cancelling those running.\nClear all downloads?",
+						"Clear all downloads",
+						JOptionPane.YES_OPTION,
+						JOptionPane.WARNING_MESSAGE,
+						null);
+				if (confirmation == JOptionPane.YES_OPTION) {
+					Actions.getInstance().actionClearAllDownloads.actionPerformed(e);
+				}
+			}
+		};
 	}
 	
 	
