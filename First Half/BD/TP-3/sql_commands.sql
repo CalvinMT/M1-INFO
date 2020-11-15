@@ -57,13 +57,9 @@ WHERE VALUE(E) IS OF (Tgardien);
 # ###################################################### #
 */
 
-SELECT G.nomE 
-FROM ( 
-	SELECT E.* 
-	FROM LesEmployes E 
-	WHERE VALUE(E) IS OF (Tgardien)
-	) G, TABLE(G.liste_cages) C 
-WHERE C.noCage=1;
+SELECT E.nomE 
+FROM LesEmployes E, TABLE(TREAT(VALUE(E) AS Tgardien).liste_cages) C 
+WHERE VALUE(C).noCage=1;
 
 
 
