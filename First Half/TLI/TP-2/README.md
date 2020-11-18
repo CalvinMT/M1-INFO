@@ -4,9 +4,9 @@ A software that uses Java's Swing toolkit to download files using URLs while sho
 
 ## Actions
 
-| Action       | Mouse Input |
-| ------------ | ----------- |
-| Context menu | Right Click |
+| Download Box Action | Mouse Input |
+| ------------------- | ----------- |
+| Context menu        | Right Click |
 
 | Context Menu Action |
 | ------------------- |
@@ -30,7 +30,17 @@ The split pane contains a text field on its left, in which the user enters the U
 
 ## Implementation
 
+### Actions
+
+Actions are instanciated in a static instance of Actions, allowing them to be used anywhere.
+
+### URLs
+
+URLs are stored in `URLListModel`, listened to by `PanelDownloads` and by each `DownloadBox` to manage the display of the stack layout. When a download is removed by the `DownloadManager`, the objects instanciated from both of the previous classes will be called through the `ListDataListener`.
+
 ...
+
+### Notifications
 
 A finished download brings the window to the front.
 > On Windows, `toFront()` enables a flash notification on the application's icon in the taskbar if its window is not visible
