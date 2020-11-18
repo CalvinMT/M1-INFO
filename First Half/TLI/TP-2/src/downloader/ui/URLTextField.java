@@ -3,13 +3,12 @@ package downloader.ui;
 import java.awt.Color;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 import javax.swing.JTextField;
 
 import downloader.fc.URLListModel;
 import downloader.fc.actions.ActionAddDownloadListener;
+import downloader.fc.actions.Actions;
 
 public class URLTextField extends JTextField implements ActionAddDownloadListener {
 	
@@ -43,26 +42,7 @@ public class URLTextField extends JTextField implements ActionAddDownloadListene
 			
 		});
 		
-		addKeyListener(new KeyListener() {
-			
-			@Override
-			public void keyTyped(KeyEvent e) {
-				if (e.getExtendedKeyCode() == KeyEvent.VK_ENTER) {
-					addURL();
-				}
-			}
-			
-			@Override
-			public void keyPressed(KeyEvent e) {
-				return;
-			}
-			
-			@Override
-			public void keyReleased(KeyEvent e) {
-				return;
-			}
-			
-		});
+		addActionListener(Actions.getInstance().actionAddDownload);
 	}
 	
 	
