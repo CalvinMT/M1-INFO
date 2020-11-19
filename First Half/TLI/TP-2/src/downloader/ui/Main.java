@@ -56,6 +56,7 @@ public class Main extends JFrame {
 		
 		setPreferredSize(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT));
 		pack();
+		setLocationRelativeTo(null);
 	}
 	
 	public static void main (String[] argv) {
