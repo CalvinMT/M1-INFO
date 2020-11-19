@@ -1,6 +1,7 @@
 package downloader.ui;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
@@ -12,6 +13,11 @@ import downloader.fc.URLListModel;
 import downloader.fc.actions.Actions;
 
 public class Main extends JFrame {
+
+	private static final int DEFAULT_WIDTH = 1080;
+	private static final int DEFAULT_HEIGHT = 720;
+	
+	
 	
 	private Main (String title, String[] urls) {
 		super(title);
@@ -48,6 +54,7 @@ public class Main extends JFrame {
 		
 		URLListModel.getInstance().addAllElements(urls);
 		
+		setPreferredSize(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT));
 		pack();
 	}
 	
