@@ -2,6 +2,8 @@
 
 A software that uses Java's Swing toolkit to download files using URLs while showing their progression.
 
+![Screenshot](docs/images/downloader_lena_ovh_example.png)
+
 ## Actions
 
 | Download Box Action | Mouse Input |
