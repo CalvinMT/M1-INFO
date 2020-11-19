@@ -44,15 +44,15 @@ A `DownloadBox` is the graphical representation of a download. It is made of:
 
 ### Download Manager
 
-...
+Creates and manages the state of all `DownloadWorker`s. Pauses and resumes a download using a `Downloader`'s `ReentrantLock`.
 
 ### Download Worker
 
-...
+Runs an instance of `Downloader` and inherites from `SwingWorker` so that each download is run on a separate thread.
 
 ### Downloader
 
-...
+Downlads a file from the given URL.
 
 ### URLs
 
