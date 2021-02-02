@@ -15,6 +15,7 @@
 ##
 ## OPTIONS
 ## 		-h, --help			Show usage
+##      -V                  Create new vectors (cannot be used with -v|--vectors)
 ## 		-i, --iterations	Number of times a program is called on the same vector 
 ## 		-v, --vectors		Number of elements per vector
 ## 		-t, --threads		Number of threads per paralleled launch
@@ -23,22 +24,25 @@
 ## 		run_all_tri.sh -i=30 -v="10000 100000 1000000" -t="1 2 4 8"
 ##
 ## IMPLEMENTATION
-## 		version:		1.0.0
+## 		version:		1.1.0
 ## 		author:			Calvin Massonnet
 ##
 ## HISTORY
 ## 		dd/mm/yyyy
 ##
 ## 		08/11/2020 : Calvin Massonnet : Script creation
+##      13/11/2020 : Calvin Massonnet : Feature -V option
 ##
 ## ################################################################################ ##
 
-PROGRAM_USAGE="usage: ${0##*/} [-h|--help] [-i|--iterations=max_iterations] [-v|--vectors=vectors] [-t|--threads=threads]"
+PROGRAM_USAGE="usage: ${0##*/} [-h|--help] [-V] [-i|--iterations=max_iterations] [-v|--vectors=vectors] [-t|--threads=threads]"
 PROGRAM_NO_OPTION="help: ${0##*/} -h"
 
 ARG_I=false
 ARG_V=false
 ARG_T=false
+
+CREATE_NEW_VECTORS=false
 
 MAX_ITERATIONS=30
 VECTORS="10000 100000 1000000"
@@ -50,6 +54,10 @@ do
         -h|--help)
         printf "%s\n" "$PROGRAM_USAGE"
         exit 0
+        ;;
+        -V)
+        CREATE_NEW_VECTORS=true
+        shift
         ;;
         -i=*|--iterations=*)
         MAX_ITERATIONS="${arg#*=}"
@@ -75,7 +83,20 @@ done
 if ! $ARG_I && ! $ARG_V && ! $ARG_T; then printf "%s\n" "$PROGRAM_NO_OPTION"; fi
 
 if ! $ARG_I; then printf "using default max. iterations: \t%d\n" $MAX_ITERATIONS; fi
-if ! $ARG_V; then printf "using default vectors: \t\t%s\n" "$VECTORS"; fi
+if ! $ARG_V && ! $CREATE_NEW_VECTORS; then
+    CURRENT_VECTORS=""
+    for entry in `ls ./vectors/*.vector`
+    do
+        tmp="${entry#"./vectors/v_"}"
+        size="${tmp%".vector"}"
+        CURRENT_VECTORS="$CURRENT_VECTORS $size"
+    done
+    if ! $CURRENT_VECTORS is empty; then
+        $VECTORS="$CURRENT_VECTORS"
+        printf "using current vectors: \t\t%s\n" "$VECTORS"
+    else
+        printf "using default vectors: \t\t%s\n" "$VECTORS"
+elif $ARG_V && $CREATE_NEW_VECTORS; then printf "ERROR: choose between current vectors [-V] and default vectors [-v|--vectors]\n"; fi
 if ! $ARG_T; then printf "using default threads: \t\t%s\n" "$THREADS"; fi
 
 printf "preparing...\n"
@@ -103,8 +124,11 @@ do
     # ############################################## #
     # VECTOR CREATION
     vectorFile="${VECTOR_DIR}v_${vectorSize}.vector"
-    printf "creating vector file %s...\n" $vectorFile
-    ./creer_vecteur -s $vectorSize > $vectorFile
+    if $CREATE_NEW_VECTORS; then
+        printf "creating vector file %s...\n" $vectorFile
+        ./creer_vecteur -s $vectorSize > $vectorFile
+    fi
+    printf "using vector file %s\n" $vectorFile
 
     # ############################################################################# #
     # SEQUENTIAL TIME
