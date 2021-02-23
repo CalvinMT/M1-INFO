@@ -8,4 +8,4 @@ First Half:
  - [TLI (Technique des Logiciels Interractifs)](First%20Half/TLI) - _[external link](http://iihm.imag.fr/blanch/M1/TLI/)_
 
 Second Half:
- - [GEONUM (Géométrie Numértique)](Second%20Half/GEONUM) - _[external link](https://geonum.gricad-pages.univ-grenoble-alpes.fr/geonum-pages/)_
+ - [GEONUM (Géométrie Numérique)](Second%20Half/GEONUM) - _[external link](https://geonum.gricad-pages.univ-grenoble-alpes.fr/geonum-pages/)_
