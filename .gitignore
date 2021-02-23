@@ -19,8 +19,11 @@
 *.tar.gz
 *.rar
 
-#CSE-PC
+# CSE-PC
 /First Half/CSE-PC/TP-5/src/results/
+
+# GEONUM
+/Second Half/GEONUM/TP*/data/*.png
 
 # IDE eclipse
 .project
