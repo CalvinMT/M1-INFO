@@ -42,14 +42,14 @@ DATADIR = filename = TP + "data/"
 #    ControlPts :  (n+1) x 2 matrix of control points
 #    Knots      :  (m+1) x 1 vector of knots
 #
-def ReadBSpline( filename, nurbs=False ) :
+def ReadBSpline(filename, nurbs=False):
     
     datafile = open(filename,'r');
     
     # if nurbs, read three coordinates; otherwise read two
-    if nurbs : 
+    if nurbs: 
         dim = 3
-    else : 
+    else: 
         dim = 2
         
     # datapoints
@@ -84,13 +84,13 @@ def ReadBSpline( filename, nurbs=False ) :
 #   Feel free to modify the signature if you want iterative implementation.
 #
 #
-def DeBoor( ControlPts, Knots, r, j, t ) :
+def DeBoor(ControlPts, Knots, r, j, t):
     if (r == 0):
         return ControlPts[j]
     else:
         m = len(Knots)
         n = len(ControlPts)
-        w = (t - Knots[j]) / (Knots[j + m - n - 1 - (r - 1)] - Knots[j])
+        w = (t - Knots[j]) / (Knots[j + m - n - r] - Knots[j])
         return (1 - w) * DeBoor(ControlPts, Knots, r - 1, j - 1, t) + w * DeBoor(ControlPts, Knots, r - 1, j, t)
 
     
@@ -98,41 +98,41 @@ def DeBoor( ControlPts, Knots, r, j, t ) :
 if __name__ == "__main__":
     
     # arg 1 : data name 
-    if len(sys.argv) > 1 :
+    if len(sys.argv) > 1:
         dataname = sys.argv[1]
-    else :
+    else:
         dataname = "simple" # [camel,circle,simple,spiral,spiral2] or
                             # [circle7,circle9] for nurbs
 
     # arg 2 : sampling density
-    if len(sys.argv) > 2 :
+    if len(sys.argv) > 2:
         density = int(sys.argv[2])
-    else :
+    else:
         density = 20
 
     # arg 3 : nurbs
-    if len(sys.argv) > 3 :
+    if len(sys.argv) > 3:
         nurbs = True
-    else :
+    else:
         nurbs = False
 
     # filename
-    if nurbs :
+    if nurbs:
         filename = DATADIR + dataname + ".nurbs"
         dim = 3
-        info = "NURBS "
-    else :
+        nurbsinfo = "NURBS"
+    else:
         filename = DATADIR + dataname + ".bspline"
         dim = 2
-        info = ""
+        nurbsinfo = ""
     
     # check if valid datafile
-    if not os.path.isfile(filename) :
+    if not os.path.isfile(filename):
         print " error :  invalid dataname '" + dataname + "'"
         print " usage :  python tp3.py  [camel, circle, simple, spiral, treble]  [sampling_density]"
         print "          python tp3.py  [circle7, circle9]                       [sampling_density]  nurbs"
         
-    else :    
+    else:    
         # read B-spline control points and knot sequence
         ControlPts, Knots = ReadBSpline(filename, nurbs)
         
@@ -141,7 +141,9 @@ if __name__ == "__main__":
             ControlPts[:, 0] *= ControlPts[:, 2]
             ControlPts[:, 1] *= ControlPts[:, 2]
         
+		##
         ## Separate tests
+		##
         #
         # [0 ,1 ,2 ,3 ,4 ,5 ,6, 7 ,8 ,9, ...]
         #for i in range(len(Knots)):
@@ -153,6 +155,7 @@ if __name__ == "__main__":
         #        Knots[4 * i + j] = i
         #
         #print Knots
+		#
         ##
         
         # (n+1) control points
@@ -208,9 +211,6 @@ if __name__ == "__main__":
             # plot the segment
             plt.plot( Segment[:, 0], Segment[:, 1], '-', linewidth=3)
         
-        
-        
-        
         ## 
         ## The above has been modified to evaluate NURBS data.
         ##
@@ -232,18 +232,18 @@ if __name__ == "__main__":
         ##
         
         
-        
-        
-        
         # set axes with equal proportions
         plt.axis('equal')
         
         # titles
         plt.gcf().canvas.set_window_title('TP3 B-splines')
-        plt.title(info+dataname + ', ' + str(density) + " pts/segment")
-
-        # Uncomment if you want to save the render as png image in data/
-        plt.savefig( DATADIR + dataname + ".png" )
+        plt.title(nurbsinfo + " " + dataname + ', ' + str(density) + " pts/segment")
+        
+        # Save the render as png image in data/
+        if dim == 3:
+            plt.savefig(DATADIR + dataname + "_" + str(density) + "_" + nurbsinfo.lower() + ".png")
+        else:
+            plt.savefig(DATADIR + dataname + "_" + str(density) + ".png")
         
         # render
         plt.show()        
